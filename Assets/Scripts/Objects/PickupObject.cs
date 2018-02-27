@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This allows objects to be picked up and carried
 public class PickupObject : MonoBehaviour {
 	public Transform isHeld;
 	private float distance;
