@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float walkSpeed;
 	public float gravity;
-
+    public const int DEFAULT_WALK_SPEED = 5;
 	CharacterController controller;
 	Vector3 inputDirection = Vector3.zero;
 	Vector3 horizontal = Vector3.zero;
