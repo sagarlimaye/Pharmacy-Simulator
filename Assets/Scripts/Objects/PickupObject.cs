@@ -4,30 +4,32 @@ using UnityEngine;
 
 //This allows objects to be picked up and carried
 public class PickupObject : MonoBehaviour {
-	public Transform isHeld;
+	public Transform holder;
 	private float distance;
+	private bool isHeld;
 
 	//Called once per frame
 	void Update(){
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 	}
 
-	//When player clicks and holds mouse, they pick up the object
+	//When player clicks and is close enough to object, they pick it up; if they're already holding it, they'll drop it
 	void OnMouseDown(){
 		//Player must be within a minimum range of the object in order to successfully grab it
-		if(distance < 3){
+		if(distance < 3 && !isHeld){
 			GetComponent<Rigidbody>().useGravity  = false;
 			GetComponent<Rigidbody>().isKinematic = true;
-			transform.position = isHeld.position;
+			transform.position = holder.position;
 			transform.parent   = GameObject.Find("Player").transform;
 			transform.parent   = GameObject.Find("FirstPersonPlayer").transform;
+			isHeld = true;
 		}
-	}
-
-	//When player lets go of mouse, they're no longer holding the object
-	void OnMouseUp(){
-		transform.parent = null;
-		GetComponent<Rigidbody>().useGravity  = true;
-		GetComponent<Rigidbody>().isKinematic = false;
+		//If they're already holding the item and they click again, they'll drop it
+		else if(isHeld){
+			transform.parent = null;
+			GetComponent<Rigidbody>().useGravity  = true;
+			GetComponent<Rigidbody>().isKinematic = false;
+			isHeld = false;
+		}
 	}
 }
