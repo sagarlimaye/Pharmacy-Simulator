@@ -21,6 +21,9 @@ public class Dialogue : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
+        {
             controller.showQuestion(question, choices, correctChoice);
+            Destroy(this);
+        }
     }
 }

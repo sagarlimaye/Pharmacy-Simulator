@@ -19,7 +19,11 @@ public class DialogueController : MonoBehaviour {
 	}
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown("Alpha" + correctKey.ToString()))
+        
+        if ((Input.GetKeyDown(KeyCode.Alpha1) && correctKey == 1) 
+            || (Input.GetKeyDown(KeyCode.Alpha2) && correctKey == 2) 
+            || (Input.GetKeyDown(KeyCode.Alpha3) && correctKey == 3) 
+            || (Input.GetKeyDown(KeyCode.Alpha4) && correctKey == 4))
         {
             Player.walkSpeed = PlayerController.DEFAULT_WALK_SPEED;
             Question.text = "";
@@ -50,12 +54,10 @@ public class DialogueController : MonoBehaviour {
         
         correctKey = correct + 1;
         for(int i = 0; i < 4; i++)
-        {
             answers[i].text = choices[i];
-        }
         Question.text = question;
         panelLeft.SetActive(true);
         panelRight.SetActive(true);
-        // Player.walkSpeed = 0;
+        Player.walkSpeed = 0;
     }
 }
