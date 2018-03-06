@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EditEntryAndShowIns : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public GameObject NewProfilePanel;
+        public 
 	
 	// Update is called once per frame
 	void Update () {
