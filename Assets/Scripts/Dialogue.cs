@@ -8,11 +8,6 @@ public class Dialogue : MonoBehaviour {
     public string question;
     public string[] choices;
     public int correctChoice;
-
-	// Use this for initialization
-	void Start () {
-        controller = FindObjectOfType<DialogueController>();
-	}
 	
 	// Update is called once per frame
 	void Update () {

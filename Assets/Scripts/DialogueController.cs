@@ -10,7 +10,7 @@ public class DialogueController : MonoBehaviour {
     public PlayerController Player;
     public Text Question;
     public Text[] answers;
-    public int correctKey;
+    private int correctKey;
     public GameObject panelLeft, panelRight;
 	// Use this for initialization
 	void Start () {
