@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CustomerDialog : Dialog {
 
-    public string text;
-
 	// Use this for initialization
 	void Start () {
 		

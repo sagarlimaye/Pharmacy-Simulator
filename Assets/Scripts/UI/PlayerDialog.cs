@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerDialog : Dialog {
 
-    public string[] choices;
-    public int correctChoice;
-
     // Use this for initialization
     void Start () {
 		

@@ -5,20 +5,29 @@ using UnityEngine.UI;
 public class DialogCheckpoint : MonoBehaviour {
 
     public DialogueController controller;
-    public Dialog[] sentences;
-    private bool active = true;
+    //public Dialog[] sentences;
     public static event DialogueController.DialogCheckpointEvent onCheckpointActivated;
+    public static event DialogueController.DialogCheckpointEvent onCheckpointEntered;
 
     private void OnTriggerEnter(Collider other)
     {
         // if(player not busy)
         // emit signal to start dialog
         if (other.tag == "Player")
-            if(!controller.busy && active)
-            {
-                if (onCheckpointActivated != null)
-                    onCheckpointActivated(sentences);
-                active = false;
-            }
+        {
+            if (onCheckpointEntered != null)
+                onCheckpointEntered(this);
+            if(!controller.busy)
+                activate();
+            
+        }
+    }
+    public void activate()
+    {
+        if (onCheckpointActivated != null)
+            onCheckpointActivated(this);
+        controller.startDialog(gameObject);
+        gameObject.SetActive(false);
+        
     }
 }

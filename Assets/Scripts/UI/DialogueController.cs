@@ -12,83 +12,71 @@ public class DialogueController : MonoBehaviour {
     public Text[] answers;
     private int correctKey;
     public GameObject panelLeft, panelRight;
-    public bool busy = false, playerDone = false;
+    public bool busy = false;
+    public int playerSelection = -1;
 
+    public void setPlayerSelection(int s)
+    {
+        playerSelection = s;
+    }
+    
 
-    public delegate void DialogCheckpointEvent(Dialog[] d);
+    public delegate void DialogCheckpointEvent(DialogCheckpoint C);
     public delegate void DialogEvent(Dialog d);
-
-    private void OnEnable()
-    {
-        DialogCheckpoint.onCheckpointActivated += startDialog;
-    }
-    private void OnDisable()
-    {
-        DialogCheckpoint.onCheckpointActivated -= startDialog;
-    }
 
     // Use this for initialization
     void Start () {
         panelLeft.SetActive(false);
         panelRight.SetActive(false);
+        playerSelection = -1;
 	}
     // Update is called once per frame
-    void Update () {
-        
-        if ((Input.GetKeyDown(KeyCode.Alpha1) && correctKey == 1) 
-            || (Input.GetKeyDown(KeyCode.Alpha2) && correctKey == 2) 
-            || (Input.GetKeyDown(KeyCode.Alpha3) && correctKey == 3) 
-            || (Input.GetKeyDown(KeyCode.Alpha4) && correctKey == 4))
-        {
-            Player.walkSpeed = PlayerController.DEFAULT_WALK_SPEED;
-            Question.text = "";
-            panelLeft.SetActive(false);
-            panelRight.SetActive(false);
-            playerDone = true;
-        }
 
-    }
-    IEnumerator showCustomerDialog(Dialog d)
+    IEnumerator playDialog(Transform d)
     {
-        Question.text = (d as CustomerDialog).text;
-        yield return new WaitForSeconds(3.0f);
-        Question.text = "";
-    }
-    IEnumerator playDialog(Dialog[] d)
-    {
-        foreach(Dialog current in d)
+        var current = d;
+        do
         {
-            if(current is CustomerDialog)
+            current = current.GetChild(0);
+            var line = current.GetComponent<Dialog>();
+            if(line is CustomerDialog)
             {
-                Question.text = (current as CustomerDialog).text;
+                Question.text = (line as CustomerDialog).text;
                 yield return new WaitForSeconds(3.0f);
+                Question.text = "";
             }
             else
             {
-                var pd = current as PlayerDialog;
-                playerDone = false;
-                correctKey = pd.correctChoice + 1;
+                playerSelection = -1;
+                var pd = line as PlayerDialog;
                 int i = 0;
-                for (i = 0; i < pd.choices.Length; i++)
-                    answers[i].text = pd.choices[i];
+                foreach(Transform child in current.transform.parent)
+                {
+                    answers[i].text = child.GetComponent<Dialog>().text;
+                    i++;
+                }
+                Cursor.visible = true;
                 panelLeft.SetActive(true);
-                if (pd.choices.Length > 2)
+                if (d.transform.parent.childCount > 2)
                     panelRight.SetActive(true);
-                Player.walkSpeed = 0;
-                yield return new WaitUntil(() => playerDone == true);
+                Player.WalkSpeed = 0;
+                yield return new WaitUntil(() => playerSelection > 0);
+                var selection = current.transform.parent.GetChild(playerSelection - 1);
+                current = selection;
             }
         }
-        
+        while (current.transform.childCount != 0);
         busy = false;
+        
     }
-    void startDialog(Dialog[] d)
+    public void startDialog(GameObject d)
     {
         busy = true;
-        StartCoroutine("playDialog", d);        
+        StartCoroutine(playDialog(d.transform));
     }
     public void showQuestion(string question, string[] choices, int correct)
     {
-        /* huffle answer choices
+        /* shuffle answer choices
         List<string> choiceList = new List<string>(choices);
         System.Random rnd = new System.Random();
         int i = rnd.Next(0, 3);
@@ -113,6 +101,6 @@ public class DialogueController : MonoBehaviour {
         panelLeft.SetActive(true);
         if(choices.Length > 2)
             panelRight.SetActive(true);
-        Player.walkSpeed = 0;
+        Player.WalkSpeed = 0;
     }
 }

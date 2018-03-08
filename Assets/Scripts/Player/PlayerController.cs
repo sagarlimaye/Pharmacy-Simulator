@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	public float walkSpeed;
-	public float gravity;
+    public float walkSpeed;
+    public float gravity;
     public const int DEFAULT_WALK_SPEED = 5;
 	CharacterController controller;
 	Vector3 inputDirection = Vector3.zero;
@@ -16,8 +16,22 @@ public class PlayerController : MonoBehaviour {
 	float verticalVelocityMax = 50.0f;
 	float verticalVelocityMin = -50.0f;
 
-	void Awake() {
+    public float WalkSpeed
+    {
+        get
+        {
+            return walkSpeed;
+        }
+
+        set
+        {
+            walkSpeed = value;
+        }
+    }
+
+    void Awake() {
 		controller = GetComponent<CharacterController>();
+        walkSpeed = DEFAULT_WALK_SPEED;
 	}
 
 	void Update() {
@@ -41,8 +55,8 @@ public class PlayerController : MonoBehaviour {
 		vertical = new Vector3(0.0f, verticalVelocity, 0.0f);
 
 		// Apply walk speed to normalized horizontal axis
-		horizontal.x *= walkSpeed;
-		horizontal.z *= walkSpeed;
+		horizontal.x *= WalkSpeed;
+		horizontal.z *= WalkSpeed;
 
 		// Combine normalized horizontal movement with vertical movement before moving
 		moveDirection = horizontal + vertical;
