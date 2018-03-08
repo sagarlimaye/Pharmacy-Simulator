@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114871064241215830}
   - component: {fileID: 114913511232783518}
   m_Layer: 5
-  m_Name: InsCompanyField
+  m_Name: InsCompanyInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

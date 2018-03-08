@@ -2,24 +2,54 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
 
 public class NewProfileScript : MonoBehaviour
 {
-    public Button personalOrInsuranceBtn;
-    public Button firstBtn;
-    public Button lastBtn;
-    public Button dobBtn;
-    public Button phoneBtn;
-    public Button addressBtn;
-    public Button insBtn;
-    public Button addRxBtn;
-    public GameObject contentRectT;
-    public GameObject patientEntryObj;
-    public GameObject patientEntryPanel;
+    public InputField searchInput;
+    public GameObject profilePanel;
     public GameObject personalInfoPanel;
     public GameObject insuranceInfoPanel;
-    public GameObject newProfilePanel;
-    public InputField searchInput;
+    public GameObject contentRectT;
+
+    #region Patient Entry Public Prefabs
+    public Button personalOrInsuranceBtn;
+    public Button firstBtnPrefab;
+    public Button lastBtnPrefab;
+    public Button dobBtnPrefab;
+    public Button phoneBtnPrefab;
+    public Button addressBtnPrefab;
+    public Button insBtnPrefab;
+    public Button addRxBtnPrefab;
+    public GameObject patientEntryObjPrefab;
+    public GameObject patientEntryPanelPrefab;
+    #endregion
+
+    #region Profile Panel Public Prefabs
+    public GameObject profilePanelPrefab;
+    public GameObject personalPanelPrefab;
+    public GameObject insurancePanelPrefab;
+    public GameObject firstPanelPrefab;
+    public GameObject lastPanelPrefab;
+    public GameObject dobPanelPrefab;
+    public GameObject phonePanelPrefab;
+    public GameObject addressPanelPrefab;
+    public GameObject insCompanyPanelPrefab;
+    public GameObject memberPanelPrefab;
+    public GameObject groupPanelPrefab;
+    public GameObject pcpPanelPrefab;
+    public GameObject pcpPhonePanelPrefab;
+    public InputField firstInputPrefab;
+    public InputField lastInputPrefab;
+    public InputField dobInputPrefab;
+    public InputField phoneInputPrefab;
+    public InputField addressInputPrefab;
+    public InputField insCompanyInputPrefab;
+    public InputField memberInputPrefab;
+    public InputField groupInputPrefab;
+    public InputField pcpInputPrefab;
+    public InputField pcpPhoneInputPrefab;
+    #endregion
 
     public void Start()
     {
@@ -32,24 +62,39 @@ public class NewProfileScript : MonoBehaviour
             newDobBtn.GetComponentInChildren<Text>().text = dobs[rnd.Next(dobs.Count)];
             newPhoneBtn.GetComponentInChildren<Text>().text = phones[rnd.Next(phones.Count)];
             newAddressBtn.GetComponentInChildren<Text>().text = addresses[rnd.Next(addresses.Count)];
+
+            InstantiateProfilePanel();
+
+            newFirstInput.GetComponentInChildren<Text>().text = newFirstBtn.GetComponentInChildren<Text>().text;
+            newLastInput.GetComponentInChildren<Text>().text = newLastBtn.GetComponentInChildren<Text>().text;
+            newDobInput.GetComponentInChildren<Text>().text = newDobBtn.GetComponentInChildren<Text>().text;
+            newPhoneInput.GetComponentInChildren<Text>().text = newPhoneBtn.GetComponentInChildren<Text>().text;
+            newAddressInput.GetComponentInChildren<Text>().text = newAddressBtn.GetComponentInChildren<Text>().text;
+            newInsCompanyInput.GetComponentInChildren<Text>().text = insCompanies[rnd.Next(insCompanies.Count)];
+            newMemberInput.GetComponentInChildren<Text>().text = memberIds[rnd.Next(memberIds.Count)];
+            newGroupInput.GetComponentInChildren<Text>().text = groupIds[rnd.Next(groupIds.Count)];
+            newPcpInput.GetComponentInChildren<Text>().text = pcps[rnd.Next(pcps.Count)];
+            newPcpPhoneInput.GetComponentInChildren<Text>().text = pcpPhones[rnd.Next(pcpPhones.Count)];
         }
     }
 
     public void Awake ()
     {
-        newProfilePanel.SetActive(false);
+        profilePanel.SetActive(false);
         personalInfoPanel.SetActive(false);
         insuranceInfoPanel.SetActive(false);
     }
     
     public void OnNewProfile()
     {
-        newProfilePanel.SetActive(true);
+        addingNewProfile = true;
+        profilePanel.SetActive(true);
         personalInfoPanel.SetActive(true);
     }
     public void OnCancel()
     {
-        newProfilePanel.SetActive(false);
+        profilePanel.SetActive(false);
+        addingNewProfile = false;
     }
     public void OnPersonalOrInsurance()
     {
@@ -71,37 +116,105 @@ public class NewProfileScript : MonoBehaviour
 
     public void OnOk()
     {
-        InstantiatePatientEntry();
+        if (addingNewProfile)
+        {
+            InstantiatePatientEntry();
+            InstantiateProfilePanel();
+            searchInput.text = "";
+        }
+        PopulateNewPatientEntry(); //uses personal info entered in profile and enters it to a new entry
+        PopulateNewProfilePanel();
 
+        profilePanel.SetActive(false);
+        addingNewProfile = false;
+    }
+
+    public void OnEdit()
+    {
+
+        GameObject currentPatientEntry = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
+
+        currentPatientEntry.transform.GetChild(7).gameObject.SetActive(true);
+    }
+
+    private void InstantiatePatientEntry()
+    {
+        newPatientEntryObj = Instantiate(patientEntryObjPrefab, contentRectT.transform);
+        newPatientEntryPanel = Instantiate(patientEntryPanelPrefab, newPatientEntryObj.transform);
+        newFirstBtn = Instantiate(firstBtnPrefab, newPatientEntryPanel.transform);
+        newLastBtn = Instantiate(lastBtnPrefab, newPatientEntryPanel.transform);
+        newDobBtn = Instantiate(dobBtnPrefab, newPatientEntryPanel.transform);
+        newPhoneBtn = Instantiate(phoneBtnPrefab, newPatientEntryPanel.transform);
+        newAddressBtn = Instantiate(addressBtnPrefab, newPatientEntryPanel.transform);
+        Instantiate(insBtnPrefab, newPatientEntryPanel.transform);
+        Instantiate(addRxBtnPrefab, newPatientEntryPanel.transform);
+    }
+
+    private void PopulateNewPatientEntry()
+    {
         newEntryFields = new List<Button>() { newFirstBtn, newLastBtn, newDobBtn, newPhoneBtn, newAddressBtn };
-
         for (int i = 0; i < personalInfoPanel.transform.childCount; i++)
         {
-            GameObject entryPanel = personalInfoPanel.transform.GetChild(i).gameObject;  
+            GameObject entryPanel = personalInfoPanel.transform.GetChild(i).gameObject;
             string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
             newEntryFields[i].GetComponentInChildren<Text>().text = inputTxt;
         }
-
-        searchInput.text = "";
-        newProfilePanel.SetActive(false);
     }
 
-    public void InstantiatePatientEntry()
+    private void InstantiateProfilePanel()
     {
-        newPatientEntryObj = Instantiate(patientEntryObj, contentRectT.transform);
-        newPatientEntryPanel = Instantiate(patientEntryPanel, newPatientEntryObj.transform);
-        newFirstBtn = Instantiate(firstBtn, newPatientEntryPanel.transform);
-        newLastBtn = Instantiate(lastBtn, newPatientEntryPanel.transform);
-        newDobBtn = Instantiate(dobBtn, newPatientEntryPanel.transform);
-        newPhoneBtn = Instantiate(phoneBtn, newPatientEntryPanel.transform);
-        newAddressBtn = Instantiate(addressBtn, newPatientEntryPanel.transform);
-        Instantiate(insBtn, newPatientEntryPanel.transform);
-        Instantiate(addRxBtn, newPatientEntryPanel.transform);
+        //places new profile under patientEntryPanel containing button clicked
+        newProfilePanel = Instantiate(profilePanelPrefab, newPatientEntryPanel.transform.parent); //mistake here
+        newPersonalPanel = Instantiate(personalPanelPrefab, newProfilePanel.transform);
+        newInsurancePanel = Instantiate(insurancePanelPrefab, newProfilePanel.transform);
+        newfirstPanel = Instantiate(firstPanelPrefab, newPersonalPanel.transform);
+        newLastPanel = Instantiate(lastPanelPrefab, newPersonalPanel.transform);
+        newDobPanel = Instantiate(dobPanelPrefab, newPersonalPanel.transform);
+        newPhonePanel = Instantiate(phonePanelPrefab, newPersonalPanel.transform);
+        newAddressPanel = Instantiate(addressPanelPrefab, newPersonalPanel.transform);
+        newInsCompanyPanel = Instantiate(insCompanyPanelPrefab, newInsurancePanel.transform);
+        newMemberPanel = Instantiate(memberPanelPrefab, newInsurancePanel.transform);
+        newGroupPanel = Instantiate(groupPanelPrefab, newInsurancePanel.transform);
+        newPcpPanel = Instantiate(pcpPanelPrefab, newInsurancePanel.transform);
+        newPcpPhonePanel = Instantiate(pcpPhonePanelPrefab, newInsurancePanel.transform);
+        newFirstInput = Instantiate(firstInputPrefab, newfirstPanel.transform);
+        newLastInput = Instantiate(lastInputPrefab, newLastPanel.transform);
+        newDobInput = Instantiate(dobInputPrefab, newDobPanel.transform);
+        newPhoneInput = Instantiate(phoneInputPrefab, newPhonePanel.transform);
+        newAddressInput = Instantiate(addressInputPrefab, newAddressPanel.transform);
+        newInsCompanyInput = Instantiate(insCompanyInputPrefab, newInsCompanyPanel.transform);
+        newMemberInput = Instantiate(memberInputPrefab, newMemberPanel.transform);
+        newGroupInput = Instantiate(groupInputPrefab, newGroupPanel.transform);
+        newPcpInput = Instantiate(pcpInputPrefab, newPcpPanel.transform);
+        newPcpPhoneInput = Instantiate(pcpPhoneInputPrefab, newPcpPhonePanel.transform);
+    }
+
+    public void PopulateNewProfilePanel()
+    {
+        newPersonalInputFields = new List<InputField>() { newFirstInput, newLastInput, newDobInput, newPhoneInput, newAddressInput };
+        newInsInputFields = new List<InputField>() { newInsCompanyInput, newMemberInput, newGroupInput, newPcpInput, newPcpPhoneInput };
+
+        for (int i = 0; i < newPersonalPanel.transform.childCount; i++)
+        {
+            GameObject profileSubPanel = newPersonalPanel.transform.GetChild(i).gameObject;
+            string inputTxt = profileSubPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            newPersonalInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
+        }
+        for (int i = 0; i < newInsurancePanel.transform.childCount; i++)
+        {
+            GameObject profileSubPanel = newInsurancePanel.transform.GetChild(i).gameObject;
+            string inputTxt = profileSubPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            newInsInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
+        }
     }
 
     private int patientEntries = 50;
     private bool personalOn = true;
+    private bool addingNewProfile;
     private static System.Random rnd = new System.Random();
+    
+
+    #region Patient Entry Private Properties  
     private Button newFirstBtn;
     private Button newLastBtn;
     private Button newDobBtn;
@@ -110,8 +223,37 @@ public class NewProfileScript : MonoBehaviour
     private List<Button> newEntryFields;
     private GameObject newPatientEntryObj;
     private GameObject newPatientEntryPanel;
+    #endregion
 
-    #region lists
+    #region Profile Panel Private Properties
+    private GameObject newProfilePanel;
+    private GameObject newPersonalPanel;
+    private GameObject newInsurancePanel;
+    private GameObject newfirstPanel;
+    private GameObject newLastPanel;
+    private GameObject newDobPanel;
+    private GameObject newPhonePanel;
+    private GameObject newAddressPanel;
+    private GameObject newInsCompanyPanel;
+    private GameObject newMemberPanel;
+    private GameObject newGroupPanel;
+    private GameObject newPcpPanel;
+    private GameObject newPcpPhonePanel;
+    private InputField newFirstInput;
+    private InputField newLastInput;
+    private InputField newDobInput;
+    private InputField newPhoneInput;
+    private InputField newAddressInput;
+    private InputField newInsCompanyInput;
+    private InputField newMemberInput;
+    private InputField newGroupInput;
+    private InputField newPcpInput;
+    private InputField newPcpPhoneInput;
+    private List<InputField> newPersonalInputFields;
+    private List<InputField> newInsInputFields;
+    #endregion
+
+    #region Random Entry Generation Lists
     private List<string> firsts = new List<string>()
         {"Maria","Rose","Jana","Jennifer","Cassandra","Ashley","Tennille","Janice","Brett","Janie","Michael","Delmar","Daron","Lola",
         "Rachelle","Pandora","Angelica","Miranda","Adena","Dane","Zack","Joshua","Gerardo","Lucy","Barbara","Lincoln","Deedra","Valentin",
@@ -288,5 +430,119 @@ public class NewProfileScript : MonoBehaviour
         "75 Gonzales Ave. Mauriceville, TX 77626","8229 Champion Street Linden, TX 75563","8745 Henry St. Raymondville, TX 78580",
         "295 Pulaski St. Garland, TX 75042","379 Poplar Lane Beaumont, TX 77702","541 Dew Dr. Mc Neil, TX",
         "9585 Windfall Street Rising Star, TX","16 Sage Ave. Fannin, TX 77960"};
+    private List<string> memberIds = new List<string>() { "7105730000","7739069000","2743508000","5535367000","7023485000","2183692000",
+        "2502127000","9464863000","4044425000","5725355000","2715092000","1073927000","9775998000","5691204000","9113619000","9018803000",
+        "7835774000","8823867000","5512671000","6528624000","6137052000","1163668000","7518566000","1668137000","8265149000","4263005000",
+        "7992012000","2932228000","2650629000","3768154000","2240413000","3422232000","4588029000","4835382000","6290196000","9665833000",
+        "6997860000","8742040000","8320260000","8023936000","2136822000","3155579000","2586125000","6349916000","2493078000","4810620000",
+        "5945994000","5883535000","7717735000","6709210000","8210907000","3510331000","2456764000","5367882000","3646286000","4241996000",
+        "1396292000","1517924000","8246441000","6122951000","8939103000","1254784000","1342432000","9727288000","3268758000","2557901000",
+        "4019118000","3689114000","7076070000","9278348000","9778535000","3747318000","9277154000","3937152000","1996659000","7908344000",
+        "5244221000","5442283000","9705988000","8276768000","4694547000","5579315000","7291069000","7619322000","5536093000","6054764000",
+        "5618671000","4383411000","6540892000","7517515000","3523587000","1326047000","1758543000","3622143000","2581917000","9182460000",
+        "4202795000","3357873000","5357555000","7247628000","6974950000","1733002000","5354833000","8776991000","4624702000","7531659000",
+        "6460992000","9748708000","6995855000","9369638000","5498354000","3945291000","8099693000","6377691000","3775092000","2507371000",
+        "8813621000","2630621000","1923511000","5263124000","8565156000","3579630000","8261489000","2658572000","3374275000","5431091000",
+        "8317388000","2613634000","2334949000","2534546000","2906290000","6517206000","8624955000","1948197000","9162029000","1163704000",
+        "7387696000","6191891000","3074184000","8662165000","2591905000","5460782000","6010048000","8212119000","6406105000","2748787000",
+        "4171286000","7243997000","4377145000","1355873000","6953208000","4925492000","6763167000","3275885000","6330689000","2707460000",
+        "2597106000","2621919000","2336667000","8191394000","8340365000","9324716000","2010723000","6008610000","8380510000","4361586000",
+        "8559307000","3981818000","5396278000","4002038000","4020341000","8392738000","3203694000","2735117000","7129757000","6860200000",
+        "3571709000","9024037000","6988964000","4057533000","8132815000","9508966000","3905987000","6093016000","2465981000","6496758000",
+        "6040887000","3170182000","2351140000","2308878000","7934401000","1508906000","8849778000","4304500000","9789976000","4465900000",
+        "5923864000","1424226000","8103631000","1066134000" };
+    private List<string> groupIds = new List<string>() { "5170689000","8420826000","3972018000","1287145000","1262584000","7302484000",
+        "1439892000","4348364000","6568809000","1844962000","8306056000","5935067000","9371670000","2698491000","1711894000","8464933000",
+        "9039861000","8273537000","6120712000","8311547000","6568936000","7629775000","6766886000","9128447000","7744703000","7879482000",
+        "5717879000","2557878000","4163514000","2015681000","3000259000","4895161000","6419899000","9777160000","8783804000","7127196000",
+        "7843565000","4247617000","4843971000","6136044000","9077659000","2769760000","1275610000","6154301000","1133100000","1126511000",
+        "5840010000","7086861000","2534156000","6911236000","3436280000","6641832000","3999595000","6187031000","3129425000","9713801000",
+        "3296244000","8429619000","8794834000","2412906000","1113884000","4897286000","1102285000","5066156000","1065527000","4982524000",
+        "3393289000","6682275000","7700601000","4003075000","1746212000","5727946000","5725162000","7519450000","4632449000","8728288000",
+        "3651965000","7446099000","8590831000","4289186000","5994858000","7151867000","4262312000","2143335000","2195970000","1691199000",
+        "5248823000","4647073000","5937381000","7469799000","8627161000","9567497000","2729959000","5813775000","9284607000","4286582000",
+        "9300558000","7584381000","7369077000","4038490000","6654549000","5321116000","1237731000","5902230000","2438051000","7181281000",
+        "6996130000","2684140000","7011057000","1600798000","9546319000","5863678000","3551062000","8246677000","2980340000","5547816000",
+        "6205269000","9601611000","4463988000","2558811000","7146128000","8429466000","7342682000","5440410000","8706597000","2968669000",
+        "4468776000","3297297000","8174680000","3615509000","5173596000","4300205000","6648863000","5346154000","9750772000","3798808000",
+        "6464669000","4699715000","9206532000","2896319000","5942676000","4102571000","7470446000","1901057000","9354457000","3294058000",
+        "4580768000","7591554000","3216767000","2650463000","8673285000","6107437000","9749003000","4153695000","8863010000","4095450000",
+        "4989916000","7820455000","5121704000","7748109000","1255324000","3205742000","9311560000","2683097000","2156352000","2077797000",
+        "5198598000","7261671000","9842178000","8306897000","6373008000","5034787000","6381093000","8635485000","8173667000","3865906000",
+        "9072306000","8244166000","4071142000","7229120000","1537456000","1792413000","1515249000","3493520000","6179643000","8030391000",
+        "2728859000","3030323000","7433980000","2125797000","2890266000","8303373000","5441162000","4066593000","1248643000","6398433000",
+        "5624153000","9048090000","3180767000","6256649000" };
+
+    private List<string> pcps = new List<string>() { "Dr. Kevin Y. Nieto","Dr. Francisco L. Cooke","Dr. Gordon R. Peacock",
+        "Dr. David Q. Black","Dr. Alan Z. Ferrer","Dr. Barry L. Mattson","Dr. Jeffery U. Schubert","Dr. Lawrence B. Mize",
+        "Dr. Ray U. Walsh","Dr. William W. Betts","Dr. Eddie B. Jamison","Dr. Greg G. Metcalf","Dr. Douglas T. Stringer",
+        "Dr. Adam P. Beckman","Dr. Samuel L. Goddard","Dr. Joseph S. Baugh","Dr. Chris Y. Havens","Dr. Leroy N. Halverson",
+        "Dr. Eric K. Welsh","Dr. Arthur O. Nance","Dr. Jonathan X. Ellington","Dr. Vincent W. Salter","Dr. Joshua C. Turpin",
+        "Dr. Leonard U. Duckworth","Dr. Jon E. Willey","Dr. Chad N. Garrett","Dr. Patrick V. Bolden","Dr. Melvin K. Larue",
+        "Dr. Jorge K. Hodges","Dr. Floyd G. Schmid","Dr. Martin B. Ferry","Dr. Gary C. Kane","Dr. Robert G. Denson",
+        "Dr. Kevin E. Head","Dr. Dan I. Bates","Dr. Jason U. Kong","Dr. Theodore X. Joy","Dr. Barry Q. Bass","Dr. Clifford R. McCracken",
+        "Dr. Paul I. Everett","Dr. David B. Horne","Dr. Calvin L. Herr","Dr. Alvin D. Fuller","Dr. Anthony C. Lim",
+        "Dr. Floyd Y. Tomlin","Dr. Patrick F. McCloud","Dr. Peter H. Gates","Dr. Ronald T. McManus","Dr. Ernest O. Rosa",
+        "Dr. Edwin F. Herr","Dr. Thomas K. Mickelsen","Dr. Jamie R. Bucio","Dr. Arthur D. Bethune","Dr. Luis T. Cheever",
+        "Dr. Luis C. Bridgeman","Dr. Wesley I. Harvey","Dr. Russell R. Viau","Dr. Rick U. Miyashiro","Dr. Michael O. Kulik",
+        "Dr. Max Z. Berard","Dr. Eddie M. Jerry","Dr. Leroy V. Huffman","Dr. Craig S. Stoneburner","Dr. Byron S. Decarlo",
+        "Dr. Ivan D. Hang","Dr. Brett I. Darwish","Dr. Tom S. Ellman","Dr. Michael S. Acheson","Dr. Ronnie C. Comes",
+        "Dr. Frederick S. Stokely","Dr. Jared X. Robnett","Dr. Luis H. Hartke","Dr. Erik Z. Stinnett","Dr. Jaime G. Livengood",
+        "Dr. Johnnie U. Womack","Dr. Daniel Z. Packer","Dr. Arthur Y. Yoo","Dr. Gerald A. Wilde","Dr. Dan B. Benes",
+        "Dr. Milton C. Trudell","Dr. Troy Y. Villines","Dr. Travis D. Spellman","Dr. Christopher N. Cloud","Dr. Wayne R. Kulas",
+        "Dr. Leonard T. Gano","Dr. Cody U. Gilfillan","Dr. Alvin C. Dickson","Dr. Elmer G. Kull","Dr. Eddie A. Bettis",
+        "Dr. Clinton W. Yinger","Dr. Elmer T. Parmley","Dr. John E. Zhao","Dr. Dan T. Waldrep","Dr. Jared Z. Meiners",
+        "Dr. Alvin F. Witherell","Dr. Ivan E. Prewitt","Dr. Ronnie I. Cruz","Dr. Roberto F. Hoffert","Dr. Glenn N. Schumaker",
+        "Dr. Miguel E. Aho","Dr. Lyman V. Kirbo","Dr. Renaldo C. Montaldo","Dr. Clinton B. Dawkins","Dr. Augustus V. Buttke",
+        "Dr. Glenn N. Adamany","Dr. Burt O. Respicio","Dr. Rusty K. Garduque","Dr. Lawerence P. Bechler","Dr. Randell Y. Kellems",
+        "Dr. Scotty V. Perisic","Dr. Victor N. Hedman","Dr. Tyson L. Karschner","Dr. Theo O. Naihe","Dr. Ernie S. Kuskie",
+        "Dr. Riley F. Maccini","Dr. Alan Q. Javers","Dr. Shawn Y. Waggenspack","Dr. Refugio F. Malett","Dr. Pierre A. Zerbey",
+        "Dr. Aron F. Gisriel","Dr. Alfred U. Schuering","Dr. Milford T. Portillo","Dr. Guy I. Ganzon","Dr. Cruz H. Bethel",
+        "Dr. Tristan E. Byre","Dr. Rory F. Langlitz","Dr. Arlen M. Fairclough","Dr. Chas S. Umphres","Dr. Wm Y. Gobbel",
+        "Dr. Mario I. Jungwirth","Dr. Benito K. Nance","Dr. Ryan E. Krehbiel","Dr. Thurman J. Mellick","Dr. Virgil C. Jagow",
+        "Dr. Graham E. McGlothan","Dr. Alonzo R. Pittsenbarger","Dr. Leland F. Bonvillian","Dr. Dustin Q. Bleich",
+        "Dr. Julian N. Tahe","Dr. Leo X. Jumpp","Dr. Chang O. Deisley","Dr. Darin O. Noga","Dr. Demetrius O. Isik",
+        "Dr. Enrique J. Gerr","Dr. Quincy F. Viegas","Dr. Luke Q. Sora","Dr. Joe R. Bhamani","Dr. Graham D. Akagi",
+        "Dr. Luke Q. Koster","Dr. Carmine E. Melichar","Dr. Tracy K. Garay","Dr. Sally D. Zamora","Dr. Anna L. Ernst",
+        "Dr. Linda R. London","Dr. Theresa M. Fuller","Dr. Jeanne U. Santos","Dr. Katie R. Hanlon","Dr. Tracy G. Han",
+        "Dr. Melanie K. Sotelo","Dr. Erin E. Nichols","Dr. Ella K. Chandler","Dr. Jessica G. Robb","Dr. Phyllis V. Askew",
+        "Dr. Ashley U. Hastings","Dr. Lucille L. Barfield","Dr. Lori G. Alonso","Dr. Kathy Y. Estrada","Dr. Jean Z. Cooney",
+        "Dr. Janice P. Dewitt","Dr. Irene P. Bailey","Dr. Thelma D. Patten","Dr. Juanita F. Mejia","Dr. Brenda W. Finley",
+        "Dr. Holly K. Holguin","Dr. Lisa E. Roark","Dr. Lauren B. Emmons","Dr. April Q. Dees","Dr. Anita P. Becerra",
+        "Dr. Tonya L. Centeno","Dr. Louise X. Sisson","Dr. Loretta K. Medrano","Dr. Rhonda X. Carranza","Dr. Bernice F. Applegate",
+        "Dr. Ida Z. Wilkes","Dr. Eileen K. Segura","Dr. April S. Toledo","Dr. Jennifer W. Huber","Dr. Renee O. Washington",
+        "Dr. Catherine S. Thomson","Dr. Kristen I. Valdes","Dr. Laura W. Juarez","Dr. Eileen H. Redd","Dr. Emily Q. Braden",
+        "Dr. Joanne D. Cornelius","Dr. Lois P. Forte","Dr. Ruby B. Brenner","Dr. Brittany V. Block","Dr. Sally W. Forman",
+        "Dr. Beatrice H. Jung","Dr. Judy S. Hanna" };
+    private List<string> pcpPhones = new List<string>() {"(281) 156-7183","(281) 372-5449","(832) 694-7418","(832) 341-1036",
+        "(281) 181-9369","(281) 567-9419","(832) 909-7803","(713) 276-7482","(281) 110-9425","(281) 594-2918","(832) 377-9526",
+        "(713) 987-8602","(281) 919-1092","(713) 232-9507","(281) 162-6141","(832) 961-4516","(832) 949-3398","(281) 140-6561",
+        "(281) 878-9948","(832) 161-3718","(713) 339-2176","(832) 407-4337","(713) 731-3737","(281) 289-8722","(281) 196-7807",
+        "(281) 393-4298","(713) 983-5684","(832) 372-4360","(281) 566-6019","(832) 835-3653","(713) 742-4985","(713) 435-5241",
+        "(832) 753-8561","(832) 503-1391","(281) 824-1454","(832) 932-6826","(281) 742-3578","(281) 893-7353","(713) 348-8103",
+        "(281) 646-7635","(281) 203-9364","(713) 857-4497","(832) 824-7096","(281) 307-3273","(713) 349-4449","(281) 887-3606",
+        "(281) 544-4973","(832) 255-6857","(713) 566-4357","(281) 269-8424","(281) 578-5977","(832) 498-7305","(281) 899-1236",
+        "(713) 267-1228","(281) 725-3098","(832) 502-4539","(713) 632-3437","(713) 389-1575","(713) 244-5849","(281) 365-5409",
+        "(713) 886-5022","(713) 969-1760","(281) 793-4589","(713) 161-8108","(281) 368-5088","(832) 712-1791","(281) 206-6337",
+        "(832) 242-3266","(281) 435-2976","(281) 165-4275","(832) 660-9750","(713) 418-2547","(281) 195-7822","(281) 352-8775",
+        "(713) 942-5609","(713) 680-2669","(281) 403-7051","(713) 221-5831","(713) 797-7325","(832) 683-9887","(832) 134-2642",
+        "(281) 812-5305","(832) 780-5526","(281) 789-7352","(281) 921-9723","(281) 322-1694","(713) 441-3112","(713) 894-9100",
+        "(713) 314-5173","(832) 514-5927","(713) 335-9691","(281) 516-7927","(281) 957-7362","(713) 565-3204","(713) 925-7681",
+        "(832) 457-7585","(281) 113-6731","(713) 761-2133","(832) 358-2702","(832) 936-8057","(832) 266-2677","(281) 516-1401",
+        "(713) 451-2501","(281) 792-5202","(832) 896-4243","(713) 182-7612","(832) 470-3035","(281) 978-7667","(281) 346-3178",
+        "(832) 107-3714","(713) 518-2497","(713) 335-4823","(832) 525-6979","(713) 721-6307","(713) 736-6758","(832) 165-5966",
+        "(713) 329-7980","(832) 335-7198","(832) 920-7301","(713) 657-8616","(832) 291-3118","(281) 914-2798","(713) 126-4724",
+        "(281) 166-9625","(713) 608-4946","(281) 191-5402","(832) 904-1903","(281) 682-2117","(832) 259-9040","(281) 619-7236",
+        "(281) 947-6184","(281) 508-5818","(832) 890-3987","(713) 207-7676","(281) 497-4111","(281) 651-8254","(281) 270-4352",
+        "(713) 801-8683","(832) 300-1955","(713) 786-8870","(713) 974-8146","(281) 101-3727","(832) 123-7827","(713) 449-9709",
+        "(713) 445-3876","(281) 472-4537","(713) 232-2817","(713) 428-1197","(832) 178-3991","(832) 163-5582","(832) 961-3961",
+        "(832) 495-3723","(713) 436-8075","(713) 361-5325","(713) 765-5494","(713) 976-7053","(832) 778-6999","(281) 294-8461",
+        "(832) 639-1470","(281) 456-2395","(832) 742-6684","(281) 465-9680","(713) 317-9961","(281) 558-5779","(832) 587-7040",
+        "(713) 259-7994","(832) 427-2769","(713) 671-6521","(713) 193-7866","(713) 547-6206","(832) 752-8167","(713) 900-4264",
+        "(281) 319-9850","(832) 287-3177","(713) 490-9444","(713) 791-5563","(832) 520-2101","(713) 268-8323","(832) 775-8778",
+        "(281) 336-1924","(281) 133-7425","(281) 822-9390","(713) 118-1645","(713) 728-8615","(281) 225-8607","(832) 482-8230",
+        "(281) 547-3490","(281) 899-8156","(281) 716-1729","(281) 656-3878","(832) 730-6373","(281) 605-1831","(713) 225-9374",
+        "(832) 976-8000","(713) 310-5066","(832) 520-5474","(281) 924-1650","(832) 218-1460","(281) 255-1830","(713) 822-5315",};
+    private List<string> insCompanies = new List<string>() { "Aetna", "UnitedHealth", "Humana", "Blues Cross Blue Shield", "Cigna" };
     #endregion
 }
