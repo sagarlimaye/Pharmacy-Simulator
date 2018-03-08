@@ -5,12 +5,10 @@ using UnityEngine;
 public class DoorController : MonoBehaviour {
 
 	public bool isOpen;
+	public float distance;
 	public Animator animator;
-	private float distance;
 
 	void Update() {
-		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
-
 		if (Input.GetButtonDown("Interact")) {
 			Vector3 cameraCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane));
 			RaycastHit hit;
