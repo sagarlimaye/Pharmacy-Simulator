@@ -12,11 +12,11 @@ public class MonitorInteraction : MonoBehaviour {
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
-		if (distance < 3) {
+		/*if (distance < 3) {
 			notification.text = "Press E to use.";
 		}
 		else {
 			notification.text = "";
-		}
+		}*/
 	}
 }

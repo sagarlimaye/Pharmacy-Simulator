@@ -23,7 +23,7 @@ public class BottleController : MonoBehaviour {
 			}
 
 			//We now instantiate a filled prescription, then delete this object
-			Instantiate(Resources.Load<GameObject>("Assets/Prefabs/Prescription"), transform.position, transform.rotation);
+			Instantiate(Resources.Load<GameObject>("Prescription"), transform.position, transform.rotation);
 			
 			Destroy (gameObject);
 		}
