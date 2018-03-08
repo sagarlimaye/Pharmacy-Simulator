@@ -28,6 +28,12 @@ public class GameController : MonoBehaviour {
 		updatePillCount();
 	}
 
+	//We reset the pill count to 0 whenever the player creates a new prescription
+	public void resetPillCount(){
+		pillCount = 0;
+		updatePillCount();
+	}
+
 	//When the player has counted enough pills, we can replace the pill bottle with a filled prescription
 	public bool prescriptionIsReady(){
 		return pillCount == pillCountTarget;
