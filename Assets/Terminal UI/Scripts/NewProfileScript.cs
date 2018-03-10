@@ -8,27 +8,25 @@ public class NewProfileScript : MonoBehaviour
 {
     public InputField searchInput;
     public GameObject profilePanel;
-    public GameObject personalInfoPanel;
-    public GameObject insuranceInfoPanel;
+    public GameObject patientInfoPanel;
     public GameObject contentRectT;
+    public GameObject profileScreen;
+    Dictionary<string, GameObject> EntriesAndProfiles = new Dictionary<string, GameObject>();
 
     #region Patient Entry Public Prefabs
-    public Button personalOrInsuranceBtn;
     public Button firstBtnPrefab;
     public Button lastBtnPrefab;
     public Button dobBtnPrefab;
     public Button phoneBtnPrefab;
     public Button addressBtnPrefab;
-    public Button insBtnPrefab;
-    public Button addRxBtnPrefab;
+    public Text idTxtPrefab;
     public GameObject patientEntryObjPrefab;
     public GameObject patientEntryPanelPrefab;
     #endregion
 
     #region Profile Panel Public Prefabs
     public GameObject profilePanelPrefab;
-    public GameObject personalPanelPrefab;
-    public GameObject insurancePanelPrefab;
+    public GameObject patientInfoPanelPrefab;
     public GameObject firstPanelPrefab;
     public GameObject lastPanelPrefab;
     public GameObject dobPanelPrefab;
@@ -49,6 +47,8 @@ public class NewProfileScript : MonoBehaviour
     public InputField groupInputPrefab;
     public InputField pcpInputPrefab;
     public InputField pcpPhoneInputPrefab;
+    public Button okBtnPrefab;
+    public Button cancelBtnPrefab;
     #endregion
 
     public void Start()
@@ -63,6 +63,8 @@ public class NewProfileScript : MonoBehaviour
             newPhoneBtn.GetComponentInChildren<Text>().text = phones[rnd.Next(phones.Count)];
             newAddressBtn.GetComponentInChildren<Text>().text = addresses[rnd.Next(addresses.Count)];
 
+            newIdTxt.GetComponentInChildren<Text>().text = i.ToString();
+
             InstantiateProfilePanel();
 
             newFirstInput.GetComponentInChildren<Text>().text = newFirstBtn.GetComponentInChildren<Text>().text;
@@ -75,43 +77,29 @@ public class NewProfileScript : MonoBehaviour
             newGroupInput.GetComponentInChildren<Text>().text = groupIds[rnd.Next(groupIds.Count)];
             newPcpInput.GetComponentInChildren<Text>().text = pcps[rnd.Next(pcps.Count)];
             newPcpPhoneInput.GetComponentInChildren<Text>().text = pcpPhones[rnd.Next(pcpPhones.Count)];
+
+            EntriesAndProfiles.Add(i.ToString(), newProfilePanel);
         }
+
+        //CleanUpProfileObjects();
     }
 
     public void Awake ()
     {
         profilePanel.SetActive(false);
-        personalInfoPanel.SetActive(false);
-        insuranceInfoPanel.SetActive(false);
+        patientInfoPanel.SetActive(false);
     }
     
     public void OnNewProfile()
     {
         addingNewProfile = true;
         profilePanel.SetActive(true);
-        personalInfoPanel.SetActive(true);
+        patientInfoPanel.SetActive(true);
     }
     public void OnCancel()
     {
         profilePanel.SetActive(false);
         addingNewProfile = false;
-    }
-    public void OnPersonalOrInsurance()
-    {
-        if (personalOn)
-        {
-            insuranceInfoPanel.SetActive(true);
-            personalInfoPanel.SetActive(false);
-            personalOn = false;
-            personalOrInsuranceBtn.GetComponentInChildren<Text>().text = "Personal Info";
-        }
-        else
-        {
-            insuranceInfoPanel.SetActive(false);
-            personalInfoPanel.SetActive(true);
-            personalOn = true;
-            personalOrInsuranceBtn.GetComponentInChildren<Text>().text = "Insurance Info";
-        }
     }
 
     public void OnOk()
@@ -119,22 +107,31 @@ public class NewProfileScript : MonoBehaviour
         if (addingNewProfile)
         {
             InstantiatePatientEntry();
+            PopulateNewPatientEntry();
             InstantiateProfilePanel();
+            PopulateNewProfilePanel();
             searchInput.text = "";
         }
-        PopulateNewPatientEntry(); //uses personal info entered in profile and enters it to a new entry
-        PopulateNewProfilePanel();
+        else
+        {
+            PopulateNewPatientEntry(); //uses personal info entered in profile and enters it to a new entry
+            PopulateNewProfilePanel();
+        }
 
         profilePanel.SetActive(false);
         addingNewProfile = false;
+
+        CleanUpNewProfileEntries();
     }
 
     public void OnEdit()
     {
 
         GameObject currentPatientEntry = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
+        string currentIDTxt = currentPatientEntry.transform.GetChild(7).gameObject.GetComponent<Text>().text;
 
-        currentPatientEntry.transform.GetChild(7).gameObject.SetActive(true);
+        GameObject currentProfilePanel = EntriesAndProfiles[currentIDTxt];
+        currentProfilePanel.SetActive(true);
     }
 
     private void InstantiatePatientEntry()
@@ -146,38 +143,47 @@ public class NewProfileScript : MonoBehaviour
         newDobBtn = Instantiate(dobBtnPrefab, newPatientEntryPanel.transform);
         newPhoneBtn = Instantiate(phoneBtnPrefab, newPatientEntryPanel.transform);
         newAddressBtn = Instantiate(addressBtnPrefab, newPatientEntryPanel.transform);
-        Instantiate(insBtnPrefab, newPatientEntryPanel.transform);
-        Instantiate(addRxBtnPrefab, newPatientEntryPanel.transform);
+        newIdTxt = Instantiate(idTxtPrefab, newPatientEntryPanel.transform);
     }
 
     private void PopulateNewPatientEntry()
     {
         newEntryFields = new List<Button>() { newFirstBtn, newLastBtn, newDobBtn, newPhoneBtn, newAddressBtn };
-        for (int i = 0; i < personalInfoPanel.transform.childCount; i++)
+        for (int i = 0; i < newEntryFields.Count; i++)
         {
-            GameObject entryPanel = personalInfoPanel.transform.GetChild(i).gameObject;
+            GameObject entryPanel = patientInfoPanel.transform.GetChild(i).gameObject;
             string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
             newEntryFields[i].GetComponentInChildren<Text>().text = inputTxt;
+        }
+    }
+
+    private void CleanUpNewProfileEntries()
+    {
+        for(int i = 0; i < patientInfoPanel.transform.childCount; i++)
+        {
+            GameObject entryPanel = patientInfoPanel.transform.GetChild(i).gameObject;
+            entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text = "";
         }
     }
 
     private void InstantiateProfilePanel()
     {
         //places new profile under patientEntryPanel containing button clicked
-        newProfilePanel = Instantiate(profilePanelPrefab, newPatientEntryPanel.transform.parent); //mistake here
-        newPersonalPanel = Instantiate(personalPanelPrefab, newProfilePanel.transform);
-        newInsurancePanel = Instantiate(insurancePanelPrefab, newProfilePanel.transform);
-        newfirstPanel = Instantiate(firstPanelPrefab, newPersonalPanel.transform);
-        newLastPanel = Instantiate(lastPanelPrefab, newPersonalPanel.transform);
-        newDobPanel = Instantiate(dobPanelPrefab, newPersonalPanel.transform);
-        newPhonePanel = Instantiate(phonePanelPrefab, newPersonalPanel.transform);
-        newAddressPanel = Instantiate(addressPanelPrefab, newPersonalPanel.transform);
-        newInsCompanyPanel = Instantiate(insCompanyPanelPrefab, newInsurancePanel.transform);
-        newMemberPanel = Instantiate(memberPanelPrefab, newInsurancePanel.transform);
-        newGroupPanel = Instantiate(groupPanelPrefab, newInsurancePanel.transform);
-        newPcpPanel = Instantiate(pcpPanelPrefab, newInsurancePanel.transform);
-        newPcpPhonePanel = Instantiate(pcpPhonePanelPrefab, newInsurancePanel.transform);
-        newFirstInput = Instantiate(firstInputPrefab, newfirstPanel.transform);
+        newProfilePanel = Instantiate(profilePanelPrefab, profileScreen.transform); //mistake here
+        newPatientInfoPanel = Instantiate(patientInfoPanelPrefab, newProfilePanel.transform);
+        Instantiate(okBtnPrefab, newProfilePanel.transform);
+        Instantiate(cancelBtnPrefab, newProfilePanel.transform);
+        newFirstPanel = Instantiate(firstPanelPrefab, newPatientInfoPanel.transform);
+        newLastPanel = Instantiate(lastPanelPrefab, newPatientInfoPanel.transform);
+        newDobPanel = Instantiate(dobPanelPrefab, newPatientInfoPanel.transform);
+        newPhonePanel = Instantiate(phonePanelPrefab, newPatientInfoPanel.transform);
+        newAddressPanel = Instantiate(addressPanelPrefab, newPatientInfoPanel.transform);
+        newInsCompanyPanel = Instantiate(insCompanyPanelPrefab, newPatientInfoPanel.transform);
+        newMemberPanel = Instantiate(memberPanelPrefab, newPatientInfoPanel.transform);
+        newGroupPanel = Instantiate(groupPanelPrefab, newPatientInfoPanel.transform);
+        newPcpPanel = Instantiate(pcpPanelPrefab, newPatientInfoPanel.transform);
+        newPcpPhonePanel = Instantiate(pcpPhonePanelPrefab, newPatientInfoPanel.transform);
+        newFirstInput = Instantiate(firstInputPrefab, newFirstPanel.transform);
         newLastInput = Instantiate(lastInputPrefab, newLastPanel.transform);
         newDobInput = Instantiate(dobInputPrefab, newDobPanel.transform);
         newPhoneInput = Instantiate(phoneInputPrefab, newPhonePanel.transform);
@@ -187,29 +193,58 @@ public class NewProfileScript : MonoBehaviour
         newGroupInput = Instantiate(groupInputPrefab, newGroupPanel.transform);
         newPcpInput = Instantiate(pcpInputPrefab, newPcpPanel.transform);
         newPcpPhoneInput = Instantiate(pcpPhoneInputPrefab, newPcpPhonePanel.transform);
+
+        newProfilePanel.transform.SetSiblingIndex(0);
     }
 
-    public void PopulateNewProfilePanel()
+    private void PopulateNewProfilePanel()
     {
-        newPersonalInputFields = new List<InputField>() { newFirstInput, newLastInput, newDobInput, newPhoneInput, newAddressInput };
-        newInsInputFields = new List<InputField>() { newInsCompanyInput, newMemberInput, newGroupInput, newPcpInput, newPcpPhoneInput };
+        newInputFields = new List<InputField>() { newFirstInput, newLastInput, newDobInput, newPhoneInput, newAddressInput,
+            newInsCompanyInput, newMemberInput, newGroupInput, newPcpInput, newPcpPhoneInput };
+        
+        for (int i = 0; i < patientInfoPanel.transform.childCount; i++)
+        {
+            GameObject profileSubPanel = patientInfoPanel.transform.GetChild(i).gameObject;
+            string inputTxt = profileSubPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            newInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
+        }
+    }
 
-        for (int i = 0; i < newPersonalPanel.transform.childCount; i++)
-        {
-            GameObject profileSubPanel = newPersonalPanel.transform.GetChild(i).gameObject;
-            string inputTxt = profileSubPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            newPersonalInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
-        }
-        for (int i = 0; i < newInsurancePanel.transform.childCount; i++)
-        {
-            GameObject profileSubPanel = newInsurancePanel.transform.GetChild(i).gameObject;
-            string inputTxt = profileSubPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            newInsInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
-        }
+    private void CleanUpProfileObjects()
+    {
+        newPatientEntryObj = null;
+        newPatientEntryPanel = null;
+        newFirstBtn = null;
+        newLastBtn = null;
+        newDobBtn = null;
+        newPhoneBtn = null;
+        newAddressBtn = null;
+
+        newProfilePanel = null;
+        newPatientInfoPanel = null;
+        newFirstPanel = null;
+        newLastPanel = null;
+        newDobPanel = null;
+        newPhonePanel = null;
+        newAddressPanel = null;
+        newInsCompanyPanel = null;
+        newMemberPanel = null;
+        newGroupPanel = null;
+        newPcpPanel = null;
+        newPcpPhonePanel = null;
+        newFirstInput = null;
+        newLastInput = null;
+        newDobInput = null;
+        newPhoneInput = null;
+        newAddressInput = null;
+        newInsCompanyInput = null;
+        newMemberInput = null;
+        newGroupInput = null;
+        newPcpInput = null;
+        newPcpPhoneInput = null;
     }
 
     private int patientEntries = 50;
-    private bool personalOn = true;
     private bool addingNewProfile;
     private static System.Random rnd = new System.Random();
     
@@ -220,6 +255,7 @@ public class NewProfileScript : MonoBehaviour
     private Button newDobBtn;
     private Button newPhoneBtn;
     private Button newAddressBtn;
+    private Text newIdTxt;
     private List<Button> newEntryFields;
     private GameObject newPatientEntryObj;
     private GameObject newPatientEntryPanel;
@@ -227,9 +263,8 @@ public class NewProfileScript : MonoBehaviour
 
     #region Profile Panel Private Properties
     private GameObject newProfilePanel;
-    private GameObject newPersonalPanel;
-    private GameObject newInsurancePanel;
-    private GameObject newfirstPanel;
+    private GameObject newPatientInfoPanel;
+    private GameObject newFirstPanel;
     private GameObject newLastPanel;
     private GameObject newDobPanel;
     private GameObject newPhonePanel;
@@ -249,8 +284,7 @@ public class NewProfileScript : MonoBehaviour
     private InputField newGroupInput;
     private InputField newPcpInput;
     private InputField newPcpPhoneInput;
-    private List<InputField> newPersonalInputFields;
-    private List<InputField> newInsInputFields;
+    private List<InputField> newInputFields;
     #endregion
 
     #region Random Entry Generation Lists
