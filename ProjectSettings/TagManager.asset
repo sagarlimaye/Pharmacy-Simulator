@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ProfilesScreen
+  - SearchInputField
+  - Content
+  - NewProfilePanel
+  - PatientInfoPanel
+  - FirstInputField
+  - LastInputField
+  - DOBInputField
+  - PhoneInputField
+  - AddressInputField
   layers:
   - Default
   - TransparentFX
