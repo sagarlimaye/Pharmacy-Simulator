@@ -6,7 +6,6 @@ TagManager:
   tags:
   - ProfilesScreen
   - SearchInputField
-  - Content
   - NewProfilePanel
   - PatientInfoPanel
   - FirstInputField
@@ -14,6 +13,20 @@ TagManager:
   - DOBInputField
   - PhoneInputField
   - AddressInputField
+  - AddRxPanel
+  - ProfilesContent
+  - RxContent
+  - RxInfoPanel
+  - PatientInput
+  - DoctorInput
+  - DrugDropdown
+  - QuantityDropdown
+  - RefillsInput
+  - BrandToggle
+  - GenericToggle
+  - WrittenInput
+  - ExpInput
+  - WaiterToggle
   layers:
   - Default
   - TransparentFX

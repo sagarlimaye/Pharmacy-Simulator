@@ -94,9 +94,9 @@ public class NewProfileScript : MonoBehaviour
     public void Awake ()
     {
         searchInput = (InputField)GameObject.FindGameObjectWithTag("SearchInputField").GetComponent<InputField>();
-        contentRectT = GameObject.FindGameObjectWithTag("Content");
+        contentRectT = GameObject.FindGameObjectWithTag("ProfilesContent");
         profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
-        newProfilePanel = GameObject.FindWithTag("NewProfilePanel");
+        newProfilePanel = GameObject.FindGameObjectWithTag("NewProfilePanel");
         patientInfoPanel = GameObject.FindGameObjectWithTag("PatientInfoPanel");
         firstInput = (InputField)GameObject.FindGameObjectWithTag("FirstInputField").GetComponent<InputField>();
         lastInput = (InputField)GameObject.FindGameObjectWithTag("LastInputField").GetComponent<InputField>();
@@ -204,8 +204,8 @@ public class NewProfileScript : MonoBehaviour
                 patientInfoPanel.transform.GetChild(i).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text = ""; //clear input field
             }
         }
-
-        CleanUpNewProfileInputFields();    }
+        CleanUpNewProfileInputFields();
+    }
 
     private void ModifyExistingEntryFromProfile()
     {
