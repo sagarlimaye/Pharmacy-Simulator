@@ -9,22 +9,13 @@ public class PickupObject : MonoBehaviour {
 
 	private float distance;
 	private bool isHeld;
-	private bool isCounted;
-	private GameController gameController;
 
 	//Called whenever the object is created
 	void Start(){
-		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
-
-		if (gameControllerObject != null) {
-			gameController = gameControllerObject.GetComponent<GameController> ();
-		}
-		else {
-			Debug.Log ("Can't find 'GameController' script.");
-		}
-
 		isHeld = false;
-		isCounted = false;
+
+		//Some objects are instantiated, meaning we need to search for the player's holder
+		holder = GameObject.Find("HoldAnchor").GetComponent<Transform>();
 	}
 
 	//Called once per frame
@@ -42,11 +33,6 @@ public class PickupObject : MonoBehaviour {
 			transform.parent   = GameObject.Find("Player").transform;
 			transform.parent   = GameObject.Find("FirstPersonPlayer").transform;
 			isHeld = true;
-
-			if (!isCounted) {
-				gameController.incrementPillCount ();
-				isCounted = true;
-			}
 		}
 		//If they're already holding the item and they click again, they'll drop it
 		else if(isHeld){
