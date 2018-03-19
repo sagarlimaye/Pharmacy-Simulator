@@ -23,8 +23,8 @@ public class GameController : MonoBehaviour {
 		pillCountText.text = "Pills: " + pillCount;
 	}
 		
-	public void incrementPillCount(){
-		pillCount++;
+	public void setPillCount(int pills){
+		pillCount = pills;
 		updatePillCount();
 	}
 

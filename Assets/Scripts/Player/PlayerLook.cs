@@ -54,11 +54,13 @@ public class PlayerLook : MonoBehaviour {
 		RaycastHit hit;
 
 		if (Physics.Raycast (cameraCenter, Camera.main.transform.forward, out hit, 3)) {
-			if (hit.transform.gameObject.tag == "Interactable") {
-				notification.text = "Press E to use.";
-			}
-			else {
-				notification.text = "";
+			if (hit.transform.gameObject) {
+				if (hit.transform.gameObject.tag == "Interactable") {
+					notification.text = "Press E to use.";
+				}
+				else {
+					notification.text = "";
+				}
 			}
 		}
 		else {
