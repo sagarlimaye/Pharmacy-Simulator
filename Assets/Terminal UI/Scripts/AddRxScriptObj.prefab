@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1024727949031572}
+  m_IsPrefabParent: 1
+--- !u!1 &1024727949031572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4327270691771408}
+  - component: {fileID: 114680873978582488}
+  m_Layer: 0
+  m_Name: AddRxScriptObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4327270691771408
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1024727949031572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 399.11334, y: 164.5063, z: 4.198326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114680873978582488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1024727949031572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19dd1787a00ef6345a53faa6e22d4651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rxEntryObjPrefab: {fileID: 1660321378674982, guid: 38e56cd819a58cf41ba79724f8c4311e,
+    type: 2}
+  rxEntryPanelPrefab: {fileID: 1107442003416162, guid: df86db3c93404cc4c912fa1447c44b50,
+    type: 2}
+  waiterBtnPrefab: {fileID: 114198627140481354, guid: 0420fa5e9788c894e8e14f7896d94849,
+    type: 2}
+  waiterToggleBackgroundPrefab: {fileID: 1886904644059762, guid: 7ec263e8766a567419119be97b7a4a91,
+    type: 2}
+  nameBtnPrefab: {fileID: 1880440038592022, guid: 02167d1f9f5482348860f93d9fd9bb58,
+    type: 2}
+  drugBtnPrefab: {fileID: 1731660346433358, guid: e1d9f3088352d6040bbd4f3aa5f6136a,
+    type: 2}
+  assemblyBtnPrefab: {fileID: 1845900048227374, guid: 35e74b9fe97254149b5b596d4fcc60e7,
+    type: 2}
+  isEditingPrefab: {fileID: 114423296049894836, guid: a50c75880aaa2f94f9fc11b6ea3d9e2e,
+    type: 2}
