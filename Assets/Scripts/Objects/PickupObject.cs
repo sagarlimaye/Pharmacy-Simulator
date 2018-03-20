@@ -1,12 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //This allows objects to be picked up and carried
 public class PickupObject : MonoBehaviour {
 	public Transform holder;
+
 	private float distance;
 	private bool isHeld;
+
+	//Called whenever the object is created
+	void Start(){
+		isHeld = false;
+
+		//Some objects are instantiated, meaning we need to search for the player's holder
+		holder = GameObject.Find("HoldAnchor").GetComponent<Transform>();
+	}
 
 	//Called once per frame
 	void Update(){
