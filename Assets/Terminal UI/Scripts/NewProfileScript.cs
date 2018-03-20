@@ -74,16 +74,16 @@ public class NewProfileScript : MonoBehaviour
 
             InstantiateProfilePanel();
 
-            cloneFirstInput.GetComponentInChildren<Text>().text = cloneFirstBtn.GetComponentInChildren<Text>().text;
-            cloneLastInput.GetComponentInChildren<Text>().text = cloneLastBtn.GetComponentInChildren<Text>().text;
-            cloneDobInput.GetComponentInChildren<Text>().text = cloneDobBtn.GetComponentInChildren<Text>().text;
-            clonePhoneInput.GetComponentInChildren<Text>().text = clonePhoneBtn.GetComponentInChildren<Text>().text;
-            cloneAddressInput.GetComponentInChildren<Text>().text = cloneAddressBtn.GetComponentInChildren<Text>().text;
-            cloneInsCompanyInput.GetComponentInChildren<Text>().text = insCompanies[rnd.Next(insCompanies.Count)];
-            cloneMemberInput.GetComponentInChildren<Text>().text = memberIds[rnd.Next(memberIds.Count)];
-            cloneGroupInput.GetComponentInChildren<Text>().text = groupIds[rnd.Next(groupIds.Count)];
-            clonePcpInput.GetComponentInChildren<Text>().text = pcps[rnd.Next(pcps.Count)];
-            clonePcpPhoneInput.GetComponentInChildren<Text>().text = pcpPhones[rnd.Next(pcpPhones.Count)];
+            cloneFirstInput.GetComponentInChildren<InputField>().text = cloneFirstBtn.GetComponentInChildren<Text>().text;
+            cloneLastInput.GetComponentInChildren<InputField>().text = cloneLastBtn.GetComponentInChildren<Text>().text;
+            cloneDobInput.GetComponentInChildren<InputField>().text = cloneDobBtn.GetComponentInChildren<Text>().text;
+            clonePhoneInput.GetComponentInChildren<InputField>().text = clonePhoneBtn.GetComponentInChildren<Text>().text;
+            cloneAddressInput.GetComponentInChildren<InputField>().text = cloneAddressBtn.GetComponentInChildren<Text>().text;
+            cloneInsCompanyInput.GetComponentInChildren<InputField>().text = insCompanies[rnd.Next(insCompanies.Count)];
+            cloneMemberInput.GetComponentInChildren<InputField>().text = memberIds[rnd.Next(memberIds.Count)];
+            cloneGroupInput.GetComponentInChildren<InputField>().text = groupIds[rnd.Next(groupIds.Count)];
+            clonePcpInput.GetComponentInChildren<InputField>().text = pcps[rnd.Next(pcps.Count)];
+            clonePcpPhoneInput.GetComponentInChildren<InputField>().text = pcpPhones[rnd.Next(pcpPhones.Count)];
 
             cloneIdTxtProfile.GetComponentInChildren<Text>().text = (i+1).ToString();
         }
@@ -104,8 +104,9 @@ public class NewProfileScript : MonoBehaviour
         phoneInput = (InputField)GameObject.FindGameObjectWithTag("PhoneInputField").GetComponent<InputField>();
         addressInput = (InputField)GameObject.FindGameObjectWithTag("AddressInputField").GetComponent<InputField>();
 
+        maleAvatars = Resources.LoadAll<Sprite>("Location");
+
         newProfilePanel.SetActive(false);
-        patientInfoPanel.SetActive(false);
     }
     
     public void OnNewProfile()
@@ -154,27 +155,27 @@ public class NewProfileScript : MonoBehaviour
 
         for (int i = 3; i < (contentRectT.transform.childCount + 3); i++)
         {
-            GameObject currentProfileClone = profileScreen.transform.GetChild(i).gameObject; //
-            string currentProfileIDTxt = currentProfileClone.transform.GetChild(4).gameObject.GetComponent<Text>().text; //can't get to value!!!!!
+            GameObject currentProfileClone = profileScreen.transform.GetChild(i).gameObject;
+            string currentProfileIDTxt = currentProfileClone.transform.GetChild(4).gameObject.GetComponent<Text>().text;
 
-            GameObject currentFirstPanel = currentProfileClone.transform.GetChild(1).transform.GetChild(0).gameObject;
-            string currentFirst = currentFirstPanel.transform.GetChild(1).GetComponentInChildren<Text>().text;
+            //    GameObject currentFirstPanel = currentProfileClone.transform.GetChild(1).transform.GetChild(0).gameObject;
+            //    string currentFirst = currentFirstPanel.transform.GetChild(1).GetComponentInChildren<Text>().text;
 
-            string currentProfileFirst = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(0).transform.GetChild(1).GetComponentInChildren<Text>().text;
-            string currentProfileLast = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(1).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfileDob = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(2).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfilePhone = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(3).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfileAddress = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(4).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfileInsCompany = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(5).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfileMember = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(6).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfileGroup = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(7).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfilePcp = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(8).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            string currentProfilePcpPhone = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(9).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfileFirst = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(0).transform.GetChild(1).GetComponentInChildren<Text>().text;
+            //    string currentProfileLast = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(1).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfileDob = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(2).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfilePhone = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(3).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfileAddress = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(4).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfileInsCompany = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(5).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfileMember = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(6).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfileGroup = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(7).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfilePcp = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(8).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+            //    string currentProfilePcpPhone = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(9).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
 
             if (currentProfileIDTxt == currentEntryIDTxt)
             {
                 profileScreen.transform.GetChild(i).gameObject.SetActive(true);  //Set active makes profile input field values dissappear!!!!
-                profileScreen.transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
+                //profileScreen.transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
                 break;
             }
         }
@@ -287,10 +288,12 @@ public class NewProfileScript : MonoBehaviour
         addressInput.text = "";
     }
 
-    private int patientEntries = 50;
+    private int patientEntries = 5;
     private bool addingNewProfile;
     private GameObject currentProfile;
     private GameObject currentPatientEntry;
+    private Sprite[] maleAvatars;
+    private Sprite[] femaleAvatars;
     private static System.Random rnd = new System.Random();
 
     #region Patient Entry Private Properties  
