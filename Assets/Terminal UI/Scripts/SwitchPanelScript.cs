@@ -14,7 +14,7 @@ public class SwitchPanelScript : MonoBehaviour {
 
     private void Awake()
     {
-        currentScreen = MainScreens.Rx;
+        // currentScreen = MainScreens.Rx;
         RxPanel = GameObject.FindGameObjectWithTag("RxScreen");
         ProfilesPanel = GameObject.FindGameObjectWithTag("ProfilesScreen");
         //AssemblyPanel = GameObject.FindGameObjectWithTag("AssemblyScreen");
