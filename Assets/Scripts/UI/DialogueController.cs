@@ -55,12 +55,13 @@ public class DialogueController : MonoBehaviour {
                     answers[i].text = child.GetComponent<Dialog>().text;
                     i++;
                 }
-                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 panelLeft.SetActive(true);
                 if (d.transform.parent.childCount > 2)
                     panelRight.SetActive(true);
                 Player.WalkSpeed = 0;
                 yield return new WaitUntil(() => playerSelection > 0);
+                Cursor.lockState = CursorLockMode.Locked;
                 var selection = current.transform.parent.GetChild(playerSelection - 1);
                 current = selection;
             }

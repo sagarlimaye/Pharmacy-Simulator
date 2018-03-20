@@ -9,9 +9,11 @@ public class PlayerLook : MonoBehaviour {
 	public float mouseSensitivity;
 
 	float xAxisClamp = 0.0f;
-
-	void Update() {
+	private void Awake()
+	{
 		Cursor.lockState = CursorLockMode.Locked;
+	}
+	void Update() {
 
 		if (Cursor.lockState == CursorLockMode.Locked) {
 			RotateCamera();
