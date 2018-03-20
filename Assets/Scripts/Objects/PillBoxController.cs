@@ -23,7 +23,22 @@ public class PillBoxController : MonoBehaviour {
 			var filledTray = Instantiate(Resources.Load<GameObject>("Prefabs/FilledTray"), trayPosition, trayRotation).GetComponent<FilledTrayController>();
 
 			filledTray.gameController = gameController;
-			filledTray.setPillCount (50);
+			filledTray.setPillCount (adjustPillInput(50));
 		}
+	}
+
+	//Take the user input and add an element of randomness to it; there's a 25% chance the number of pills specified will be incorrect
+	int adjustPillInput(int userInput){
+		int adjustment = 0;
+
+		int outcome = Random.Range (0, 100);
+
+		//If outcome is within 25%, we change the adjustment
+		if(outcome < 25){
+			//We'll either add or subtract from the user's input; it's a subtle change of only 1 pill
+			adjustment = outcome < 13 ? -1 : 1;
+		}
+
+		return userInput + adjustment;
 	}
 }
