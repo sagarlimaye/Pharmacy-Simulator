@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerLook : MonoBehaviour {
-
+	public Text notification;
 	public Transform playerBody;
 	public float mouseSensitivity;
 
@@ -15,6 +16,9 @@ public class PlayerLook : MonoBehaviour {
 		if (Cursor.lockState == CursorLockMode.Locked) {
 			RotateCamera();
 		}
+
+		//If the player is looking at an interactable object, show a message indicating they can use it
+		showObjectIsInteractable ();
 	}
 
 	void RotateCamera() {
@@ -43,5 +47,24 @@ public class PlayerLook : MonoBehaviour {
 
 		transform.rotation = Quaternion.Euler(targetRotationCamera);
 		playerBody.rotation = Quaternion.Euler(targetRotationBody);
+	}
+
+	void showObjectIsInteractable(){
+		Vector3 cameraCenter = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane));
+		RaycastHit hit;
+
+		if (Physics.Raycast (cameraCenter, Camera.main.transform.forward, out hit, 3)) {
+			if (hit.transform.gameObject) {
+				if (hit.transform.gameObject.tag == "Interactable") {
+					notification.text = "Press E to use.";
+				}
+				else {
+					notification.text = "";
+				}
+			}
+		}
+		else {
+			notification.text = "";
+		}
 	}
 }
