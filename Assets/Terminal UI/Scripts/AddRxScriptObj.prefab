@@ -51,3 +51,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19dd1787a00ef6345a53faa6e22d4651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rxEntryObjPrefab: {fileID: 1660321378674982, guid: 38e56cd819a58cf41ba79724f8c4311e,
+    type: 2}
+  rxEntryPanelPrefab: {fileID: 1107442003416162, guid: df86db3c93404cc4c912fa1447c44b50,
+    type: 2}
+  waiterBtnPrefab: {fileID: 114198627140481354, guid: 0420fa5e9788c894e8e14f7896d94849,
+    type: 2}
+  waiterToggleBackgroundPrefab: {fileID: 1886904644059762, guid: 7ec263e8766a567419119be97b7a4a91,
+    type: 2}
+  nameBtnPrefab: {fileID: 1880440038592022, guid: 02167d1f9f5482348860f93d9fd9bb58,
+    type: 2}
+  drugBtnPrefab: {fileID: 1731660346433358, guid: e1d9f3088352d6040bbd4f3aa5f6136a,
+    type: 2}
+  assemblyBtnPrefab: {fileID: 1845900048227374, guid: 35e74b9fe97254149b5b596d4fcc60e7,
+    type: 2}
+  isEditingPrefab: {fileID: 114423296049894836, guid: a50c75880aaa2f94f9fc11b6ea3d9e2e,
+    type: 2}

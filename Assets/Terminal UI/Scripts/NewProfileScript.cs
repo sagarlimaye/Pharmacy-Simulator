@@ -121,6 +121,7 @@ public class NewProfileScript : MonoBehaviour
     }
     public void OnCancel()
     {
+        currentProfile = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         newProfilePanel.SetActive(false);
         if(currentProfile != null)
             currentProfile.SetActive(false);
@@ -141,7 +142,6 @@ public class NewProfileScript : MonoBehaviour
         else //clicking OK after opening newProfile with "Edit"
         {
             ModifyExistingEntryFromProfile(); //uses personal info entered in profile and enters it to a new entry
-            SaveProfileDataToNewProfileClone();
         }
 
         addingNewProfile = false;
@@ -192,46 +192,6 @@ public class NewProfileScript : MonoBehaviour
         cloneIdTxtEntry = Instantiate(idTxtPrefab, clonePatientEntryPanel.transform);
     }
 
-    private void SaveProfileDataToNewEntry()
-    {
-        {
-            patientEntryInputFields = new List<Button>() { cloneFirstBtn, cloneLastBtn, cloneDobBtn, clonePhoneBtn, cloneAddressBtn };
-            for (int i = 0; i < patientEntryInputFields.Count; i++)
-            {
-                GameObject entryPanel = patientInfoPanel.transform.GetChild(i).gameObject;
-                string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-                patientEntryInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
-                patientInfoPanel.transform.GetChild(i).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text = ""; //clear input field
-            }
-        }
-        CleanUpNewProfileInputFields();
-    }
-
-    private void ModifyExistingEntryFromProfile()
-    {
-        currentProfile = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
-        string currentProfileIDTxt = currentProfile.transform.GetChild(4).gameObject.GetComponent<Text>().text;
-
-        for (int i = 0; i < contentRectT.transform.childCount; i++)
-        {
-            currentPatientEntry = contentRectT.transform.GetChild(i).transform.GetChild(0).gameObject;
-            string currentEntryIDTxt = currentPatientEntry.transform.GetChild(7).gameObject.GetComponent<Text>().text;
-            if (currentEntryIDTxt == currentProfileIDTxt)
-            {
-                GameObject currentPatientInfoPanel = currentProfile.transform.GetChild(1).gameObject;
-
-                for (int j = 2; j < 7; j++)
-                {
-                    GameObject entryPanel = currentPatientInfoPanel.transform.GetChild(j - 2).gameObject;
-                    string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-                    currentPatientEntry.transform.GetChild(j).transform.GetChild(0).gameObject.GetComponent<Text>().text = inputTxt;
-                }
-                break;
-            }
-        }
-        currentProfile.SetActive(false);
-    }
-
     private void InstantiateProfilePanel()
     {
         cloneNewProfilePanel = Instantiate(profilePanelPrefab, profileScreen.transform);
@@ -263,45 +223,59 @@ public class NewProfileScript : MonoBehaviour
         cloneIdTxtProfile = Instantiate(idTxtPrefab, cloneNewProfilePanel.transform);
     }
 
+    private void SaveProfileDataToNewEntry()
+    {
+        {
+            patientEntryInputFields = new List<Button>() { cloneFirstBtn, cloneLastBtn, cloneDobBtn, clonePhoneBtn, cloneAddressBtn };
+            for (int i = 0; i < patientEntryInputFields.Count; i++)
+            {
+                GameObject entryPanel = patientInfoPanel.transform.GetChild(i).gameObject;
+                string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+                patientEntryInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
+                //patientInfoPanel.transform.GetChild(i).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text = ""; //clear input field
+            }
+        }
+        CleanUpNewProfileInputFields();
+    }
+
     private void SaveProfileDataToNewProfileClone()
     {
         {
             profileInputFields = new List<InputField>() { cloneFirstInput, cloneLastInput, cloneDobInput, clonePhoneInput, cloneAddressInput,
             cloneInsCompanyInput, cloneMemberInput, cloneGroupInput, clonePcpInput, clonePcpPhoneInput };
 
-            for (int i = 0; i < clonePatientInfoPanel.transform.childCount; i++)
+            for (int i = 0; i < profileInputFields.Count; i++)
             {
-                GameObject profileSubPanel = clonePatientInfoPanel.transform.GetChild(i).gameObject;
-                string inputTxt = profileSubPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+                GameObject entryPanel = patientInfoPanel.transform.GetChild(i).gameObject;
+                string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
                 profileInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
             }
         }
-        //else //modify existing profile panel (clone)
-        //{
-        //    currentProfile = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
-        //    string currentProfileIDTxt = currentProfile.transform.GetChild(4).gameObject.GetComponent<Text>().text;
+    }
 
-        //    for (int i = 0; i < contentRectT.transform.childCount; i++)
-        //    {
-        //        currentPatientEntry = contentRectT.transform.GetChild(i).transform.GetChild(0).gameObject;
-        //        string currentEntryIDTxt = currentPatientEntry.transform.GetChild(7).gameObject.GetComponent<Text>().text;
-        //        if (currentEntryIDTxt == currentProfileIDTxt)
-        //        {
+    private void ModifyExistingEntryFromProfile()
+    {
+        currentProfile = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
+        string currentProfileIDTxt = currentProfile.transform.GetChild(4).gameObject.GetComponent<Text>().text;
 
+        for (int i = 0; i < contentRectT.transform.childCount; i++)
+        {
+            currentPatientEntry = contentRectT.transform.GetChild(i).transform.GetChild(0).gameObject;
+            string currentEntryIDTxt = currentPatientEntry.transform.GetChild(7).gameObject.GetComponent<Text>().text;
+            if (currentEntryIDTxt == currentProfileIDTxt)
+            {
+                GameObject currentPatientInfoPanel = currentProfile.transform.GetChild(1).gameObject;
 
-        //            GameObject currentPatientInfoPanel = currentProfile.transform.GetChild(1).gameObject;
-
-        //            for (int j = 2; j < 7; j++)
-        //            {
-        //                GameObject entryPanel = currentPatientInfoPanel.transform.GetChild(j - 2).gameObject;
-        //                string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-        //                currentPatientEntry.transform.GetChild(j).transform.GetChild(0).gameObject.GetComponent<Text>().text = inputTxt;
-        //            }
-        //            break;
-        //        }
-        //    }
-        //    currentProfile.SetActive(false);
-        //}
+                for (int j = 2; j < 7; j++)
+                {
+                    GameObject entryPanel = currentPatientInfoPanel.transform.GetChild(j - 2).gameObject;
+                    string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
+                    currentPatientEntry.transform.GetChild(j).transform.GetChild(0).gameObject.GetComponent<Text>().text = inputTxt;
+                }
+                break;
+            }
+        }
+        currentProfile.SetActive(false);
     }
 
     private void CleanUpNewProfileInputFields()

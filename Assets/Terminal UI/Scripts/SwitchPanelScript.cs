@@ -8,16 +8,19 @@ public class SwitchPanelScript : MonoBehaviour {
     public enum MainScreens { Rx, Profiles, Assembly };
     public MainScreens currentScreen;
 
-    public GameObject RxPanel;
-    public GameObject ProfilesPanel;
-    public GameObject AssemblyPanel;
+    public static GameObject RxPanel;
+    public static GameObject ProfilesPanel;
+    public static GameObject AssemblyPanel;
 
     private void Awake()
     {
         currentScreen = MainScreens.Rx;
+        RxPanel = GameObject.FindGameObjectWithTag("RxScreen");
+        ProfilesPanel = GameObject.FindGameObjectWithTag("ProfilesScreen");
+        //AssemblyPanel = GameObject.FindGameObjectWithTag("AssemblyScreen");
     }
 
-    private void Update()
+    public void Update()
     {
         switch (currentScreen)
         {
@@ -25,19 +28,19 @@ public class SwitchPanelScript : MonoBehaviour {
 
                 RxPanel.SetActive(true);
                 ProfilesPanel.SetActive(false);
-                AssemblyPanel.SetActive(false);
+                //AssemblyPanel.SetActive(false);
                 break;
 
             case MainScreens.Profiles:
                 RxPanel.SetActive(false);
                 ProfilesPanel.SetActive(true);
-                AssemblyPanel.SetActive(false);
+                //AssemblyPanel.SetActive(false);
                 break;
 
             case MainScreens.Assembly:
                 RxPanel.SetActive(false);
                 ProfilesPanel.SetActive(false);
-                AssemblyPanel.SetActive(true);
+                //AssemblyPanel.SetActive(true);
                 break;
         }
     }
@@ -52,6 +55,6 @@ public class SwitchPanelScript : MonoBehaviour {
     }
     public void OnAssembly()
     {
-        currentScreen = MainScreens.Assembly;
+        //currentScreen = MainScreens.Assembly;
     }
 }

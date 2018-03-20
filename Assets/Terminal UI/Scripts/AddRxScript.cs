@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class AddRxScript : MonoBehaviour {
 
+    #region On Scene Objects
+    //public static GameObject RxPanel;
+    //public static GameObject ProfilesPanel;
     public static GameObject addRxPanel;
     public static GameObject content;
     public static GameObject rxInfoPanel;
@@ -18,7 +23,9 @@ public class AddRxScript : MonoBehaviour {
     public static InputField writtenDateInput;
     public static InputField expirationDateInput;
     public static Toggle waiterToggle;
+    #endregion
 
+    #region AddRx Public Prefabs
     public GameObject rxEntryObjPrefab;
     public GameObject rxEntryPanelPrefab;
     public Toggle waiterBtnPrefab;
@@ -26,7 +33,8 @@ public class AddRxScript : MonoBehaviour {
     public GameObject nameBtnPrefab;
     public GameObject drugBtnPrefab;
     public GameObject assemblyBtnPrefab;
-    public GameObject idTxtPrefab;
+    public Toggle isEditingPrefab;
+    #endregion
 
     public void Awake ()
     {
@@ -44,11 +52,29 @@ public class AddRxScript : MonoBehaviour {
         expirationDateInput = GameObject.FindGameObjectWithTag("ExpInput").GetComponent<InputField>();
         waiterToggle = GameObject.FindGameObjectWithTag("WaiterToggle").GetComponent<Toggle>();
 
+        waiterToggle.onValueChanged.AddListener((value) =>
+        {
+            OnWaiter(value);
+        });
+        brandToggle.onValueChanged.AddListener((value) =>
+        {
+            OnBrand(value);
+        });
+        genericToggle.onValueChanged.AddListener((value) =>
+        {
+            OnGeneric(value);
+        });
+
         addRxPanel.SetActive(false);
     }
-	
-	// Update is called once per frame
-	public void OnAddRx ()
+
+    private void OnWaiter(bool value)
+    {
+        waiter = value;
+    }
+
+    // Update is called once per frame
+    public void OnAddRx ()
     {
         addRxPanel.SetActive(true);
     }
@@ -67,6 +93,33 @@ public class AddRxScript : MonoBehaviour {
         addRxPanel.SetActive(false);
     }
 
+    public void OnAssemble()
+    {
+        Toggle currentIsEditing = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).transform.gameObject.GetComponent<Toggle>();
+        currentIsEditing.isOn = true;
+    }
+
+    public void OnBrand(bool value)
+    {
+        if (true)
+        {
+            genericToggle.isOn = false;
+        }
+
+        brandToggle.isOn = value;
+
+    }
+
+    public void OnGeneric(bool value)
+    {
+        if (true)
+        {
+            brandToggle.isOn = false;
+        }
+
+        genericToggle.isOn = value;
+    }
+
     private void InstantiateRxEntry()
     {
         cloneRxEntryObj = Instantiate(rxEntryObjPrefab, content.transform);
@@ -76,7 +129,8 @@ public class AddRxScript : MonoBehaviour {
         cloneNameBtn = Instantiate(nameBtnPrefab, cloneRxEntryPanel.transform);
         cloneDrugBtn = Instantiate(drugBtnPrefab, cloneRxEntryPanel.transform);
         cloneAssemblyBtn = Instantiate(assemblyBtnPrefab, cloneRxEntryPanel.transform);
-        //cloneIdTxtEntry = Instantiate(idTxtPrefab, cloneRxEntryPanel.transform);
+        cloneIsEditingToggle = Instantiate(isEditingPrefab, cloneRxEntryPanel.transform) as Toggle;
+        cloneIsEditingToggle.isOn = false;
     }
 
     private void SaveProfileDataToNewRxEntry()
@@ -92,8 +146,10 @@ public class AddRxScript : MonoBehaviour {
             cloneDrugBtn.GetComponentInChildren<Text>().text = drugTxt;
             //rxInfoPanel.transform.GetChild(2).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text = ""; //clear input field
 
-            bool waiterStatus = waiter;
-            cloneWaiterToggle.isOn = waiterStatus;
+            if (waiter)
+                cloneWaiterToggle.isOn = true;
+            else
+                cloneWaiterToggle.isOn = false;
 
         }
     }
@@ -120,5 +176,6 @@ public class AddRxScript : MonoBehaviour {
     private GameObject cloneNameBtn;
     private GameObject cloneDrugBtn;
     private GameObject cloneAssemblyBtn;
-    private GameObject cloneIdTxtEntry;
+    private Toggle cloneIsEditingToggle;
+
 }

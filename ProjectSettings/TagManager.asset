@@ -27,6 +27,9 @@ TagManager:
   - WrittenInput
   - ExpInput
   - WaiterToggle
+  - RxScreen
+  - AssemblyScreen
+  - AssemblyPanel
   layers:
   - Default
   - TransparentFX
