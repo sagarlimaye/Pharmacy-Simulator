@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
 	public void StartTraining(){
-		SceneManager.LoadScene ("CheckoutCounter");
+		SceneManager.LoadScene ("Prototype");
 	}
 
 	public void StartChallenge(){
-		SceneManager.LoadScene ("Pharmacy");
+		SceneManager.LoadScene ("Prototype");
 	}
 
 	public void QuitGame(){

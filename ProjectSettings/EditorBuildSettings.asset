@@ -13,4 +13,7 @@ EditorBuildSettings:
     guid: efee616d5fbbe504698a85f3175dcd06
   - enabled: 1
     path: Assets/Scenes/Pharmacy.unity
-    guid: 00000000000000000000000000000000
+    guid: e985fc4c83a725e458642c1bbbfaac66
+  - enabled: 1
+    path: Assets/Scenes/Prototype.unity
+    guid: 13b1fe5c53cee6448afb49442e919059
