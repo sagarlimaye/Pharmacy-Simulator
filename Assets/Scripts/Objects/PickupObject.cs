@@ -27,19 +27,27 @@ public class PickupObject : MonoBehaviour {
 	void OnMouseDown(){
 		//Player must be within a minimum range of the object in order to successfully grab it
 		if(distance < 3 && !isHeld){
-			GetComponent<Rigidbody>().useGravity  = false;
-			GetComponent<Rigidbody>().isKinematic = true;
-			transform.position = holder.position;
-			transform.parent   = GameObject.Find("Player").transform;
-			transform.parent   = GameObject.Find("FirstPersonPlayer").transform;
-			isHeld = true;
+			pickUp ();
 		}
 		//If they're already holding the item and they click again, they'll drop it
 		else if(isHeld){
-			transform.parent = null;
-			GetComponent<Rigidbody>().useGravity  = true;
-			GetComponent<Rigidbody>().isKinematic = false;
-			isHeld = false;
+			putDown ();
 		}
+	}
+
+	void pickUp(){
+		GetComponent<Rigidbody>().useGravity  = false;
+		GetComponent<Rigidbody>().isKinematic = true;
+		transform.position = holder.position;
+		transform.parent   = GameObject.Find("Player").transform;
+		transform.parent   = GameObject.Find("FirstPersonPlayer").transform;
+		isHeld = true;
+	}
+
+	void putDown(){
+		transform.parent = null;
+		GetComponent<Rigidbody>().useGravity  = true;
+		GetComponent<Rigidbody>().isKinematic = false;
+		isHeld = false;
 	}
 }

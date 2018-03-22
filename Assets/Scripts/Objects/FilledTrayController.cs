@@ -12,26 +12,35 @@ public class FilledTrayController : MonoBehaviour {
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
-		//If the player is close enough to the pill bottle, hits E, and the pill count is not 0, the empty bottle will turn into a prescription
-		if(distance < 3 && Input.GetKeyDown(KeyCode.E) && pillCount != 0){
-			//Reset pill count
-			gameController.resetPillCount();
+		//If the player hits E, replace the empty pill bottle with a filled prescription; if they hit R, we only replace the tray
+		if(distance < 3 && pillCount != 0){
+			if(Input.GetKeyDown(KeyCode.E)){
+				GameObject pillBottle = GameObject.Find ("Bottle");
+				var bottlePosition = pillBottle.transform.position;
+				var bottleRotation = pillBottle.transform.rotation;
 
-			GameObject pillBottle = GameObject.Find ("Bottle");
-			var bottlePosition = pillBottle.transform.position;
-			var bottleRotation = pillBottle.transform.rotation;
+				//We now instantiate a filled prescription, then delete the empty pill bottle
+				var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/Prescription"), bottlePosition, bottleRotation).GetComponent<PrescriptionController>();
+				filledPrescription.isFilledCorrectly = gameController.prescriptionIsReady ();
 
-			Destroy (pillBottle);
+				Destroy (pillBottle);
 
-			//We now instantiate a filled prescription, then delete the empty pill bottle
-			var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/Prescription"), bottlePosition, bottleRotation).GetComponent<PrescriptionController>();
-			filledPrescription.isFilledCorrectly = gameController.prescriptionIsReady ();
-
-			//We're not yet finished.  We must now replace this filled tray with an empty one
-			Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
-
-			Destroy (gameObject);
+				replaceTray ();
+			}
+			else if(Input.GetKeyDown(KeyCode.R)){
+				replaceTray ();
+			}
 		}
+	}
+
+	//If the user empties the current filled tray by either throwing out the pills or converting it to a prescription, this method is called
+	void replaceTray(){
+		//Reset pill count
+		gameController.resetPillCount();
+
+		Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
+
+		Destroy (gameObject);
 	}
 
 	public void setPillCount(int pills){
