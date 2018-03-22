@@ -5,7 +5,7 @@ using UnityEngine;
 public class SwitchPanelScript : MonoBehaviour {
 
     //alll buttons go here, for all 3 screens
-    public enum MainScreens { Rx, Profiles, Assembly };
+    public enum MainScreens { Rx, Profiles, Assembly, Off };
     public MainScreens currentScreen;
 
     public static GameObject RxPanel;
@@ -14,7 +14,7 @@ public class SwitchPanelScript : MonoBehaviour {
 
     private void Awake()
     {
-        // currentScreen = MainScreens.Rx;
+        currentScreen = MainScreens.Off;
         RxPanel = GameObject.FindGameObjectWithTag("RxScreen");
         ProfilesPanel = GameObject.FindGameObjectWithTag("ProfilesScreen");
         //AssemblyPanel = GameObject.FindGameObjectWithTag("AssemblyScreen");
@@ -41,6 +41,10 @@ public class SwitchPanelScript : MonoBehaviour {
                 RxPanel.SetActive(false);
                 ProfilesPanel.SetActive(false);
                 //AssemblyPanel.SetActive(true);
+                break;
+            case MainScreens.Off:
+                RxPanel.SetActive(false);
+                ProfilesPanel.SetActive(false);
                 break;
         }
     }
