@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour {
     public Text[] answers;
     private int correctKey;
     public GameObject panelLeft, panelRight;
-    public bool busy = false;
+    public static bool busy = false;
     public int playerSelection = -1;
 
     public void setPlayerSelection(int s)

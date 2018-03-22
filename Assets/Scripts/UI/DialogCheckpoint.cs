@@ -17,7 +17,7 @@ public class DialogCheckpoint : MonoBehaviour {
         {
             if (onCheckpointEntered != null)
                 onCheckpointEntered(this);
-            if(!controller.busy)
+            if(!DialogueController.busy)
                 activate();
             
         }
