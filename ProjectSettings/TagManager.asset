@@ -4,37 +4,40 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
-  - ProfilesScreen
-  - SearchInputField
-  - NewProfilePanel
-  - PatientInfoPanel
-  - FirstInputField
-  - LastInputField
-  - DOBInputField
-  - PhoneInputField
-  - AddressInputField
-  - AddRxPanel
-  - ProfilesContent
-  - RxContent
-  - RxInfoPanel
-  - PatientInput
+  - Interactable
+  - Pill
+  - PillTray
+  - WrittenInput
+  - AssemblyPanel
+  - GenericToggle
+  - BrandToggle
+  - ExpInput
   - DoctorInput
+  - RxInfoPanel
+  - RefillsInput
+  - SearchInputField
   - DrugDropdown
   - QuantityDropdown
-  - RefillsInput
-  - BrandToggle
-  - GenericToggle
-  - WrittenInput
-  - ExpInput
+  - PatientInput
   - WaiterToggle
+  - RxContent
   - RxScreen
+  - ProfilesScreen
+  - LastInputField
+  - NewProfilePanel
+  - PatientInfoPanel
+  - ProfilesContent
+  - AddressInputField
+  - PhoneInputField
   - AssemblyScreen
-  - AssemblyPanel
-=======
-  - Interactable
-  - PillTray
->>>>>>> master
+  - AddRxPanel
+  - DOBInputField
+  - FirstInputField
+  - InsCompanyField
+  - MemberInputField
+  - GroupInputField
+  - PCPInputField
+  - PCPPhoneInputField
   layers:
   - Default
   - TransparentFX

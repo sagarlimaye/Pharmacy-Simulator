@@ -61,11 +61,15 @@ MonoBehaviour:
     type: 2}
   addressBtnPrefab: {fileID: 114603838725911282, guid: 9ce7124b3447c7c4ba68e76718b1efc4,
     type: 2}
+  insBtnPrefab: {fileID: 114167834943118226, guid: 48d8349c3c0cb0f4dafea555737d95cd,
+    type: 2}
+  addRxPrefab: {fileID: 114232440132165538, guid: 97b20c30003e9f149a64d42f1f7abff5,
+    type: 2}
   idTxtPrefab: {fileID: 114398668326092544, guid: 4c531ebdc2520ce4d9704ca0b2b53c34,
     type: 2}
   patientEntryObjPrefab: {fileID: 1828136127790974, guid: 6d40aa820563bd34796aeeadf16aa895,
     type: 2}
-  patientEntryPanelPrefab: {fileID: 1936553532836908, guid: b74c1dc41d59ba141a94070b22e4b605,
+  patientEntryPanelPrefab: {fileID: 1762224044300988, guid: 63e47b1dffc099e4cba522c022bfe509,
     type: 2}
   profilePanelPrefab: {fileID: 1709612334206016, guid: 645c6566acef8c445a811aad115ad22b,
     type: 2}

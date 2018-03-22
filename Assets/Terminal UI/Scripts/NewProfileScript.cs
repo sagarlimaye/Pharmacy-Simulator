@@ -15,7 +15,12 @@ public class NewProfileScript : MonoBehaviour
     public static InputField dobInput;
     public static InputField phoneInput;
     public static InputField addressInput;
-    public static GameObject contentRectT;
+    public static InputField insCompanyInput;
+    public static InputField memberInput;
+    public static InputField groupInput;
+    public static InputField pcpInput;
+    public static InputField pcpPhoneInput;
+    public static GameObject profilesContent;
     public static GameObject profileScreen;
     #endregion
 
@@ -25,6 +30,8 @@ public class NewProfileScript : MonoBehaviour
     public Button dobBtnPrefab;
     public Button phoneBtnPrefab;
     public Button addressBtnPrefab;
+    public Button insBtnPrefab;
+    public Button addRxPrefab;
     public Text idTxtPrefab;
     public GameObject patientEntryObjPrefab;
     public GameObject patientEntryPanelPrefab;
@@ -85,7 +92,17 @@ public class NewProfileScript : MonoBehaviour
             clonePcpInput.GetComponentInChildren<InputField>().text = pcps[rnd.Next(pcps.Count)];
             clonePcpPhoneInput.GetComponentInChildren<InputField>().text = pcpPhones[rnd.Next(pcpPhones.Count)];
 
-            cloneIdTxtProfile.GetComponentInChildren<Text>().text = (i+1).ToString();
+            for (int j = 0; j < maleFirstNames.Count; j++)
+            {
+                if (cloneFirstInput.GetComponentInChildren<InputField>().text == maleFirstNames[j])
+                {
+                    cloneNewProfilePanel.transform.GetChild(0).GetComponentInChildren<Image>().sprite = maleAvatars[rnd.Next(maleAvatars.Length)];
+                    break;
+                }
+                else
+                    cloneNewProfilePanel.transform.GetChild(0).GetComponentInChildren<Image>().sprite = femaleAvatars[rnd.Next(femaleAvatars.Length)];
+            }
+            cloneIdTxtProfile.GetComponentInChildren<Text>().text = (i + 1).ToString();
         }
 
         //CleanUpProfileObjects();
@@ -94,7 +111,7 @@ public class NewProfileScript : MonoBehaviour
     public void Awake ()
     {
         searchInput = (InputField)GameObject.FindGameObjectWithTag("SearchInputField").GetComponent<InputField>();
-        contentRectT = GameObject.FindGameObjectWithTag("ProfilesContent");
+        profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
         profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
         newProfilePanel = GameObject.FindGameObjectWithTag("NewProfilePanel");
         patientInfoPanel = GameObject.FindGameObjectWithTag("PatientInfoPanel");
@@ -103,8 +120,14 @@ public class NewProfileScript : MonoBehaviour
         dobInput = (InputField)GameObject.FindGameObjectWithTag("DOBInputField").GetComponent<InputField>();
         phoneInput = (InputField)GameObject.FindGameObjectWithTag("PhoneInputField").GetComponent<InputField>();
         addressInput = (InputField)GameObject.FindGameObjectWithTag("AddressInputField").GetComponent<InputField>();
+        insCompanyInput = (InputField)GameObject.FindGameObjectWithTag("InsCompanyField").GetComponent<InputField>();
+        memberInput = (InputField)GameObject.FindGameObjectWithTag("MemberInputField").GetComponent<InputField>();
+        groupInput = (InputField)GameObject.FindGameObjectWithTag("GroupInputField").GetComponent<InputField>();
+        pcpInput = (InputField)GameObject.FindGameObjectWithTag("PCPInputField").GetComponent<InputField>();
+        pcpPhoneInput = (InputField)GameObject.FindGameObjectWithTag("PCPPhoneInputField").GetComponent<InputField>();
 
-        maleAvatars = Resources.LoadAll<Sprite>("Location");
+        maleAvatars = Resources.LoadAll<Sprite>("ProfileAvatars/Male");
+        femaleAvatars = Resources.LoadAll<Sprite>("ProfileAvatars/Female");
 
         newProfilePanel.SetActive(false);
     }
@@ -139,6 +162,7 @@ public class NewProfileScript : MonoBehaviour
             SaveProfileDataToNewProfileClone();
             searchInput.text = "";
             newProfilePanel.SetActive(false);
+            ResetNewProfileInputFields();
         }
         else //clicking OK after opening newProfile with "Edit"
         {
@@ -153,29 +177,14 @@ public class NewProfileScript : MonoBehaviour
         currentPatientEntry = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         string currentEntryIDTxt = currentPatientEntry.transform.GetChild(7).GetComponent<Text>().text;
 
-        for (int i = 3; i < (contentRectT.transform.childCount + 3); i++)
+        for (int i = 3; i < (profilesContent.transform.childCount + 3); i++)
         {
             GameObject currentProfileClone = profileScreen.transform.GetChild(i).gameObject;
             string currentProfileIDTxt = currentProfileClone.transform.GetChild(4).gameObject.GetComponent<Text>().text;
 
-            //    GameObject currentFirstPanel = currentProfileClone.transform.GetChild(1).transform.GetChild(0).gameObject;
-            //    string currentFirst = currentFirstPanel.transform.GetChild(1).GetComponentInChildren<Text>().text;
-
-            //    string currentProfileFirst = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(0).transform.GetChild(1).GetComponentInChildren<Text>().text;
-            //    string currentProfileLast = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(1).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfileDob = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(2).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfilePhone = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(3).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfileAddress = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(4).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfileInsCompany = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(5).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfileMember = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(6).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfileGroup = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(7).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfilePcp = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(8).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-            //    string currentProfilePcpPhone = profileScreen.transform.GetChild(i).transform.GetChild(1).transform.GetChild(9).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-
             if (currentProfileIDTxt == currentEntryIDTxt)
             {
-                profileScreen.transform.GetChild(i).gameObject.SetActive(true);  //Set active makes profile input field values dissappear!!!!
-                //profileScreen.transform.GetChild(i).transform.GetChild(1).gameObject.SetActive(true);
+                profileScreen.transform.GetChild(i).gameObject.SetActive(true);
                 break;
             }
         }
@@ -183,13 +192,15 @@ public class NewProfileScript : MonoBehaviour
 
     private void InstantiatePatientEntry()
     {
-        clonePatientEntryObj = Instantiate(patientEntryObjPrefab, contentRectT.transform);
+        clonePatientEntryObj = Instantiate(patientEntryObjPrefab, profilesContent.transform);
         clonePatientEntryPanel = Instantiate(patientEntryPanelPrefab, clonePatientEntryObj.transform);
         cloneFirstBtn = Instantiate(firstBtnPrefab, clonePatientEntryPanel.transform);
         cloneLastBtn = Instantiate(lastBtnPrefab, clonePatientEntryPanel.transform);
         cloneDobBtn = Instantiate(dobBtnPrefab, clonePatientEntryPanel.transform);
         clonePhoneBtn = Instantiate(phoneBtnPrefab, clonePatientEntryPanel.transform);
         cloneAddressBtn = Instantiate(addressBtnPrefab, clonePatientEntryPanel.transform);
+        cloneInsBtn = Instantiate(insBtnPrefab, clonePatientEntryPanel.transform);
+        cloneAddRxBtn = Instantiate(addRxPrefab, clonePatientEntryPanel.transform);
         cloneIdTxtEntry = Instantiate(idTxtPrefab, clonePatientEntryPanel.transform);
     }
 
@@ -233,10 +244,10 @@ public class NewProfileScript : MonoBehaviour
                 GameObject entryPanel = patientInfoPanel.transform.GetChild(i).gameObject;
                 string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
                 patientEntryInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
-                //patientInfoPanel.transform.GetChild(i).transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text = ""; //clear input field
             }
+
+            cloneIdTxtEntry.GetComponentInChildren<Text>().text = (profilesContent.transform.childCount - 1).ToString();
         }
-        CleanUpNewProfileInputFields();
     }
 
     private void SaveProfileDataToNewProfileClone()
@@ -248,9 +259,11 @@ public class NewProfileScript : MonoBehaviour
             for (int i = 0; i < profileInputFields.Count; i++)
             {
                 GameObject entryPanel = patientInfoPanel.transform.GetChild(i).gameObject;
-                string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
-                profileInputFields[i].GetComponentInChildren<Text>().text = inputTxt;
+                string inputTxt = entryPanel.transform.GetChild(1).transform.GetComponentInChildren<InputField>().text;
+                profileInputFields[i].GetComponentInChildren<InputField>().text = inputTxt;
             }
+
+            cloneIdTxtProfile.GetComponentInChildren<Text>().text = (profilesContent.transform.childCount - 1).ToString();
         }
     }
 
@@ -259,17 +272,17 @@ public class NewProfileScript : MonoBehaviour
         currentProfile = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         string currentProfileIDTxt = currentProfile.transform.GetChild(4).gameObject.GetComponent<Text>().text;
 
-        for (int i = 0; i < contentRectT.transform.childCount; i++)
+        for (int i = 0; i < profilesContent.transform.childCount; i++)
         {
-            currentPatientEntry = contentRectT.transform.GetChild(i).transform.GetChild(0).gameObject;
+            currentPatientEntry = profilesContent.transform.GetChild(i).transform.GetChild(0).gameObject;
             string currentEntryIDTxt = currentPatientEntry.transform.GetChild(7).gameObject.GetComponent<Text>().text;
             if (currentEntryIDTxt == currentProfileIDTxt)
             {
                 GameObject currentPatientInfoPanel = currentProfile.transform.GetChild(1).gameObject;
 
-                for (int j = 2; j < 7; j++)
+                for (int j = 0; j < 5; j++)
                 {
-                    GameObject entryPanel = currentPatientInfoPanel.transform.GetChild(j - 2).gameObject;
+                    GameObject entryPanel = currentPatientInfoPanel.transform.GetChild(j).gameObject;
                     string inputTxt = entryPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
                     currentPatientEntry.transform.GetChild(j).transform.GetChild(0).gameObject.GetComponent<Text>().text = inputTxt;
                 }
@@ -279,13 +292,18 @@ public class NewProfileScript : MonoBehaviour
         currentProfile.SetActive(false);
     }
 
-    private void CleanUpNewProfileInputFields()
+    private void ResetNewProfileInputFields()
     {
         firstInput.text = "";
         lastInput.text = "";
         dobInput.text = "";
         phoneInput.text = "";
         addressInput.text = "";
+        insCompanyInput.text = "";
+        memberInput.text = "";
+        groupInput.text = "";
+        pcpInput.text = "";
+        pcpPhoneInput.text = "";
     }
 
     private int patientEntries = 5;
@@ -303,6 +321,8 @@ public class NewProfileScript : MonoBehaviour
     private Button cloneDobBtn;
     private Button clonePhoneBtn;
     private Button cloneAddressBtn;
+    private Button cloneInsBtn;
+    private Button cloneAddRxBtn;
     private List<Button> patientEntryInputFields;
     private GameObject clonePatientEntryObj;
     private GameObject clonePatientEntryPanel;
@@ -351,20 +371,7 @@ public class NewProfileScript : MonoBehaviour
         "Nicholas","Piers","Jason","Piers","Grace","William","Kevin","Diane","Owen","Megan","Stewart","Victoria","Alison","Julian",
         "Gordon","Virginia","Eric","Audrey","Irene","Anthony","Dorothy","Anthony","Alexandra","Stephanie","Dan","Adam","Ruth",
         "Anthony","Lauren","Jessica","James","Brian","Alexander","Carl","Jennifer","Claire","Ryan","Jane","Trevor","Benjamin",
-        "Heather","William","Vanessa","Ferguson","Abraham","Taylor","Roberts","Berry","Hughes","Mathis","Bower","Campbell","Miller",
-        "Berry","Fraser","Hudson","Ferguson","Hardacre","Reid","Allan","Fisher","Roberts","Carr","Wallace","Hunter","Alsop",
-        "Davies","Langdon","Dickens","Mills","MacLeod","Davies","Bell","Anderson","Cornish","Davidson","McLean","Bower","Roberts",
-        "Kelly","Burgess","Kerr","McDonald","King","Sharp","Graham","Baker","Forsyth","McLean","McLean","Oliver","McDonald",
-        "Hudson","Carr","Randall","Burgess","Baker","James","Simpson","Knox","Abraham","Black","Bell","Roberts","Hodges","Davidson",
-        "Welch","Butler","Howard","Lambert","Jones","Sharp","Walker","Rutherford","Vaughan","Cameron","Mathis","Butler",
-        "Avery","Cornish","Hart","Howard","Cameron","Campbell","Lee","Skinner","Hudson","Morrison","Roberts","Peters",
-        "Wright","Hodges","MacLeod","Skinner","Parsons","Davidson","Morgan","Skinner","Kelly","Butler","Terry","Hamilton",
-        "Knox","Short","Scott","Lewis","Johnston","Graham","Dyer","Turner","Welch","Rampling","Marshall","Metcalfe","Jackson",
-        "Skinner","Avery","Dickens","Quinn","Arnold","Martin","Rampling","Stewart","Grant","Dyer","Ellison","Bond","Ball",
-        "Rampling","Scott","Scott","Grant","Mills","Anderson","McGrath","Bailey","Peters","Hart","Ferguson","Anderson","Hardacre",
-        "Young","Marshall","May","Burgess","Avery","Payne","Randall","Mackay","McGrath","May","Walsh","Greene"};
-    private List<string> lasts = new List<string>()
-        {"Frank","Isaac","Audrey","Eric","Abigail","Eric","Alison","Jan","Ian","Eric","Ian","Fiona","Faith","Mary","Chloe","Phil",
+        "Heather","Vanessa","Frank","Isaac","Audrey","Eric","Abigail","Eric","Alison","Jan","Ian","Eric","Ian","Fiona","Faith","Mary","Chloe","Phil",
         "Ryan","Oliver","Nicholas","Christian","Peter","Eric","Oliver","Emma","Sean","Wendy","Dorothy","Karen","Tim","Megan","Isaac",
         "Max","Jacob","Nicola","Harry","Carol","Alison","Amelia","Tim","Eric","Peter","Joan","Adam","Penelope","Charles","John",
         "Jake","David","Sean","Anna","Connor","Victor","Benjamin","Alan","Stephanie","Jane","Virginia","Christopher","Sam","Fiona",
@@ -377,7 +384,38 @@ public class NewProfileScript : MonoBehaviour
         "Edward","Yvonne","Theresa","Fiona","Carl","Frank","Adam","Trevor","Jan","Faith","Eric","Wanda","Matt","Ryan","Hannah",
         "Theresa","Karen","Lillian","Joshua","Felicity","Lauren","Isaac","Adam","Deirdre","Amy","Julia","Rachel","Gavin","Fiona",
         "Elizabeth","Christian","Chloe","Ella","Carol","Frank","Zoe","Victor","Ruth","Charles","William","Natalie","Joan","Elizabeth",
-        "Abigail","Emma","Robert","Liam","Deirdre","Leah","Melanie","Natalie","Ella","Steven","Edward","Wendy","Joseph","Campbell",
+        "Abigail","Emma","Robert","Liam","Deirdre","Leah","Melanie","Natalie","Ella","Steven","Edward","Wendy","Joseph","Campbell" };
+    private List<string> maleFirstNames = new List<string>()
+        {"Brett","Michael","Delmar","Daron",
+        "Dane","Zack","Joshua","Gerardo","Lincoln","","Valentin",
+        "Vicent","Thomas","Huy","Willie",
+        "Carlos","Eliseo","Victor", "Jacob","Michelle","James","Julian","Joseph","Jason","Edward",
+        "Cameron","Kevin","Isaac","Benjamin","Brandon","Stewart","Phil","Harry","Adrian",
+        "Adrian","Trevor","Frank","","Edward","Stephen","Jason","Carl","Paul",
+        "Anthony","Kevin","Jake","Carolyn","Paul","David",
+        "Robert","Blake","Matt","Richard","Neil","Lucas","Brandon",
+        "Victor","Connor","Liam","Owen","Nathan","Julian","Sebastian","Boris","Brian",
+        "Nicholas","Victor","Brian","Nathan","","Austin","Isaac","Joshua",
+        "Christopher","Jason","Lucas","Piers","Phil",
+        "Nicholas","Piers","Jason","Piers","William","Kevin","Owen","Stewart","Julian",
+        "Gordon","Virginia","Eric","Anthony","Dan","Adam","Ruth",
+        "Anthony","James","Brian","Alexander","Carl","Ryan","Trevor","Benjamin",
+        "Frank","Isaac","Eric","Jan","Eric","Ian","Phil",
+        "Ryan","Oliver","Nicholas","Christian","Peter","Eric","Sean","Tim","Isaac",
+        "Max","Jacob","Harry","Tim","Eric","Peter","Joan","Adam","Charles","John",
+        "Jake","David","Sean","Victor","Benjamin","Alan","Christopher","Sam",
+        "James","Eric","Connor","Richard","Thomas","Neil",
+        "Dominic","Isaac","Jonathan","Alan","Robert",
+        "Jason","Thomas","Max","William","Evan","Keith",
+        "James","Evan","Robert",
+        "Kevin","James","Adrian","Dylan","Stephen","Oliver","Lillian","Luke","Adam","Matt",
+        "Edward","Blake","Zoe","Liam","Nathan","Peter","Stephen",
+        "Edward","Carl","Frank","Adam","Trevor","Jan","Eric","Matt","Ryan",
+        "Joshua","Isaac","Adam","Gavin",
+        "Christian","Frank","Zoe","Victor","Charles","William",
+        "Robert","Liam","Steven","Edward","Joseph","Campbell" };
+    private List<string> lasts = new List<string>()
+        {
         "May","Lawrence","Young","Paterson","MacDonald","Fraser","Gill","Berry","Mathis","Dowd","Graham","Thomson","Reid","Howard","Knox",
         "Bell","Mackay","Jackson","Edmunds","Clarkson","Wilkins","Brown","Hunter","Duncan","Chapman","Coleman","Kerr","Lee","Skinner",
         "Hemmings","Jackson","Piper","Blake","Miller","Ross","Miller","Powell","Peters","Sharp","Hamilton","Greene","Campbell",
@@ -392,7 +430,19 @@ public class NewProfileScript : MonoBehaviour
         "Davies","Stewart","Ogden","Arnold","Hill","Nash","Robertson","Randall","Bower","Gill","Simpson","Lee","Dowd","Sutherland",
         "Payne","Clarkson","Peake","McDonald","Kelly","Underwood","Glover","King","Hughes","Welch","Brown","Sanderson","McGrath",
         "Bailey","Powell","MacLeod","Fisher","Terry","Ince","Payne","Russell","Bailey","Lee","Murray","Sharp","Turner","Duncan",
-        "Walsh","Manning","Avery","Poole","Bond","Graham","Parsons","Davidson"};
+        "Walsh","Manning","Avery","Poole","Bond","Graham","Parsons","Davidson","William","Ferguson","Abraham","Roberts","Berry","Hughes",
+        "Mathis","Bower","Campbell","Miller",
+        "Berry","Fraser","Hudson","Ferguson","Hardacre","Reid","Allan","Fisher","Roberts","Carr","Wallace","Hunter","Alsop",
+        "Davies","Langdon","Dickens","Mills","MacLeod","Davies","Bell","Anderson","Cornish","Davidson","McLean","Bower","Roberts",
+        "Kelly","Burgess","Kerr","McDonald","King","Sharp","Graham","Baker","Forsyth","McLean","McLean","Oliver","McDonald",
+        "Hudson","Carr","Randall","Burgess","Baker","James","Simpson","Knox","Abraham","Black","Bell","Roberts","Hodges","Davidson",
+        "Welch","Butler","Howard","Lambert","Jones","Sharp","Walker","Rutherford","Vaughan","Cameron","Mathis","Butler",
+        "Avery","Cornish","Hart","Howard","Cameron","Campbell","Lee","Skinner","Hudson","Morrison","Roberts","Peters",
+        "Wright","Hodges","MacLeod","Skinner","Parsons","Davidson","Morgan","Skinner","Kelly","Butler","Terry","Hamilton",
+        "Knox","Short","Scott","Lewis","Johnston","Graham","Dyer","Turner","Welch","Rampling","Marshall","Metcalfe","Jackson",
+        "Skinner","Dickens","Quinn","Arnold","Martin","Rampling","Stewart","Grant","Dyer","Ellison","Bond","Ball",
+        "Rampling","Scott","Scott","Grant","Mills","Anderson","McGrath","Bailey","Peters","Hart","Ferguson","Anderson","Hardacre",
+        "Young","Marshall","May","Burgess","Avery","Payne","Randall","Mackay","McGrath","May","Walsh","Greene"};
     private List<string> dobs = new List<string>()
         {"7/16/1995","3/16/2003","11/2/2010","1/19/2002","10/17/2000","4/28/1950","7/24/1958","7/7/1954","9/21/1942","3/23/2009",
         "7/15/2003","5/16/1963","12/25/1991","12/16/1974","1/3/1942","8/26/1979","8/10/1955","1/14/1953","10/4/2007","8/14/2008",
@@ -554,7 +604,6 @@ public class NewProfileScript : MonoBehaviour
         "9072306000","8244166000","4071142000","7229120000","1537456000","1792413000","1515249000","3493520000","6179643000","8030391000",
         "2728859000","3030323000","7433980000","2125797000","2890266000","8303373000","5441162000","4066593000","1248643000","6398433000",
         "5624153000","9048090000","3180767000","6256649000" };
-
     private List<string> pcps = new List<string>() { "Dr. Kevin Y. Nieto","Dr. Francisco L. Cooke","Dr. Gordon R. Peacock",
         "Dr. David Q. Black","Dr. Alan Z. Ferrer","Dr. Barry L. Mattson","Dr. Jeffery U. Schubert","Dr. Lawrence B. Mize",
         "Dr. Ray U. Walsh","Dr. William W. Betts","Dr. Eddie B. Jamison","Dr. Greg G. Metcalf","Dr. Douglas T. Stringer",
