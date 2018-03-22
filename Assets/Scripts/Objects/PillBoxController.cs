@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PillBoxController : MonoBehaviour {
 	public GameController gameController;
+	//public Input userInputField;
 
 	private float distance;
 	
@@ -13,6 +15,21 @@ public class PillBoxController : MonoBehaviour {
 
 		//If the player is close enough to the pill bottle, hits E, and the required pill threshold has been met, the bottle will turn into a prescription
 		if(distance < 3 && Input.GetKeyDown(KeyCode.E)){
+			/*int userInput = int.Parse(userInputField.text.ToString());
+			if(userInput > 0){
+				//We get the position and rotation of the pill tray, assign it to the filled tray, delete the empty tray, then instantiate the filled tray
+				var emptyTray = GameObject.FindGameObjectWithTag("PillTray");
+				var trayPosition = emptyTray.transform.position;
+				var trayRotation = emptyTray.transform.rotation;
+
+				Destroy (emptyTray);
+
+				var filledTray = Instantiate(Resources.Load<GameObject>("Prefabs/FilledTray"), trayPosition, trayRotation).GetComponent<FilledTrayController>();
+
+				filledTray.gameController = gameController;
+				filledTray.setPillCount (adjustPillInput(50));
+			}*/
+
 			//We get the position and rotation of the pill tray, assign it to the filled tray, delete the empty tray, then instantiate the filled tray
 			var emptyTray = GameObject.FindGameObjectWithTag("PillTray");
 			var trayPosition = emptyTray.transform.position;

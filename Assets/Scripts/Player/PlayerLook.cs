@@ -58,6 +58,12 @@ public class PlayerLook : MonoBehaviour {
 				if (hit.transform.gameObject.tag == "Interactable") {
 					notification.text = "Press E to use.";
 				}
+				else if(hit.transform.gameObject.tag == "FilledTray"){
+					notification.text = "Press E to fill prescription or R to empty.";
+				}
+				else if(hit.transform.gameObject.tag == "PillBox"){
+					notification.text = "Press E to fill pill tray.";
+				}
 				else {
 					notification.text = "";
 				}
