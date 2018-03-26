@@ -1,0 +1,382 @@
+fileFormatVersion: 2
+guid: 44504d8ac1a83df45a5fdb130e6e8a4a
+timeCreated: 1522080649
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Box002
+    100002: Box005
+    100004: Box006
+    100006: Box008
+    100008: Box009
+    100010: Box010
+    100012: Box011
+    100014: Box012
+    100016: Box013
+    100018: Box015
+    100020: Box016
+    100022: Box017
+    100024: Box018
+    100026: Box019
+    100028: Box020
+    100030: Box021
+    100032: Box022
+    100034: Box023
+    100036: Counter002
+    100038: Counter003
+    100040: Counter1
+    100042: Cylinder001
+    100044: Cylinder002
+    100046: Cylinder003
+    100048: DO Terminal 001
+    100050: DO Terminal 002
+    100052: DO Terminal 003
+    100054: DO Terminal 004
+    100056: FileCabinets
+    100058: MiddleDesk
+    100060: //RootNode
+    100062: PharmacyWalls
+    100064: PivotDoor001
+    100066: Shelf004
+    100068: Shelf005
+    100070: Shelf1
+    100072: Shelf2
+    100074: Shelf3
+    100076: Tech001
+    100078: Tech002
+    100080: Tech003
+    100082: Tech004
+    100084: Tech005
+    100086: TextCoun
+    100088: TextCsub
+    100090: TextDO
+    100092: TextDOsub
+    100094: TextPU
+    100096: TextPUsub001
+    400000: Box002
+    400002: Box005
+    400004: Box006
+    400006: Box008
+    400008: Box009
+    400010: Box010
+    400012: Box011
+    400014: Box012
+    400016: Box013
+    400018: Box015
+    400020: Box016
+    400022: Box017
+    400024: Box018
+    400026: Box019
+    400028: Box020
+    400030: Box021
+    400032: Box022
+    400034: Box023
+    400036: Counter002
+    400038: Counter003
+    400040: Counter1
+    400042: Cylinder001
+    400044: Cylinder002
+    400046: Cylinder003
+    400048: DO Terminal 001
+    400050: DO Terminal 002
+    400052: DO Terminal 003
+    400054: DO Terminal 004
+    400056: FileCabinets
+    400058: MiddleDesk
+    400060: //RootNode
+    400062: PharmacyWalls
+    400064: PivotDoor001
+    400066: Shelf004
+    400068: Shelf005
+    400070: Shelf1
+    400072: Shelf2
+    400074: Shelf3
+    400076: Tech001
+    400078: Tech002
+    400080: Tech003
+    400082: Tech004
+    400084: Tech005
+    400086: TextCoun
+    400088: TextCsub
+    400090: TextDO
+    400092: TextDOsub
+    400094: TextPU
+    400096: TextPUsub001
+    2100000: No Name
+    2100002: 02___Default
+    2100004: Letras
+    2300000: Box002
+    2300002: Box005
+    2300004: Box006
+    2300006: Box008
+    2300008: Box009
+    2300010: Box010
+    2300012: Box011
+    2300014: Box012
+    2300016: Box013
+    2300018: Box015
+    2300020: Box016
+    2300022: Box017
+    2300024: Box018
+    2300026: Box019
+    2300028: Box020
+    2300030: Box021
+    2300032: Box022
+    2300034: Box023
+    2300036: Counter002
+    2300038: Counter003
+    2300040: Counter1
+    2300042: Cylinder001
+    2300044: Cylinder002
+    2300046: Cylinder003
+    2300048: DO Terminal 001
+    2300050: DO Terminal 002
+    2300052: DO Terminal 003
+    2300054: DO Terminal 004
+    2300056: FileCabinets
+    2300058: MiddleDesk
+    2300060: PharmacyWalls
+    2300062: PivotDoor001
+    2300064: Shelf004
+    2300066: Shelf005
+    2300068: Shelf1
+    2300070: Shelf2
+    2300072: Shelf3
+    2300074: Tech001
+    2300076: Tech002
+    2300078: Tech003
+    2300080: Tech004
+    2300082: Tech005
+    2300084: TextCoun
+    2300086: TextCsub
+    2300088: TextDO
+    2300090: TextDOsub
+    2300092: TextPU
+    2300094: TextPUsub001
+    3300000: Box002
+    3300002: Box005
+    3300004: Box006
+    3300006: Box008
+    3300008: Box009
+    3300010: Box010
+    3300012: Box011
+    3300014: Box012
+    3300016: Box013
+    3300018: Box015
+    3300020: Box016
+    3300022: Box017
+    3300024: Box018
+    3300026: Box019
+    3300028: Box020
+    3300030: Box021
+    3300032: Box022
+    3300034: Box023
+    3300036: Counter002
+    3300038: Counter003
+    3300040: Counter1
+    3300042: Cylinder001
+    3300044: Cylinder002
+    3300046: Cylinder003
+    3300048: DO Terminal 001
+    3300050: DO Terminal 002
+    3300052: DO Terminal 003
+    3300054: DO Terminal 004
+    3300056: FileCabinets
+    3300058: MiddleDesk
+    3300060: PharmacyWalls
+    3300062: PivotDoor001
+    3300064: Shelf004
+    3300066: Shelf005
+    3300068: Shelf1
+    3300070: Shelf2
+    3300072: Shelf3
+    3300074: Tech001
+    3300076: Tech002
+    3300078: Tech003
+    3300080: Tech004
+    3300082: Tech005
+    3300084: TextCoun
+    3300086: TextCsub
+    3300088: TextDO
+    3300090: TextDOsub
+    3300092: TextPU
+    3300094: TextPUsub001
+    4300000: PharmacyWalls
+    4300002: PivotDoor001
+    4300004: Counter1
+    4300006: DO Terminal 001
+    4300008: Counter002
+    4300010: Counter003
+    4300012: MiddleDesk
+    4300014: DO Terminal 002
+    4300016: Tech002
+    4300018: Tech001
+    4300020: TextDO
+    4300022: TextCoun
+    4300024: TextPU
+    4300026: TextDOsub
+    4300028: TextCsub
+    4300030: TextPUsub001
+    4300032: FileCabinets
+    4300034: DO Terminal 003
+    4300036: DO Terminal 004
+    4300038: Tech003
+    4300040: Tech004
+    4300042: Shelf3
+    4300044: Shelf2
+    4300046: Shelf1
+    4300048: Tech005
+    4300050: Box002
+    4300052: Box005
+    4300054: Box006
+    4300056: Box008
+    4300058: Box009
+    4300060: Box010
+    4300062: Box011
+    4300064: Box012
+    4300066: Box013
+    4300068: Box015
+    4300070: Box016
+    4300072: Box017
+    4300074: Box018
+    4300076: Box019
+    4300078: Cylinder001
+    4300080: Cylinder002
+    4300082: Box020
+    4300084: Box021
+    4300086: Box022
+    4300088: Box023
+    4300090: Cylinder003
+    4300092: Shelf004
+    4300094: Shelf005
+    6400000: Box002
+    6400002: Box005
+    6400004: Box006
+    6400006: Box008
+    6400008: Box009
+    6400010: Box010
+    6400012: Box011
+    6400014: Box012
+    6400016: Box013
+    6400018: Box015
+    6400020: Box016
+    6400022: Box017
+    6400024: Box018
+    6400026: Box019
+    6400028: Box020
+    6400030: Box021
+    6400032: Box022
+    6400034: Box023
+    6400036: Counter002
+    6400038: Counter003
+    6400040: Counter1
+    6400042: Cylinder001
+    6400044: Cylinder002
+    6400046: Cylinder003
+    6400048: DO Terminal 001
+    6400050: DO Terminal 002
+    6400052: DO Terminal 003
+    6400054: DO Terminal 004
+    6400056: FileCabinets
+    6400058: MiddleDesk
+    6400060: PharmacyWalls
+    6400062: PivotDoor001
+    6400064: Shelf004
+    6400066: Shelf005
+    6400068: Shelf1
+    6400070: Shelf2
+    6400072: Shelf3
+    6400074: Tech001
+    6400076: Tech002
+    6400078: Tech003
+    6400080: Tech004
+    6400082: Tech005
+    6400084: TextCoun
+    6400086: TextCsub
+    6400088: TextDO
+    6400090: TextDOsub
+    6400092: TextPU
+    6400094: TextPUsub001
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
