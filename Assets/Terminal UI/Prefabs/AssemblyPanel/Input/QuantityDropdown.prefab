@@ -424,7 +424,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 114828206126395354}
   m_Template: {fileID: 224016672185106620}
   m_CaptionText: {fileID: 114063807010280758}

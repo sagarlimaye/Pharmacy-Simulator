@@ -78,17 +78,18 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_Interactable: 0
+  m_TargetGraphic: {fileID: 114664086984708636, guid: 7ec263e8766a567419119be97b7a4a91,
+    type: 2}
   toggleTransition: 1
-  graphic: {fileID: 0}
+  graphic: {fileID: 114204880490771518, guid: 7ec263e8766a567419119be97b7a4a91, type: 2}
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!114 &114527007794579786
 MonoBehaviour:
   m_ObjectHideFlags: 1

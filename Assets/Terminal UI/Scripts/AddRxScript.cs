@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class AddRxScript : MonoBehaviour {
 
+    public enum Scenario { One, Two, Three, Off };
+    public Scenario currentScenario;
+
     #region On Scene Objects
     public static GameObject rxScreen;
     public static GameObject addRxPanel;
@@ -24,7 +27,7 @@ public class AddRxScript : MonoBehaviour {
     public static Toggle addRxWaiterToggle;
     #endregion
 
-    #region AddRx Public Prefabs
+    #region RxEntry Public Prefabs
     public GameObject rxEntryObjPrefab;
     public GameObject rxEntryPanelPrefab;
     public Toggle rxEntryWaiterTogglePrefab;
@@ -32,7 +35,6 @@ public class AddRxScript : MonoBehaviour {
     public GameObject rxEntryNameBtnPrefab;
     public GameObject rxEntryDrugBtnPrefab;
     public GameObject rxEntryAssemblyBtnPrefab;
-    public Toggle isEditingPrefab;
     public GameObject rxEntryIdPrefab;
     #endregion
 
@@ -98,7 +100,54 @@ public class AddRxScript : MonoBehaviour {
     public GameObject apWaiterCheckToggleBackgroundPrefab;
     #endregion
 
-    public void Awake ()
+    public void Start()
+    {
+        switch (currentScenario)
+        {
+            case Scenario.Off:
+
+                GenerateRxEntry();
+                break;
+
+            case Scenario.One:
+
+                break;
+
+            case Scenario.Two:
+
+                break;
+
+            case Scenario.Three:
+
+                break;
+        }
+
+        PopulateAddRxDrugDropdownValues();
+    }
+
+    public void OnAddRxDrugDropdownValueChange()
+    {
+        UpdateQuantityDropdownValues();
+    }
+
+
+    private void PopulateAddRxDrugDropdownValues()
+    {
+        List<string> drugNames = new List<string>();
+        drugNames.Add("Select drug");
+        foreach (var drug in Drug.drugNames)
+        {
+            drugNames.Add(drug);
+        }
+        addRxDrugDropdown.AddOptions(drugNames);
+    }
+
+    private void GenerateRxEntry()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Awake()
     {
         rxScreen = GameObject.FindGameObjectWithTag("RxScreen");
         rxContent = GameObject.FindGameObjectWithTag("RxContent");
@@ -118,14 +167,20 @@ public class AddRxScript : MonoBehaviour {
         addRxPanel.SetActive(false);
     }
 
-    public void OnAddRx ()
+    public void OnAddRx()
     {
-        rxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(7).GetComponentInChildren<Text>().text;
+        lastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(7).GetComponentInChildren<Text>().text;
+        TransferNameFromPatientEntryToAddRx();
         addRxPanel.SetActive(true);
     }
 
     public void OnOk()
     {
+        if (AssemblyScript.lastModifiedId != null && lastAddRxId != AssemblyScript.lastModifiedId)
+            lastAddRxId = AssemblyScript.lastModifiedId;
+
+        DestroyPreExistingRxEntry();
+        DestroyPreExistingRxAssemblyPanel();
         InstantiateRxEntry();
         SaveAddRxDataToNewRxEntry();
         InstantiateAssemblyPanel();
@@ -140,18 +195,47 @@ public class AddRxScript : MonoBehaviour {
         addRxPanel.SetActive(false);
     }
 
+    private void DestroyPreExistingRxEntry()
+    {
+        for (int i = 0; i < rxContent.transform.childCount; i++)
+        {
+            GameObject currentRxEntryClone = rxContent.transform.GetChild(i).gameObject;
+            string currentRxIDTxt = currentRxEntryClone.transform.GetChild(0).transform.GetChild(4).GetComponent<Text>().text;
+
+            if (currentRxIDTxt == AssemblyScript.lastModifiedId)
+            {
+                Destroy(rxContent.transform.GetChild(i).transform.gameObject);
+            }
+        }
+    }
+
+    private void DestroyPreExistingRxAssemblyPanel()
+    {
+        for (int i = 1; i < rxScreen.transform.childCount; i++)
+        {
+            GameObject currentAssemblyPanel = rxScreen.transform.GetChild(i).gameObject;
+            string currentAssemblyPanelIdTxt = currentAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text;
+
+            if (currentAssemblyPanelIdTxt == AssemblyScript.lastModifiedId)
+            {
+                Destroy(rxScreen.transform.GetChild(i).gameObject);
+            }
+        }
+    }
+
     private void InstantiateRxEntry()
     {
         cloneRxEntryObj = Instantiate(rxEntryObjPrefab, rxContent.transform);
         cloneRxEntryPanel = Instantiate(rxEntryPanelPrefab, cloneRxEntryObj.transform);
-        cloneWaiterToggle = Instantiate(rxEntryWaiterTogglePrefab, cloneRxEntryPanel.transform) as Toggle;
+        cloneWaiterToggle = Instantiate(rxEntryWaiterTogglePrefab, cloneRxEntryPanel.transform);
         cloneWaiterToggleBackground = Instantiate(rxEntryWaiterToggleBackgroundPrefab, cloneWaiterToggle.transform);
         cloneNameBtn = Instantiate(rxEntryNameBtnPrefab, cloneRxEntryPanel.transform);
         cloneDrugBtn = Instantiate(rxEntryDrugBtnPrefab, cloneRxEntryPanel.transform);
         cloneAssemblyBtn = Instantiate(rxEntryAssemblyBtnPrefab, cloneRxEntryPanel.transform);
-        cloneIsEditingToggle = Instantiate(isEditingPrefab, cloneRxEntryPanel.transform) as Toggle;
-        cloneIsEditingToggle.isOn = false;
         cloneRxID = Instantiate(rxEntryIdPrefab, cloneRxEntryPanel.transform);
+
+        cloneWaiterToggle.GetComponent<Toggle>().graphic = cloneWaiterToggleBackground.transform.GetChild(0).GetComponent<Image>();
+
     }
 
     private void SaveAddRxDataToNewRxEntry()
@@ -165,7 +249,11 @@ public class AddRxScript : MonoBehaviour {
             string drugTxt = drugPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
             cloneDrugBtn.GetComponentInChildren<Text>().text = drugTxt;
 
-            cloneRxID.GetComponentInChildren<Text>().text = rxId;
+            GameObject waiterPanel = rxInfoPanel.transform.GetChild(8).gameObject;
+            bool waiter = waiterPanel.transform.GetChild(0).GetComponent<Toggle>().isOn;
+            cloneWaiterToggle.GetComponent<Toggle>().isOn = waiter;
+
+            cloneRxID.GetComponentInChildren<Text>().text = lastAddRxId;
         }
     }
 
@@ -235,10 +323,30 @@ public class AddRxScript : MonoBehaviour {
         cloneApWrittenCheckToggleBackground = Instantiate(apWrittenCheckToggleBackgroundPrefab, cloneApWrittenCheckToggle.transform);
         cloneApExpCheckToggleBackground = Instantiate(apExpCheckToggleBackgroundPrefab, cloneApExpCheckToggle.transform);
         cloneApWaiterCheckToggleBackground = Instantiate(apWaiterCheckToggleBackgroundPrefab, cloneApWaiterCheckToggle.transform);
+
+        cloneApPatientCheckToggle.GetComponent<Toggle>().graphic = cloneApPatientCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApDoctorCheckToggle.GetComponent<Toggle>().graphic = cloneApDoctorCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApDrugCheckToggle.GetComponent<Toggle>().graphic = cloneApDrugCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApQuantityCheckToggle.GetComponent<Toggle>().graphic = cloneApQuantityCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApRefillCheckToggle.GetComponent<Toggle>().graphic = cloneApRefillCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApBgCheckToggle.GetComponent<Toggle>().graphic = cloneApBgCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApWrittenCheckToggle.GetComponent<Toggle>().graphic = cloneApWrittenCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApExpCheckToggle.GetComponent<Toggle>().graphic = cloneApExpCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApWaiterCheckToggle.GetComponent<Toggle>().graphic = cloneApWaiterCheckToggleBackground.transform.GetChild(0).GetComponent<Image>();
+
+        cloneApBrandToggle.GetComponent<Toggle>().graphic = cloneApBrandToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApGenericToggle.GetComponent<Toggle>().graphic = cloneApGenericToggleBackground.transform.GetChild(0).GetComponent<Image>();
+        cloneApWaiterToggle.GetComponent<Toggle>().graphic = cloneApWaiterToggleBackground.transform.GetChild(0).GetComponent<Image>();
+
     }
 
     private void SaveAddRxDataToNewAssemblyPanel()
     {
+        List<List<string>> d1 = Drug.drugInfo[addRxDrugDropdown.options[1].text];
+        List<string> dq1 = d1[0];
+        addRxQuantityDropdown.AddOptions(dq1);
+
+
         GameObject patientPanel = rxInfoPanel.transform.GetChild(0).gameObject;
         string patientTxt = patientPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
         cloneApPatientInputField.GetComponentInChildren<InputField>().text = patientTxt;
@@ -249,11 +357,17 @@ public class AddRxScript : MonoBehaviour {
 
         GameObject drugPanel = rxInfoPanel.transform.GetChild(2).gameObject;
         int drugValue = drugPanel.transform.GetChild(1).GetComponent<Dropdown>().value;
+        string drugNameSelected = drugPanel.transform.GetChild(1).GetComponent<Dropdown>().options[drugValue].text;
+        cloneApDrugDropdown.ClearOptions();
         cloneApDrugDropdown.value = drugValue;
+        cloneApDrugDropdown.AddOptions(new List<string>() { drugNameSelected });
 
         GameObject quantityPanel = rxInfoPanel.transform.GetChild(3).gameObject;
         int quantityValue = quantityPanel.transform.GetChild(1).GetComponent<Dropdown>().value;
+        string quantitySelected = quantityPanel.transform.GetChild(1).GetComponent<Dropdown>().options[quantityValue].text;
+        cloneApQuantityDropdown.ClearOptions();
         cloneApQuantityDropdown.value = quantityValue;
+        cloneApQuantityDropdown.AddOptions(new List<string>() { quantitySelected });
 
         GameObject refillPanel = rxInfoPanel.transform.GetChild(4).gameObject;
         string refillTxt = refillPanel.transform.GetChild(1).gameObject.GetComponentInChildren<Text>().text;
@@ -274,11 +388,82 @@ public class AddRxScript : MonoBehaviour {
         cloneApExpInputField.GetComponentInChildren<InputField>().text = expTxt;
 
         GameObject waiterPanel = rxInfoPanel.transform.GetChild(8).gameObject;
-        bool waiter = bgPanel.transform.GetChild(0).GetComponent<Toggle>().isOn;
+        bool waiter = waiterPanel.transform.GetChild(0).GetComponent<Toggle>().isOn;
         cloneApWaiterToggle.GetComponent<Toggle>().isOn = waiter;
 
-        cloneApAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text = rxId;
+        cloneApAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text = lastAddRxId;
 
+    }
+
+    private void TransferNameFromPatientEntryToAddRx()
+    {
+        GameObject currentPatientEntry = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
+        string patientFullName = currentPatientEntry.transform.GetChild(0).GetComponentInChildren<Text>().text + " " +
+                                    currentPatientEntry.transform.GetChild(1).GetComponentInChildren<Text>().text;
+        addRxPanel.transform.GetChild(1).transform.GetChild(0).transform.GetChild(1).GetComponent<InputField>().text = patientFullName;
+    }
+
+    private void UpdateAssemblyPanelPriceAndId()
+    {
+        for (int i = 0; i < Drug.drugNames.Count; i++)
+        {
+            if(addRxDrugDropdown.value == i+1)
+            {
+                List<List<string>> drugInfo = Drug.drugInfo[addRxDrugDropdown.options[i+1].text];
+                List<string> drugPrices = drugInfo[1];
+                //CONTINUE HERE, find quantity selected, match with correct price
+            }
+        }
+    }
+
+    private void UpdateQuantityDropdownValues()
+    {
+        //Refactor: Switch to loop
+        switch (addRxDrugDropdown.value)
+        {
+            case 1:
+                addRxQuantityDropdown.ClearOptions();
+                addRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
+                List<List<string>> d1 = Drug.drugInfo[addRxDrugDropdown.options[1].text];
+                List<string> dq1 = d1[0];
+                addRxQuantityDropdown.AddOptions(dq1);
+                break;
+            case 2:
+                addRxQuantityDropdown.ClearOptions();
+                addRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
+                List<List<string>> d2 = Drug.drugInfo[addRxDrugDropdown.options[2].text];
+                List<string> dq2 = d2[0];
+                addRxQuantityDropdown.AddOptions(dq2);
+                break;
+            case 3:
+                addRxQuantityDropdown.ClearOptions();
+                addRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
+                List<List<string>> d3 = Drug.drugInfo[addRxDrugDropdown.options[3].text];
+                List<string> dq3 = d3[0];
+                addRxQuantityDropdown.AddOptions(dq3);
+                break;
+            case 4:
+                addRxQuantityDropdown.ClearOptions();
+                addRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
+                List<List<string>> d4 = Drug.drugInfo[addRxDrugDropdown.options[4].text];
+                List<string> dq4 = d4[0];
+                addRxQuantityDropdown.AddOptions(dq4);
+                break;
+            case 5:
+                addRxQuantityDropdown.ClearOptions();
+                addRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
+                List<List<string>> d5 = Drug.drugInfo[addRxDrugDropdown.options[5].text];
+                List<string> dq5 = d5[0];
+                addRxQuantityDropdown.AddOptions(dq5);
+                break;
+            case 6:
+                addRxQuantityDropdown.ClearOptions();
+                addRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
+                List<List<string>> d6 = Drug.drugInfo[addRxDrugDropdown.options[6].text];
+                List<string> dq6 = d6[0];
+                addRxQuantityDropdown.AddOptions(dq6);
+                break;
+        }
     }
 
     private void ResetAddRxPanelInputs()
@@ -295,7 +480,7 @@ public class AddRxScript : MonoBehaviour {
         addRxWaiterToggle.isOn = false;
     }
 
-    private static string rxId;
+    private static string lastAddRxId;
 
     #region Assembly Panel Clones
     private GameObject cloneApAssemblyPanel;
@@ -367,7 +552,6 @@ public class AddRxScript : MonoBehaviour {
     private GameObject cloneNameBtn;
     private GameObject cloneDrugBtn;
     private GameObject cloneAssemblyBtn;    
-    private Toggle cloneIsEditingToggle;
     private GameObject cloneRxID;
     #endregion
 }

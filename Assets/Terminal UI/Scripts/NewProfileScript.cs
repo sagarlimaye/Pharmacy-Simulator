@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 
 public class NewProfileScript : MonoBehaviour
 {
+    public enum Scenario { One, Two, Three, Off };
+    public Scenario currentScenario;
+
     #region On Scene Objects
     public static InputField searchInput;
     public static GameObject newProfilePanel;
@@ -66,7 +69,30 @@ public class NewProfileScript : MonoBehaviour
 
     public void Start()
     {
+        switch (currentScenario)
+        {
+            case Scenario.Off:
 
+                break;
+
+            case Scenario.One:
+
+                break;
+
+            case Scenario.Two:
+
+                break;
+
+            case Scenario.Three:
+
+                break;
+        }
+
+        InitializeRandomProfileGeneration();        
+    }
+
+    private void InitializeRandomProfileGeneration()
+    {
         for (int i = 0; i < patientEntries; i++)
         {
             InstantiatePatientEntry();
@@ -77,7 +103,7 @@ public class NewProfileScript : MonoBehaviour
             clonePhoneBtn.GetComponentInChildren<Text>().text = phones[rnd.Next(phones.Count)];
             cloneAddressBtn.GetComponentInChildren<Text>().text = addresses[rnd.Next(addresses.Count)];
 
-            cloneIdTxtEntry.GetComponentInChildren<Text>().text = (i+1).ToString();
+            cloneIdTxtEntry.GetComponentInChildren<Text>().text = (i + 1).ToString();
 
             InstantiateProfilePanel();
 
@@ -104,12 +130,12 @@ public class NewProfileScript : MonoBehaviour
             }
             cloneIdTxtProfile.GetComponentInChildren<Text>().text = (i + 1).ToString();
         }
-
-        //CleanUpProfileObjects();
     }
 
     public void Awake ()
     {
+        currentScenario = Scenario.Off;
+
         searchInput = (InputField)GameObject.FindGameObjectWithTag("SearchInputField").GetComponent<InputField>();
         profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
         profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
@@ -306,7 +332,7 @@ public class NewProfileScript : MonoBehaviour
         pcpPhoneInput.text = "";
     }
 
-    private int patientEntries = 5;
+    private int patientEntries = 20;
     private bool addingNewProfile;
     private GameObject currentProfile;
     private GameObject currentPatientEntry;
