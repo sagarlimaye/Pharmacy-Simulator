@@ -1,62 +1,27 @@
 fileFormatVersion: 2
-guid: 716b93ebbb4f698409a17fafa86606e9
-timeCreated: 1522081179
+guid: 5b032f2ec2943e1408325c1262271ae5
+timeCreated: 1522448699
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Box001
-    100002: Box002
-    100004: Box003
-    100006: Box005
-    100008: Box006
-    100010: Box008
-    100012: //RootNode
-    100014: Tube001
-    400000: Box001
-    400002: Box002
-    400004: Box003
-    400006: Box005
-    400008: Box006
-    400010: Box008
-    400012: //RootNode
-    400014: Tube001
-    2100000: 02 - Default
-    2100002: 15 - Default
-    2100004: 08 - Default
-    2100006: 09 - Default
-    2100008: 19 - Default
-    2100010: 14 - Default
-    2100012: 13 - Default
-    2100014: 03 - Default
-    2300000: Box001
-    2300002: Box002
-    2300004: Box003
-    2300006: Box005
-    2300008: Box006
-    2300010: Box008
-    2300012: Tube001
-    3300000: Box001
-    3300002: Box002
-    3300004: Box003
-    3300006: Box005
-    3300008: Box006
-    3300010: Box008
-    3300012: Tube001
-    4300000: Box001
-    4300002: Box002
-    4300004: Tube001
-    4300006: Box003
-    4300008: Box005
-    4300010: Box006
-    4300012: Box008
-    6400000: Box001
-    6400002: Box002
-    6400004: Box003
-    6400006: Box005
-    6400008: Box006
-    6400010: Box008
-    6400012: Tube001
+    100000: //RootNode
+    100002: Object001
+    400000: //RootNode
+    400002: Object001
+    2100000: 03 - Default
+    2100002: 20 - Default
+    2100004: 09 - Default
+    2100006: 19 - Default
+    2100008: 13 - Default
+    2100010: 02 - Default
+    2100012: 08 - Default
+    2300000: //RootNode
+    2300002: Object001
+    3300000: //RootNode
+    3300002: Object001
+    4300000: Object001
+    6400000: Object001
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -101,7 +66,7 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
+    preserveHierarchy: 1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
