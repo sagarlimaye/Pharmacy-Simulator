@@ -43,6 +43,11 @@ ModelImporter:
     4300008: Cylinder002
     4300010: Tube
     4300012: Cap
+    6400000: Cylinder001
+    6400002: Cylinder002
+    6400004: Cylinder003
+    6400006: Cylinder004
+    6400008: Cylinder005
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -76,7 +81,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 2
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
