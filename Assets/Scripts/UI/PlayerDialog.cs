@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerDialog : Dialog {
 
+	public bool isCorrect = false;
     // Use this for initialization
     void Start () {
 		
