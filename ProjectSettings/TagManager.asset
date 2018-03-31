@@ -8,6 +8,33 @@ TagManager:
   - PillTray
   - FilledTray
   - PillBox
+  - GenericToggle
+  - SearchInputField
+  - BrandToggle
+  - RefillsInput
+  - RxInfoPanel
+  - ProfilesContent
+  - ProfilesScreen
+  - DrugDropdown
+  - FirstInputField
+  - WaiterToggle
+  - QuantityDropdown
+  - AssemblyPanel
+  - ExpInput
+  - DoctorInput
+  - PatientInfoPanel
+  - WrittenInput
+  - DOBInputField
+  - LastInputField
+  - NewProfilePanel
+  - PatientInput
+  - AddressInputField
+  - AddRxPanel
+  - PhoneInputField
+  - RxContent
+  - RxScreen
+  - AssemblyScreen
+  - CustomerNavigation
   layers:
   - Default
   - TransparentFX
