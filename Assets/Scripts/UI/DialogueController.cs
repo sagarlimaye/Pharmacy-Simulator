@@ -23,7 +23,10 @@ public class DialogueController : MonoBehaviour {
 
     public delegate void DialogCheckpointEvent(DialogCheckpoint C);
     public delegate void DialogEvent(Dialog d);
-
+    public delegate void DialogControllerEvent();
+    
+    public static event DialogControllerEvent onIncorrectResponse;
+    public static event DialogControllerEvent onCorrectResponse;
     // Use this for initialization
     void Start () {
         panelLeft.SetActive(false);
@@ -62,8 +65,20 @@ public class DialogueController : MonoBehaviour {
                 Player.WalkSpeed = 0;
                 yield return new WaitUntil(() => playerSelection > 0);
                 Cursor.lockState = CursorLockMode.Locked;
-                var selection = current.transform.parent.GetChild(playerSelection - 1);
-                current = selection;
+                var response = current.transform.parent.GetChild(playerSelection - 1).GetComponent<PlayerDialog>();
+                if(response.isCorrect)
+                {
+                    if(onIncorrectResponse != null)
+                        onIncorrectResponse();
+                    
+                    current = response.transform;
+                }
+                else
+                {
+                    if(onIncorrectResponse != null)
+                        onIncorrectResponse();
+                    current = response.transform.parent;
+                }
             }
         }
         while (current.transform.childCount != 0);
