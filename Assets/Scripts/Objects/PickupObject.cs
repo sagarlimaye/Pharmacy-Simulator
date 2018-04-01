@@ -44,7 +44,7 @@ public class PickupObject : MonoBehaviour {
 		isHeld = true;
 	}
 
-	void putDown(){
+	public void putDown(){
 		transform.parent = null;
 		GetComponent<Rigidbody>().useGravity  = true;
 		GetComponent<Rigidbody>().isKinematic = false;

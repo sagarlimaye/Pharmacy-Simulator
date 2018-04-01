@@ -57,9 +57,10 @@ GameObject:
   - component: {fileID: 4724788952340436}
   - component: {fileID: 54658593948742902}
   - component: {fileID: 114568688901882316}
+  - component: {fileID: 136266306565138108}
   m_Layer: 0
   m_Name: PillBottle
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,8 +190,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1564732796797810}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.42594993, y: 0.0000000035219474, z: 3.9745023}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 21.311, y: 9.391515, z: 2.2559805}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4687167684498736}
@@ -317,7 +318,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 16d2ce0923fc1bf46b1c8b641abdbc2b, type: 3}
+  - {fileID: 2100000, guid: 2d7c7526caeaab243b802a46dbcda4ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -503,3 +504,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holder: {fileID: 0}
+--- !u!136 &136266306565138108
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564732796797810}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.073516354
+  m_Height: 0.3304621
+  m_Direction: 1
+  m_Center: {x: 0.00030137599, y: 0.1080299, z: 0}
