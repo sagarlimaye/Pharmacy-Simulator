@@ -424,6 +424,7 @@ public class RxDataEntryScript : MonoBehaviour {
         {
             InstantiateRxDataEntry();
             
+            //Generate random patient data
             int randomNum = 2 + rnd.Next(profileScreen.transform.childCount - 2);
             GameObject randomProfileEntry = profileScreen.transform.GetChild(randomNum).gameObject;
         

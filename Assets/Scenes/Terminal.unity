@@ -2468,6 +2468,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 211231508}
+--- !u!114 &216885681 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114174706131768080, guid: c93b17294d711f34295bfb53c3eb6dc7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1829550252}
+  m_Script: {fileID: 11500000, guid: 57b8bd90b8703a84c80bb00c70884e48, type: 3}
 --- !u!1 &219070162
 GameObject:
   m_ObjectHideFlags: 0
@@ -5546,6 +5552,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 312680441}
+        m_MethodName: OnOk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 216885681}
         m_MethodName: OnOk
         m_Mode: 1
         m_Arguments:
@@ -9535,7 +9552,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4657774647114066, guid: 2c8bdc6e2c9504a429e08dbcf7acd4e4, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 114435816048517188, guid: 2c8bdc6e2c9504a429e08dbcf7acd4e4,
         type: 2}
@@ -16073,7 +16090,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4327270691771408, guid: cfdc5bbd0b8c4a5478faac1907a00300, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 114680873978582488, guid: cfdc5bbd0b8c4a5478faac1907a00300,
         type: 2}
@@ -19666,17 +19683,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 856319627}
-        m_MethodName: CloseIntroGuide
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1323309581
@@ -22927,7 +22933,7 @@ GameObject:
   - component: {fileID: 1518494439}
   - component: {fileID: 1518494438}
   m_Layer: 0
-  m_Name: DrugDatabase
+  m_Name: DrugDatabaseObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27740,6 +27746,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1827521235}
+--- !u!1001 &1829550252
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 399.11334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 164.5063
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 4.198326
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4279707378174726, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c93b17294d711f34295bfb53c3eb6dc7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1834265493
 GameObject:
   m_ObjectHideFlags: 0
@@ -29073,6 +29121,46 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1905611678}
+--- !u!1 &1910856502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1910856504}
+  - component: {fileID: 1910856503}
+  m_Layer: 0
+  m_Name: PatientDatabaseObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1910856503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1910856502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da27e74a277604647bd53c56ca0a411a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1910856504
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1910856502}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 399.11334, y: 164.5063, z: 4.198326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1912455297
 GameObject:
   m_ObjectHideFlags: 0
@@ -29981,7 +30069,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1948179821
 GameObject:
