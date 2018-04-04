@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drug : MonoBehaviour {
+public class DrugDatabase : MonoBehaviour {
 
     public static List<string> drugNames = new List<string>() { "Humira", "Adulimumab",
                                                                  "Nexium", "Esomeprazole Magnesium",

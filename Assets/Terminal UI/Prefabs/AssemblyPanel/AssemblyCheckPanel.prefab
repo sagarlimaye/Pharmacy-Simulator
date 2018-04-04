@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 222602705274851538}
   - component: {fileID: 114064307732082564}
   m_Layer: 5
-  m_Name: RxCheckPanel
-  m_TagString: RxInfoPanel
+  m_Name: AssemblyCheckPanel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

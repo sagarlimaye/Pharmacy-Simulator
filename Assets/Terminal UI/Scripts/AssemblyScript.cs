@@ -10,12 +10,13 @@ public class AssemblyScript : MonoBehaviour {
     public static string lastModifiedId;
 
     #region On Scene Objects
-    public static GameObject rxScreen;
+    public static GameObject assemblyScreen;
     public static GameObject profileScreen;
-    public static GameObject rxContent;
+    public static GameObject assemblyContent;
     public static GameObject profilesContent;
     public static GameObject assemblyPanel;
     public static GameObject addRxPanel;
+    public static GameObject addRxScanPromptPanel;
     public static GameObject rxInfoPanel;
     public static InputField addRxPatientInput;
     public static InputField addRxDoctorInput;
@@ -31,22 +32,14 @@ public class AssemblyScript : MonoBehaviour {
 
     public void Awake()
     {
-        rxScreen = GameObject.FindGameObjectWithTag("RxScreen");
+        assemblyScreen = GameObject.FindGameObjectWithTag("AssemblyScreen");
         profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
-        rxContent = GameObject.FindGameObjectWithTag("RxContent");
+        assemblyContent = GameObject.FindGameObjectWithTag("AssemblyContent");
         profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
-        rxInfoPanel = GameObject.FindGameObjectWithTag("RxInfoPanel");
         addRxPanel = GameObject.FindGameObjectWithTag("AddRxPanel");
-        addRxPatientInput = GameObject.FindGameObjectWithTag("PatientInput").GetComponent<InputField>();
-        addRxDoctorInput = GameObject.FindGameObjectWithTag("DoctorInput").GetComponent<InputField>();
+        addRxScanPromptPanel = GameObject.FindGameObjectWithTag("ScanPrompt");
         addRxDrugDropdown = GameObject.FindGameObjectWithTag("DrugDropdown").GetComponent<Dropdown>();
         addRxQuantityDropdown = GameObject.FindGameObjectWithTag("QuantityDropdown").GetComponent<Dropdown>();
-        addRxRefillsInput = GameObject.FindGameObjectWithTag("RefillsInput").GetComponent<InputField>();
-        addRxBrandToggle = GameObject.FindGameObjectWithTag("BrandToggle").GetComponent<Toggle>();
-        addRxGenericToggle = GameObject.FindGameObjectWithTag("GenericToggle").GetComponent<Toggle>();
-        addRxWrittenDateInput = GameObject.FindGameObjectWithTag("WrittenInput").GetComponent<InputField>();
-        addRxExpirationDateInput = GameObject.FindGameObjectWithTag("ExpInput").GetComponent<InputField>();
-        addRxWaiterToggle = GameObject.FindGameObjectWithTag("WaiterToggle").GetComponent<Toggle>();
     }
 
     public void OnAssemble()
@@ -54,14 +47,14 @@ public class AssemblyScript : MonoBehaviour {
         GameObject currentRxEntry = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         string currentRxIDTxt = currentRxEntry.transform.GetChild(4).GetComponent<Text>().text;
 
-        for (int i = 1; i < rxScreen.transform.childCount; i++)
+        for (int i = 1; i < assemblyScreen.transform.childCount; i++)
         {
-            GameObject currentAssemblyClone = rxScreen.transform.GetChild(i).gameObject;
+            GameObject currentAssemblyClone = assemblyScreen.transform.GetChild(i).gameObject;
             string currentAssemblyIdTxt = currentAssemblyClone.transform.GetChild(1).GetComponent<Text>().text;
 
             if(currentRxIDTxt == currentAssemblyIdTxt)
             {
-                rxScreen.transform.GetChild(i).gameObject.SetActive(true);
+                assemblyScreen.transform.GetChild(i).gameObject.SetActive(true);
                 break;
             }
         }
@@ -76,10 +69,12 @@ public class AssemblyScript : MonoBehaviour {
     public void OnModify()
     {
         lastModifiedId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(1).GetComponent<Text>().text;
+
         EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
         EventSystem.current.currentSelectedGameObject.transform.parent.parent.gameObject.SetActive(false);
         profileScreen.SetActive(true);
         addRxPanel.SetActive(true);
+        addRxScanPromptPanel.SetActive(false);
 
         RepopulateAddRxPanel();
     }
@@ -87,47 +82,55 @@ public class AssemblyScript : MonoBehaviour {
     private void RepopulateAddRxPanel()
     {
         GameObject currentAssembly = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
-
         GameObject assemblyRxInfoPanel = currentAssembly.transform.GetChild(2).transform.GetChild(0).gameObject;
 
-        string patientInput = assemblyRxInfoPanel.transform.GetChild(0).transform.GetChild(1).GetComponent<InputField>().text;
-        addRxPatientInput.text = patientInput;
+        string patientInput = assemblyRxInfoPanel.transform.GetChild(0).GetChild(1).GetComponent<InputField>().text;
+        addRxPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text = patientInput;
 
-        string doctorInput = assemblyRxInfoPanel.transform.GetChild(1).transform.GetChild(1).GetComponent<InputField>().text;
-        addRxDoctorInput.text = doctorInput;
+        string doctorInput = assemblyRxInfoPanel.transform.GetChild(1).GetChild(1).GetComponent<InputField>().text;
+        addRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<InputField>().text = doctorInput;
 
-        string drugInput = assemblyRxInfoPanel.transform.GetChild(2).transform.GetChild(1).GetComponent<Dropdown>().options[0].text;
+        string drugInput = assemblyRxInfoPanel.transform.GetChild(2).GetChild(1).GetComponent<Dropdown>().options[0].text;
         for (int i = 0; i < addRxDrugDropdown.options.Count; i++)
         {
             if (drugInput == addRxDrugDropdown.options[i].text)
                 addRxDrugDropdown.value = i;
         }
 
-        string quantityInput = assemblyRxInfoPanel.transform.GetChild(3).transform.GetChild(1).GetComponent<Dropdown>().options[0].text;
+        string quantityInput = assemblyRxInfoPanel.transform.GetChild(3).GetChild(1).GetComponent<Dropdown>().options[0].text;
         for (int i = 0; i < addRxQuantityDropdown.options.Count; i++)
         {
-            if (drugInput == addRxQuantityDropdown.options[i].text)
+            if (quantityInput == addRxQuantityDropdown.options[i].text)
                 addRxQuantityDropdown.value = i;
         }
 
-        string refillInput = assemblyRxInfoPanel.transform.GetChild(4).transform.GetChild(1).GetComponent<InputField>().text;
-        addRxRefillsInput.text = refillInput;
+        string refillInput = assemblyRxInfoPanel.transform.GetChild(4).GetChild(1).GetComponent<InputField>().text;
+        addRxPanel.transform.GetChild(1).GetChild(4).GetChild(1).GetComponent<InputField>().text = refillInput;
 
-        bool brandInput = assemblyRxInfoPanel.transform.GetChild(5).transform.GetChild(0).GetComponent<Toggle>().isOn;
-        addRxBrandToggle.GetComponent<Toggle>().isOn = brandInput;
+        bool brandInput = assemblyRxInfoPanel.transform.GetChild(5).GetChild(0).GetComponent<Toggle>().isOn;
+        addRxPanel.transform.GetChild(1).GetChild(5).GetChild(0).GetComponent<Toggle>().isOn = brandInput;
 
-        bool genericInput = assemblyRxInfoPanel.transform.GetChild(5).transform.GetChild(1).GetComponent<Toggle>().isOn;
-        addRxGenericToggle.GetComponent<Toggle>().isOn = genericInput;
+        bool genericInput = assemblyRxInfoPanel.transform.GetChild(5).GetChild(1).GetComponent<Toggle>().isOn;
+        addRxPanel.transform.GetChild(1).GetChild(5).GetChild(1).GetComponent<Toggle>().isOn = genericInput;
 
-        string writtenInput = assemblyRxInfoPanel.transform.GetChild(6).transform.GetChild(1).GetComponent<InputField>().text;
-        addRxWrittenDateInput.text = writtenInput;
+        string writtenInput = assemblyRxInfoPanel.transform.GetChild(6).GetChild(1).GetComponent<InputField>().text;
+        addRxPanel.transform.GetChild(1).GetChild(6).GetChild(1).GetComponent<InputField>().text = writtenInput;
 
-        string expInput = assemblyRxInfoPanel.transform.GetChild(7).transform.GetChild(1).GetComponent<InputField>().text;
-        addRxExpirationDateInput.text = expInput;
+        string expInput = assemblyRxInfoPanel.transform.GetChild(7).GetChild(1).GetComponent<InputField>().text;
+        addRxPanel.transform.GetChild(1).GetChild(7).GetChild(1).GetComponent<InputField>().text = expInput;
 
-        bool waiterInput = assemblyRxInfoPanel.transform.GetChild(8).transform.GetChild(0).GetComponent<Toggle>().isOn;
-        addRxWaiterToggle.GetComponent<Toggle>().isOn = waiterInput;
+        bool waiterInput = assemblyRxInfoPanel.transform.GetChild(8).GetChild(0).GetComponent<Toggle>().isOn;
+        addRxPanel.transform.GetChild(1).GetChild(8).GetChild(0).GetComponent<Toggle>().isOn = waiterInput;
 
+        //Transfter RxImage back to AddRxPanel
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(0).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(1).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(2).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(3).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(4).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(5).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(6).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        Instantiate(currentAssembly.transform.GetChild(0).GetChild(7).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
     }
 
     private void DestroyRxEntry()
@@ -135,14 +138,14 @@ public class AssemblyScript : MonoBehaviour {
         GameObject currentAssemblyClone = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         string currentAssemblyIdTxt = currentAssemblyClone.transform.GetChild(1).GetComponent<Text>().text;
 
-        for (int i = 0; i < rxContent.transform.childCount; i++)
+        for (int i = 0; i < assemblyContent.transform.childCount; i++)
         {
-            GameObject currentRxEntryClone = rxContent.transform.GetChild(i).gameObject;
+            GameObject currentRxEntryClone = assemblyContent.transform.GetChild(i).gameObject;
             string currentRxIDTxt = currentRxEntryClone.transform.GetChild(0).transform.GetChild(4).GetComponent<Text>().text;
 
             if (currentRxIDTxt == currentAssemblyIdTxt)
             {
-                Destroy(rxContent.transform.GetChild(i).transform.gameObject);
+                Destroy(assemblyContent.transform.GetChild(i).transform.gameObject);
                 Destroy(EventSystem.current.currentSelectedGameObject.transform.parent.gameObject);
             }
         }

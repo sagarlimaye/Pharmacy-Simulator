@@ -13,16 +13,6 @@ public class NewProfileScript : MonoBehaviour
     public static InputField searchInput;
     public static GameObject newProfilePanel;
     public static GameObject patientInfoPanel;
-    public static InputField firstInput;
-    public static InputField lastInput;
-    public static InputField dobInput;
-    public static InputField phoneInput;
-    public static InputField addressInput;
-    public static InputField insCompanyInput;
-    public static InputField memberInput;
-    public static InputField groupInput;
-    public static InputField pcpInput;
-    public static InputField pcpPhoneInput;
     public static GameObject profilesContent;
     public static GameObject profileScreen;
     #endregion
@@ -86,9 +76,7 @@ public class NewProfileScript : MonoBehaviour
             case Scenario.Three:
 
                 break;
-        }
-
-        InitializeRandomProfileGeneration();        
+        }      
     }
 
     private void InitializeRandomProfileGeneration()
@@ -130,32 +118,6 @@ public class NewProfileScript : MonoBehaviour
             }
             cloneIdTxtProfile.GetComponentInChildren<Text>().text = (i + 1).ToString();
         }
-    }
-
-    public void Awake ()
-    {
-        currentScenario = Scenario.Off;
-
-        searchInput = (InputField)GameObject.FindGameObjectWithTag("SearchInputField").GetComponent<InputField>();
-        profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
-        profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
-        newProfilePanel = GameObject.FindGameObjectWithTag("NewProfilePanel");
-        patientInfoPanel = GameObject.FindGameObjectWithTag("PatientInfoPanel");
-        firstInput = (InputField)GameObject.FindGameObjectWithTag("FirstInputField").GetComponent<InputField>();
-        lastInput = (InputField)GameObject.FindGameObjectWithTag("LastInputField").GetComponent<InputField>();
-        dobInput = (InputField)GameObject.FindGameObjectWithTag("DOBInputField").GetComponent<InputField>();
-        phoneInput = (InputField)GameObject.FindGameObjectWithTag("PhoneInputField").GetComponent<InputField>();
-        addressInput = (InputField)GameObject.FindGameObjectWithTag("AddressInputField").GetComponent<InputField>();
-        insCompanyInput = (InputField)GameObject.FindGameObjectWithTag("InsCompanyField").GetComponent<InputField>();
-        memberInput = (InputField)GameObject.FindGameObjectWithTag("MemberInputField").GetComponent<InputField>();
-        groupInput = (InputField)GameObject.FindGameObjectWithTag("GroupInputField").GetComponent<InputField>();
-        pcpInput = (InputField)GameObject.FindGameObjectWithTag("PCPInputField").GetComponent<InputField>();
-        pcpPhoneInput = (InputField)GameObject.FindGameObjectWithTag("PCPPhoneInputField").GetComponent<InputField>();
-
-        maleAvatars = Resources.LoadAll<Sprite>("ProfileAvatars/Male");
-        femaleAvatars = Resources.LoadAll<Sprite>("ProfileAvatars/Female");
-
-        newProfilePanel.SetActive(false);
     }
     
     public void OnNewProfile()
@@ -214,6 +176,21 @@ public class NewProfileScript : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void Awake()
+    {
+        searchInput = (InputField)GameObject.FindGameObjectWithTag("SearchInputField").GetComponent<InputField>();
+        profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
+        profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
+        newProfilePanel = GameObject.FindGameObjectWithTag("NewProfilePanel");
+        patientInfoPanel = GameObject.FindGameObjectWithTag("PatientInfoPanel");
+
+        maleAvatars = Resources.LoadAll<Sprite>("ProfileAvatars/Male");
+        femaleAvatars = Resources.LoadAll<Sprite>("ProfileAvatars/Female");
+
+        InitializeRandomProfileGeneration();
+        newProfilePanel.SetActive(false);
     }
 
     private void InstantiatePatientEntry()
@@ -320,16 +297,16 @@ public class NewProfileScript : MonoBehaviour
 
     private void ResetNewProfileInputFields()
     {
-        firstInput.text = "";
-        lastInput.text = "";
-        dobInput.text = "";
-        phoneInput.text = "";
-        addressInput.text = "";
-        insCompanyInput.text = "";
-        memberInput.text = "";
-        groupInput.text = "";
-        pcpInput.text = "";
-        pcpPhoneInput.text = "";
+        patientInfoPanel.transform.GetChild(0).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(1).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(2).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(3).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(4).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(5).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(6).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(7).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(8).GetChild(1).GetComponent<InputField>().text = "";
+        patientInfoPanel.transform.GetChild(9).GetChild(1).GetComponent<InputField>().text = "";
     }
 
     private int patientEntries = 20;
@@ -340,7 +317,7 @@ public class NewProfileScript : MonoBehaviour
     private Sprite[] femaleAvatars;
     private static System.Random rnd = new System.Random();
 
-    #region Patient Entry Private Properties  
+    #region Patient Entry Clones 
     private Text cloneIdTxtEntry;
     private Button cloneFirstBtn;
     private Button cloneLastBtn;
@@ -354,7 +331,7 @@ public class NewProfileScript : MonoBehaviour
     private GameObject clonePatientEntryPanel;
     #endregion
 
-    #region Profile Panel Private Properties
+    #region Profile Panel Clones
     private Text cloneIdTxtProfile;
     private GameObject cloneNewProfilePanel;
     private GameObject clonePatientInfoPanel;

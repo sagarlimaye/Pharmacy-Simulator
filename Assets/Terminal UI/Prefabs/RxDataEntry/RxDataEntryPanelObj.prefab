@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222923508881710546}
   - component: {fileID: 114171043165321242}
   m_Layer: 5
-  m_Name: RxEntryPanel
+  m_Name: RxDataEntryPanelObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -7,37 +7,32 @@ TagManager:
   - Interactable
   - Pill
   - PillTray
-  - WrittenInput
   - AssemblyPanel
   - GenericToggle
   - BrandToggle
-  - ExpInput
-  - DoctorInput
   - RxInfoPanel
-  - RefillsInput
   - SearchInputField
   - DrugDropdown
   - QuantityDropdown
-  - PatientInput
-  - WaiterToggle
   - RxContent
   - RxScreen
   - ProfilesScreen
-  - LastInputField
   - NewProfilePanel
   - PatientInfoPanel
   - ProfilesContent
-  - AddressInputField
-  - PhoneInputField
   - AssemblyScreen
   - AddRxPanel
-  - DOBInputField
-  - FirstInputField
-  - InsCompanyField
-  - MemberInputField
-  - GroupInputField
-  - PCPInputField
-  - PCPPhoneInputField
+  - AssemblyInfoPanel
+  - AddRxInfoPanel
+  - ScanPrompt
+  - AssemblyContent
+  - RxImage
+  - DataEntryAddRxPanel
+  - DataEntryAddRxInfoPanel
+  - rxDEDrugDropdown
+  - rxDEQuantityDropdown
+  - GuideRxAddRxDEPanel
+  - RxDEAddRxImage
   layers:
   - Default
   - TransparentFX
