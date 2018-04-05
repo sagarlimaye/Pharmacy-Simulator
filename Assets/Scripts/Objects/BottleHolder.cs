@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,9 +32,9 @@ public class BottleHolder : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "Interactable" && other.gameObject.name.Contains("Pill"))
+		if(other.tag == "Interactable" || other.gameObject.name.Contains("Pill") || other.tag == "Antibiotic")
 		{
-			other.transform.position = coll.transform.position;
+			other.transform.position = transform.position + coll.center;
 			var rbody = other.GetComponent<Rigidbody>();
 			rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 			other.GetComponent<PickupObject>().putDown();
