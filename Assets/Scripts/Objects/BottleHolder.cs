@@ -6,7 +6,8 @@ public class BottleHolder : MonoBehaviour {
 
 	BoxCollider coll;
 	public GameObject bottle;
-
+	public delegate void BottleHolderEvent(GameObject bottle);
+	public static event BottleHolderEvent BottlePlaced;
 	// Use this for initialization
 	void Start () {
 		coll = GetComponent<BoxCollider>();
@@ -25,6 +26,9 @@ public class BottleHolder : MonoBehaviour {
 			rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
 			other.GetComponent<PickupObject>().putDown();
 			bottle = other.gameObject;
+
+			if(BottlePlaced != null)
+				BottlePlaced(other.gameObject);
 		}
 	}
 }
