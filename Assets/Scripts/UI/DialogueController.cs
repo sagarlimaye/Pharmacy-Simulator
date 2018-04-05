@@ -10,9 +10,8 @@ public class DialogueController : MonoBehaviour {
     public PlayerController Player;
     public Text Question;
     public Text[] answers;
-    private int correctKey;
     public GameObject panelLeft, panelRight;
-    public static bool busy = false;
+    public bool busy = false;
     public int playerSelection = -1;
 
     public void setPlayerSelection(int s)
@@ -20,13 +19,13 @@ public class DialogueController : MonoBehaviour {
         playerSelection = s;
     }
     
-
-    public delegate void DialogCheckpointEvent(DialogCheckpoint C);
     public delegate void DialogEvent(Dialog d);
-    public delegate void DialogControllerEvent();
-    
-    public static event DialogControllerEvent onIncorrectResponse;
-    public static event DialogControllerEvent onCorrectResponse;
+    public delegate void DialogControllerEvent(GameObject d);
+    public static event DialogControllerEvent DialogStarted;
+
+    public static event DialogControllerEvent DialogCompleted;
+    public static event DialogEvent IncorrectResponseChosen;
+    public static event DialogEvent CorrectResponseChosen;
     // Use this for initialization
     void Start () {
         panelLeft.SetActive(false);
@@ -51,7 +50,6 @@ public class DialogueController : MonoBehaviour {
             else
             {
                 playerSelection = -1;
-                var pd = line as PlayerDialog;
                 int i = 0;
                 foreach(Transform child in current.transform.parent)
                 {
@@ -68,15 +66,14 @@ public class DialogueController : MonoBehaviour {
                 var response = current.transform.parent.GetChild(playerSelection - 1).GetComponent<PlayerDialog>();
                 if(response.isCorrect)
                 {
-                    if(onIncorrectResponse != null)
-                        onIncorrectResponse();
-                    
+                    if(CorrectResponseChosen != null)
+                        CorrectResponseChosen(dialog.GetComponent<Dialog>());
                     current = response.transform;
                 }
                 else
                 {
-                    if(onIncorrectResponse != null)
-                        onIncorrectResponse();
+                    if(IncorrectResponseChosen != null)
+                        IncorrectResponseChosen(dialog.GetComponent<Dialog>());
                     current = response.transform.parent;
                 }
             }
