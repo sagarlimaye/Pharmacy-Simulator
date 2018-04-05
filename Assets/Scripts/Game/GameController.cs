@@ -18,12 +18,14 @@ public class GameController : MonoBehaviour {
 		CustomerDestroyer.CustomerDestroyed += SpawnNewCustomer;
 		CustomerAgent.CustomerSpawned += OnCustomerSpawned;
 		DialogueController.DialogCompleted += OnDialogCompleted;
+		BottleHolder.BottlePlaced += OnBottlePlaced;
 	}
 	void OnDisable()
 	{
 		CustomerDestroyer.CustomerDestroyed -= SpawnNewCustomer;
 		DialogueController.DialogCompleted -= OnDialogCompleted;
 		CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
+		BottleHolder.BottlePlaced -= OnBottlePlaced;
 	}
 
 	void SpawnNewCustomer()
@@ -48,6 +50,11 @@ public class GameController : MonoBehaviour {
 			requestCheckpoint.dialog = pickupRequestDialog;
 			pickupCheckpoint.dialog = null;
 		}
+	}
+	void OnBottlePlaced(GameObject bottle)
+	{
+		pickupCheckpoint.dialog = prescriptionReadyDialog;
+		requestCheckpoint.dialog = null;
 	}
 	// Use this for initialization
 	void Start () {
