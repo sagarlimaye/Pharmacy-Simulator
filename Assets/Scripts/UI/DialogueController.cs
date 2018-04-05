@@ -92,33 +92,5 @@ public class DialogueController : MonoBehaviour {
         busy = true;
         StartCoroutine(playDialog(d.transform));
     }
-    public void showQuestion(string question, string[] choices, int correct)
-    {
-        /* shuffle answer choices
-        List<string> choiceList = new List<string>(choices);
-        System.Random rnd = new System.Random();
-        int i = rnd.Next(0, 3);
-        answers[i].text = choiceList[correct];
-        correctKey = i+1;
-        choiceList.RemoveAt(correct);
-        var shuffled = choiceList.OrderBy(item => rnd.Next()).ToList<string>();
-        for(i=0;i<4; i++)
-        {
-            if(i!=correctKey - 1)
-            {
-                answers[i].text = shuffled[i];
-                shuffled.RemoveAt(i);
-            }
-        }
-        */
-        
-        correctKey = correct + 1;
-        for(int i = 0; i < 4; i++)
-            answers[i].text = choices[i];
-        Question.text = question;
-        panelLeft.SetActive(true);
-        if(choices.Length > 2)
-            panelRight.SetActive(true);
-        Player.WalkSpeed = 0;
-    }
+
 }
