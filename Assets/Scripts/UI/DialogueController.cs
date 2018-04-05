@@ -14,6 +14,7 @@ public class DialogueController : MonoBehaviour {
     public bool busy = false;
     public int playerSelection = -1;
 
+    private GameObject dialog;
     public void setPlayerSelection(int s)
     {
         playerSelection = s;
@@ -36,7 +37,10 @@ public class DialogueController : MonoBehaviour {
 
     IEnumerator playDialog(Transform d)
     {
+        dialog = d.gameObject;
         var current = d;
+        if(DialogStarted!=null)
+            DialogStarted(dialog);
         do
         {
             current = current.GetChild(0);
@@ -80,7 +84,8 @@ public class DialogueController : MonoBehaviour {
         }
         while (current.transform.childCount != 0);
         busy = false;
-        
+        if(DialogCompleted != null)
+            DialogCompleted(dialog);
     }
     public void startDialog(GameObject d)
     {
