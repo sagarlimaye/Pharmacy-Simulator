@@ -12,12 +12,24 @@ public class BottleHolder : MonoBehaviour {
 	void Start () {
 		coll = GetComponent<BoxCollider>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	void OnEnable()
+	{
+		DialogueController.DialogCompleted += OnDialogCompleted;
 	}
-	void OnTriggerEnter(Collider other)
+	void OnDisable()
+	{
+		DialogueController.DialogCompleted += OnDialogCompleted;
+	}
+
+    private void OnDialogCompleted(GameObject d)
+    {
+		if(d.tag == "PrescriptionReadyDialog")
+		{
+			RemoveBottle();
+		}
+    }
+
+    void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == "Interactable" && other.gameObject.name.Contains("Pill"))
 		{
@@ -31,4 +43,10 @@ public class BottleHolder : MonoBehaviour {
 				BottlePlaced(other.gameObject);
 		}
 	}
+	
+	public void RemoveBottle()
+	{
+		Destroy(bottle, 3);
+	}
+
 }
