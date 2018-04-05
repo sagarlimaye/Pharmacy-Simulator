@@ -6,28 +6,37 @@ public class DialogCheckpoint : MonoBehaviour {
 
     public DialogueController controller;
     //public Dialog[] sentences;
-    public static event DialogueController.DialogCheckpointEvent onCheckpointActivated;
-    public static event DialogueController.DialogCheckpointEvent onCheckpointEntered;
+    BoxCollider boxCollider;
+
+    public GameObject dialog;
+    public bool isPlayer, isCustomer;
+    
+    void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+    }
 
     private void OnTriggerEnter(Collider other)
-    {
-        // if(player not busy)
-        // emit signal to start dialog
-        if (other.tag == "Player")
-        {
-            if (onCheckpointEntered != null)
-                onCheckpointEntered(this);
-            if(!DialogueController.busy)
+    {    
+        if(other.tag == "Player")
+            isPlayer = true;
+        if(other.tag == "Customer")
+            isCustomer = true;
+        if(isPlayer && isCustomer)
+            if(!controller.busy && dialog != null)
                 activate();
-            
-        }
+                
+        // if(player not busy)
+    }
+    void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player")
+            isPlayer = false;
+        if(other.tag == "Customer")
+            isCustomer = false;
     }
     public void activate()
     {
-        if (onCheckpointActivated != null)
-            onCheckpointActivated(this);
-        controller.startDialog(gameObject);
-        gameObject.SetActive(false);
-        
+        controller.startDialog(dialog);        
     }
 }

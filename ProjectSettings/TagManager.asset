@@ -35,6 +35,10 @@ TagManager:
   - RxScreen
   - AssemblyScreen
   - CustomerNavigation
+  - PickupPrescriptionDialog
+  - PrescriptionReadyDialog
+  - Antibiotic
+  - Customer
   layers:
   - Default
   - TransparentFX

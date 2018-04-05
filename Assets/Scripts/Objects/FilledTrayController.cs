@@ -8,6 +8,8 @@ public class FilledTrayController : MonoBehaviour {
 	private float distance;
 	private int pillCount;
 
+	public GameObject bottle;
+
 	// Update is called once per frame
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
@@ -15,7 +17,8 @@ public class FilledTrayController : MonoBehaviour {
 		//If the player hits E, replace the empty pill bottle with a filled prescription; if they hit R, we only replace the tray
 		if(distance < 3 && pillCount != 0){
 			if(Input.GetKeyDown(KeyCode.E)){
-				GameObject pillBottle = GameObject.Find ("Bottle");
+				var holder = transform.GetChild(0).GetComponent<BottleHolder>();
+				GameObject pillBottle = holder.bottle;
 				var bottlePosition = pillBottle.transform.position;
 				var bottleRotation = pillBottle.transform.rotation;
 

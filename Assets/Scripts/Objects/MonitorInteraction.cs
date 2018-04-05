@@ -9,7 +9,28 @@ public class MonitorInteraction : MonoBehaviour {
 
 	public SwitchPanelScript switcher;
 	private float distance;
-	
+	bool available;
+	void OnEnable()
+	{
+		DialogueController.DialogStarted += OnDialogStarted;
+		DialogueController.DialogCompleted += OnDialogCompleted;
+	}
+
+	void OnDisable()
+	{
+		DialogueController.DialogStarted -= OnDialogStarted;
+		DialogueController.DialogCompleted -= OnDialogCompleted;
+	}
+
+	void OnDialogStarted(GameObject d)
+	{
+		available = false;
+	}
+	void OnDialogCompleted(GameObject d)
+	{
+		available = true;
+	}
+
 	void Awake()
 	{
 		MainTerminalPanel.SetActive(false);
@@ -19,8 +40,8 @@ public class MonitorInteraction : MonoBehaviour {
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
-		if (distance < 3 && Input.GetKeyDown(KeyCode.E)) {
-			if(switcher.currentScreen == SwitchPanelScript.MainScreens.Off && !DialogueController.busy)
+		if ( available && distance < 3 && Input.GetKeyDown(KeyCode.E)) {
+			if(switcher.currentScreen == SwitchPanelScript.MainScreens.Off)
 			{
 				MainTerminalPanel.SetActive(true);
 				switcher.currentScreen = SwitchPanelScript.MainScreens.Rx;

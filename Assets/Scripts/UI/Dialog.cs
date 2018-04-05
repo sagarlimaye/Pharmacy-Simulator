@@ -4,7 +4,29 @@ using UnityEngine;
 
 public class Dialog : MonoBehaviour {
 
-    public static DialogueController.DialogEvent onDialogStart;
-    public static DialogueController.DialogEvent onDialogEnd;
     public string text;
+    private string placeholderText;
+    void OnEnable()
+    {
+        CustomerAgent.CustomerSpawned += OnCustomerSpawned;
+        CustomerDestroyer.CustomerDestroyed += OnCustomerDestroyed;
+    }
+    void OnDisable()
+    {
+        CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
+        CustomerDestroyer.CustomerDestroyed -= OnCustomerDestroyed;
+    }
+    void OnCustomerSpawned(CustomerAgent customer)
+    {
+        placeholderText = text;
+        text = text.Replace("$name", customer.customerName);
+        text = text.Replace("$dob", customer.dob);
+        text = text.Replace("$drug", customer.drug);
+    }
+    void OnCustomerDestroyed()
+    {
+        text = placeholderText;
+    }
+
+
 }
