@@ -6,9 +6,49 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 	public int pillCountTarget;
 	public Text pillCountText;
+	public GameObject prescriptionReadyDialog, pickupRequestDialog;
+	public GameObject spawnPoint, Customer, requestSpot, waitPos1, destroySpot, pickupSpot;
+	public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
 
 	private int pillCount;
 
+	
+	void OnEnable()
+	{
+		CustomerDestroyer.CustomerDestroyed += SpawnNewCustomer;
+		CustomerAgent.CustomerSpawned += OnCustomerSpawned;
+		DialogueController.DialogCompleted += OnDialogCompleted;
+	}
+	void OnDisable()
+	{
+		CustomerDestroyer.CustomerDestroyed -= SpawnNewCustomer;
+		DialogueController.DialogCompleted -= OnDialogCompleted;
+		CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
+	}
+
+	void SpawnNewCustomer()
+	{
+		Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
+	}
+
+	void OnCustomerSpawned(CustomerAgent customer)
+	{
+		requestCheckpoint.dialog = pickupRequestDialog;
+		pickupCheckpoint.dialog = null;
+	}
+	void OnDialogCompleted(GameObject dialog)
+	{
+		if(dialog.tag == "PickupPrescriptionDialog")
+		{
+			pickupCheckpoint.dialog = prescriptionReadyDialog;
+			requestCheckpoint.dialog = null;
+		}
+		if(dialog.tag == "PrescriptionReadyDialog")
+		{
+			requestCheckpoint.dialog = pickupRequestDialog;
+			pickupCheckpoint.dialog = null;
+		}
+	}
 	// Use this for initialization
 	void Start () {
 		pillCount = 0;
@@ -16,6 +56,7 @@ public class GameController : MonoBehaviour {
 		pillCountText.text = "";
 
 		updatePillCount();
+		SpawnNewCustomer();
 	}
 
 	//We display the new pill count for the current prescription
