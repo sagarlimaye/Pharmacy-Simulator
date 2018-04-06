@@ -5,7 +5,34 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - Pill
   - PillTray
+  - AssemblyPanel
+  - GenericToggle
+  - BrandToggle
+  - RxInfoPanel
+  - SearchInputField
+  - DrugDropdown
+  - QuantityDropdown
+  - RxContent
+  - RxScreen
+  - ProfilesScreen
+  - NewProfilePanel
+  - PatientInfoPanel
+  - ProfilesContent
+  - AssemblyScreen
+  - AddRxPanel
+  - AssemblyInfoPanel
+  - AddRxInfoPanel
+  - ScanPrompt
+  - AssemblyContent
+  - RxImage
+  - DataEntryAddRxPanel
+  - DataEntryAddRxInfoPanel
+  - rxDEDrugDropdown
+  - rxDEQuantityDropdown
+  - GuideRxAddRxDEPanel
+  - RxDEAddRxImage
   layers:
   - Default
   - TransparentFX
