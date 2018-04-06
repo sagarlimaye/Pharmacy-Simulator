@@ -52,11 +52,11 @@ public class SearchFunctionScript : MonoBehaviour {
             GameObject patientEntry = scroll.content.GetChild(i).gameObject;
             GameObject patientEntryPanel = patientEntry.transform.GetChild(0).gameObject;
             Button[] entryFields = patientEntryPanel.GetComponentsInChildren<Button>();
-            string firstNameFieldTxt = entryFields[2].GetComponentInChildren<Text>().text;
-            string lastNameFieldTxt = entryFields[3].GetComponentInChildren<Text>().text;
-            string dobFieldTxt = entryFields[4].GetComponentInChildren<Text>().text;
-            string phoneFieldTxt = entryFields[5].GetComponentInChildren<Text>().text;
-            string addressFieldTxt = entryFields[6].GetComponentInChildren<Text>().text;
+            string firstNameFieldTxt = entryFields[0].GetComponentInChildren<Text>().text;
+            string lastNameFieldTxt = entryFields[1].GetComponentInChildren<Text>().text;
+            string dobFieldTxt = entryFields[2].GetComponentInChildren<Text>().text;
+            string phoneFieldTxt = entryFields[3].GetComponentInChildren<Text>().text;
+            string addressFieldTxt = entryFields[4].GetComponentInChildren<Text>().text;
 
             if (searchInput.text == "")
             {

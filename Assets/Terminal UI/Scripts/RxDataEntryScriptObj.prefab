@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1775085633381960}
+  m_IsPrefabParent: 1
+--- !u!1 &1775085633381960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4205333452191698}
+  - component: {fileID: 114453855528433256}
+  m_Layer: 0
+  m_Name: RxDataEntryScriptObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4205333452191698
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1775085633381960}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 399.11334, y: 164.5063, z: 4.198326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114453855528433256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1775085633381960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62505426ef8599f44aae0643ef1c237a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rxDataEntryObjPrefab: {fileID: 1660321378674982, guid: 2cae28ddf0893084e92c5a4de5714c78,
+    type: 2}
+  rxDataEntryPanelPrefab: {fileID: 1107442003416162, guid: fc5bb5cc74f9c564db936bbdf47d7751,
+    type: 2}
+  rxDataEntryWaiterTogglePrefab: {fileID: 114198627140481354, guid: bffa1d335b08dc14a86fe9818405d49d,
+    type: 2}
+  rxDataEntryWaiterToggleBackgroundPrefab: {fileID: 1886904644059762, guid: c5ef22bb5c3761a44a16be92ed43fb2b,
+    type: 2}
+  rxDataEntryNameBtnPrefab: {fileID: 1880440038592022, guid: 429f799aab02df34ea5d8ddb4f08d293,
+    type: 2}
+  rxDataEntryDrugBtnPrefab: {fileID: 1731660346433358, guid: 0b43665b02beaa441977938cd9ce6bf4,
+    type: 2}
+  rxDataEntryAddRxBtnPrefab: {fileID: 1845900048227374, guid: a5153ff086dee4c4f94b1f6860eb19c7,
+    type: 2}
+  rxDataEntryIdPrefab: {fileID: 1155946903755444, guid: d4a3d0dd02adb61429ac253eed14e2da,
+    type: 2}
+  aentryObjPrefab: {fileID: 1660321378674982, guid: 38e56cd819a58cf41ba79724f8c4311e,
+    type: 2}
+  aentryPanelPrefab: {fileID: 1107442003416162, guid: df86db3c93404cc4c912fa1447c44b50,
+    type: 2}
+  aentryWaiterTogglePrefab: {fileID: 114198627140481354, guid: 0420fa5e9788c894e8e14f7896d94849,
+    type: 2}
+  aentryWaiterToggleBackgroundPrefab: {fileID: 1886904644059762, guid: 7ec263e8766a567419119be97b7a4a91,
+    type: 2}
+  aentryNameBtnPrefab: {fileID: 1880440038592022, guid: 02167d1f9f5482348860f93d9fd9bb58,
+    type: 2}
+  aentryDrugBtnPrefab: {fileID: 1731660346433358, guid: e1d9f3088352d6040bbd4f3aa5f6136a,
+    type: 2}
+  aentryAssemblyBtnPrefab: {fileID: 1845900048227374, guid: 35e74b9fe97254149b5b596d4fcc60e7,
+    type: 2}
+  aentryIdPrefab: {fileID: 1155946903755444, guid: 9cb2f627c19c36a47a2a162e669c6b99,
+    type: 2}
+  apAssemblyPanelPrefab: {fileID: 1964229864524350, guid: da9dc87871605474aa984ab94f3c0b3d,
+    type: 2}
+  apDoneBtnPrefab: {fileID: 114654377018662310, guid: 64f67c1f39e937d4a9485936edd59da6,
+    type: 2}
+  apModifyBtnPrefab: {fileID: 114937750881307956, guid: d9474b5088b34844198501f9aeb35e28,
+    type: 2}
+  apRxIdBtnPrefab: {fileID: 114879833223807038, guid: 4ec55dfdaf2f1704d820652d9f46e222,
+    type: 2}
+  apPriceBtnPrefab: {fileID: 114592225600276810, guid: 8602ac81f72abe34caacc8860590fb5a,
+    type: 2}
+  apDataPanelPrefab: {fileID: 1536701934323748, guid: 4cdee027e5b32ab43be6d0d289c2ad2d,
+    type: 2}
+  apRxInfoPanelPrefab: {fileID: 1948843127507626, guid: eb9eb0b47b620a64bb5b91c379a02982,
+    type: 2}
+  apPatientPanelPrefab: {fileID: 1445920389322722, guid: 754d9c5ecbfa38f4d97163dceb09ba2f,
+    type: 2}
+  apPatientInputFieldPrefab: {fileID: 114791153222769580, guid: 191b95dca8da3604d92ee15c6a45445d,
+    type: 2}
+  apDoctorPanelPrefab: {fileID: 1650064782725136, guid: b6bea9bba341308449247e87ac5b557f,
+    type: 2}
+  apDoctorInputFieldPrefab: {fileID: 114413572458432726, guid: c0b7296ca80c48a41be8ac7579c162d8,
+    type: 2}
+  apDrugPanelPrefab: {fileID: 1627947359792016, guid: af4460721b2c19545b33aa7da40ae0a5,
+    type: 2}
+  apDrugDropdownPrefab: {fileID: 114299740126834148, guid: 2fa2734bee8238e4f9db1ee1b329b077,
+    type: 2}
+  apQuantityPanelPrefab: {fileID: 1997703745297080, guid: 841562a95807c3a4684ba0aba487409c,
+    type: 2}
+  apQuantityDropdownPrefab: {fileID: 114632797693596740, guid: c0fbfee243cea7f48ab1ee8338f01c3c,
+    type: 2}
+  apRefillPanelPrefab: {fileID: 1216882883500770, guid: e0ecae07f9b470e478dde2dda7f88798,
+    type: 2}
+  apRefillInputFieldPrefab: {fileID: 114324687984221536, guid: ff7b89c77bd87494b84d11a25a1523c0,
+    type: 2}
+  apBgPanelPrefab: {fileID: 1723931239134474, guid: 7ea928902281ebe40846ed0663d233cb,
+    type: 2}
+  apBrandTogglePrefab: {fileID: 114154422116419670, guid: 17ee6a93f4f481246881d920774722c8,
+    type: 2}
+  apBrandToggleBackgroundPrefab: {fileID: 1056258266448138, guid: 995ab73fb3fbc6f448eed36aa2c9ff0c,
+    type: 2}
+  apGenericTogglePrefab: {fileID: 114061409267051314, guid: 3bb699bc5a5021745aa1f729a3b250fc,
+    type: 2}
+  apGenericToggleBackgroundPrefab: {fileID: 1286383451608424, guid: 67e5c31942361db43bba09140093a0a0,
+    type: 2}
+  apWrittenPanelPrefab: {fileID: 1114088283282710, guid: 2960940a5e23a6a48b6a6cca22a08365,
+    type: 2}
+  apWrittenInputFieldPrefab: {fileID: 114360238472751944, guid: c95cfac298c42124b9b7ffd3cc88190e,
+    type: 2}
+  apExpPanelPrefab: {fileID: 1032529551239670, guid: 243a970e08604da4f932c886768bf898,
+    type: 2}
+  apExpInputFieldPrefab: {fileID: 114592867936911758, guid: 704634f0fbf1fba44b22705ad4c8d6af,
+    type: 2}
+  apWaiterPanelPrefab: {fileID: 1381655810285746, guid: 83c53ea675904594992afea0c018b0f9,
+    type: 2}
+  apWaiterTogglePrefab: {fileID: 114084664664054456, guid: 7d34c3a5980294b4ba00ceaca0ea28b0,
+    type: 2}
+  apWaiterToggleBackgroundPrefab: {fileID: 1240758658124458, guid: 44fadb7a1ef80bd488b4c9b14c5ba49e,
+    type: 2}
+  apRxCheckPanelPrefab: {fileID: 1408314396852602, guid: 8f4270c93cc348a45b32c4ecab2ea13d,
+    type: 2}
+  apPatientCheckPanelPrefab: {fileID: 1473028518650334, guid: d81910425f16f8146898086c8815a3ae,
+    type: 2}
+  apDoctorCheckPanelPrefab: {fileID: 1878868174522512, guid: ef00d3b6303ba0b4b84e7ce77988ac88,
+    type: 2}
+  apDrugCheckPanelPrefab: {fileID: 1631034271739178, guid: f2fb19d106b980e4a9bf5b3247b12701,
+    type: 2}
+  apQuantityCheckPanelPrefab: {fileID: 1775128361575060, guid: b075e0a56b5fae349b590c8218a4b97e,
+    type: 2}
+  apRefillCheckPanelPrefab: {fileID: 1695382739624788, guid: f16b5bcdce414264390317dfb4520a9f,
+    type: 2}
+  apBgCheckPanelPrefab: {fileID: 1855114297559882, guid: f970478f7ea71ba4091807ac55173084,
+    type: 2}
+  apWrittenCheckPanelPrefab: {fileID: 1831006156861660, guid: d9966ca10e4e0464d875b43a5b342c3b,
+    type: 2}
+  apExpCheckPanelPrefab: {fileID: 1672280836462224, guid: f656a6ba0d3f9064ea5fff746ea7cdd3,
+    type: 2}
+  apWaiterCheckPanelPrefab: {fileID: 1443777088215642, guid: 7ad29e6a5d208f148819da398e72b12f,
+    type: 2}
+  apPatientCheckTogglePrefab: {fileID: 114458771373662114, guid: e6c8b8a16ff3e7944b5fa3e5095632d0,
+    type: 2}
+  apDoctorCheckTogglePrefab: {fileID: 114481051426754054, guid: d1c2fa14d65c02443b525fd85d3fe54e,
+    type: 2}
+  apDrugCheckTogglePrefab: {fileID: 114392912415905684, guid: 3465eac2189515e42bca1ff2dbe0d2b2,
+    type: 2}
+  apQuantityCheckTogglePrefab: {fileID: 114755905744234928, guid: f2aaedc70c8faa04690b6e941bd17380,
+    type: 2}
+  apRefillCheckTogglePrefab: {fileID: 114381168556915712, guid: ad7eb5992f8e0264d8f70bccdc796a8b,
+    type: 2}
+  apBgCheckTogglePrefab: {fileID: 114289160325452732, guid: 51292f8d057ee56438cef5cad4d24836,
+    type: 2}
+  apWrittenCheckTogglePrefab: {fileID: 114522646262600148, guid: 52783fa90913a8349ac170e16682b41f,
+    type: 2}
+  apExpCheckTogglePrefab: {fileID: 114260613059491310, guid: abec90cd3e667324587bcb368191ef66,
+    type: 2}
+  apWaiterCheckTogglePrefab: {fileID: 114109852415833706, guid: c5c637ff857d13749bd64d0f558a38af,
+    type: 2}
+  apPatientCheckToggleBackgroundPrefab: {fileID: 1857477380679030, guid: 946f49e0372ddf94fb644dae89be3f4e,
+    type: 2}
+  apDoctorCheckToggleBackgroundPrefab: {fileID: 1794427031163056, guid: 3d02b21b32d910046ae974cec2b6a2e9,
+    type: 2}
+  apDrugCheckToggleBackgroundPrefab: {fileID: 1616631166657244, guid: 9f6e42a0dd1f4d645a5009ce746e9cdf,
+    type: 2}
+  apQuantityCheckToggleBackgroundPrefab: {fileID: 1007309662790978, guid: 7a2ebf172d8daa84a9797119a563495e,
+    type: 2}
+  apRefillCheckToggleBackgroundPrefab: {fileID: 1896590462790958, guid: dc36757d1b4b67843bd55f94a92c7bec,
+    type: 2}
+  apBgCheckToggleBackgroundPrefab: {fileID: 1590402889699166, guid: c0e27b67d7028dd49aa9bcb6d142679d,
+    type: 2}
+  apWrittenCheckToggleBackgroundPrefab: {fileID: 1639018758268976, guid: 481bec823912c03408962d4d611c5bf6,
+    type: 2}
+  apExpCheckToggleBackgroundPrefab: {fileID: 1482186385662918, guid: c72d0129de6cb1748a266737e98fac63,
+    type: 2}
+  apWaiterCheckToggleBackgroundPrefab: {fileID: 1891850907116134, guid: fefeb7c8d95d70a4bb597a461f1c71db,
+    type: 2}
+  rxImagePatientPrefab: {fileID: 1278927880235846, guid: 209629d7268585748be08cd050d43364,
+    type: 2}
+  rxImageDoctorPrefab: {fileID: 1382497853724706, guid: d5f57908efffeb04b88342f8cf9706e2,
+    type: 2}
+  rxImageDrugPrefab: {fileID: 1976468120520290, guid: a87cab0c578029d4da205649b21e4c0d,
+    type: 2}
+  rxImageQuantityPrefab: {fileID: 1070919542234384, guid: 473437baef0667e49b692dd2897ce1da,
+    type: 2}
+  rxImageRefillsPrefab: {fileID: 1994867427722774, guid: 45526e964acb5fe4b8a361aadba11f5d,
+    type: 2}
+  rxImageGenOrBrPrefab: {fileID: 1096384813094444, guid: 9411c4c1a4d97574cbc91112d37eef77,
+    type: 2}
+  rxImageWrittenPrefab: {fileID: 1407750747430050, guid: f174910841c1c8b4983471dd816d8882,
+    type: 2}
+  rxImageExpPrefab: {fileID: 1895543645847128, guid: 9b9cb8c09269da044903853d6a786eb7,
+    type: 2}
+  rxImageSigPrefab: {fileID: 1700954729592982, guid: 878e0d48dbb3c86459524490caf9bf3e,
+    type: 2}
