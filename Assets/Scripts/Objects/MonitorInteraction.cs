@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class MonitorInteraction : MonoBehaviour {
 	public Text notification;
-	public GameObject MainTerminalPanel;
+	public GameObject MainTerminalPanel, guideIntro;
 
-	public SwitchPanelScript switcher;
 	private float distance;
 	bool available;
 	void OnEnable()
@@ -34,25 +33,15 @@ public class MonitorInteraction : MonoBehaviour {
 	void Awake()
 	{
 		MainTerminalPanel.SetActive(false);
-		switcher=FindObjectOfType<SwitchPanelScript>();
+		guideIntro.SetActive(false);
 	}
 	// Update is called once per frame
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
 		if ( available && distance < 3 && Input.GetKeyDown(KeyCode.E)) {
-			if(switcher.currentScreen == SwitchPanelScript.MainScreens.Off)
-			{
-				MainTerminalPanel.SetActive(true);
-				switcher.currentScreen = SwitchPanelScript.MainScreens.Rx;
-				Cursor.lockState = CursorLockMode.None;
-			}
-			else
-			{
-				MainTerminalPanel.SetActive(false);
-				switcher.currentScreen = SwitchPanelScript.MainScreens.Off;
-				Cursor.lockState = CursorLockMode.Locked;
-			}
+			MainTerminalPanel.SetActive(!MainTerminalPanel.activeInHierarchy);
+			guideIntro.SetActive(!guideIntro.activeInHierarchy);
 		}
 	}
 }
