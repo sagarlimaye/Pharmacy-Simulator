@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SwitchPanelScript : MonoBehaviour
 {
+    public enum Scenario { One, Two, Three, Off };
+    public Scenario currentScenario;
+
     public enum Mode { Practice, Challenge };
     public Mode currentMode;
 
@@ -39,11 +42,7 @@ public class SwitchPanelScript : MonoBehaviour
 
     private void Start()
     {
-        currentMode = Mode.Practice;
-        if(currentMode == Mode.Practice)
-        {
 
-        }
 
         DataEntryPanel.SetActive(false);
         ProfilesPanel.SetActive(false);

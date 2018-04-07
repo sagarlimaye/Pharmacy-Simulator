@@ -33,6 +33,7 @@ TagManager:
   - rxDEQuantityDropdown
   - GuideRxAddRxDEPanel
   - RxDEAddRxImage
+  - GuidePromptsPanel
   layers:
   - Default
   - TransparentFX
