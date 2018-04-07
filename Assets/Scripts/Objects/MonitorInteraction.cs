@@ -42,6 +42,7 @@ public class MonitorInteraction : MonoBehaviour {
 		if ( available && distance < 3 && Input.GetKeyDown(KeyCode.E)) {
 			MainTerminalPanel.SetActive(!MainTerminalPanel.activeInHierarchy);
 			guideIntro.SetActive(!guideIntro.activeInHierarchy);
+			Cursor.lockState = (MainTerminalPanel.activeInHierarchy) ? CursorLockMode.None : CursorLockMode.Locked;
 		}
 	}
 }
