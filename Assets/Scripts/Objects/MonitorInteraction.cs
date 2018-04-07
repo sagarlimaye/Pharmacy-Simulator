@@ -8,7 +8,7 @@ public class MonitorInteraction : MonoBehaviour {
 	public GameObject MainTerminalPanel, guideIntro;
 
 	private float distance;
-	bool available;
+	bool available = true;
 	void OnEnable()
 	{
 		DialogueController.DialogStarted += OnDialogStarted;
@@ -40,8 +40,19 @@ public class MonitorInteraction : MonoBehaviour {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
 		if ( available && distance < 3 && Input.GetKeyDown(KeyCode.E)) {
-			MainTerminalPanel.SetActive(!MainTerminalPanel.activeInHierarchy);
-			guideIntro.SetActive(!guideIntro.activeInHierarchy);
+			if(MainTerminalPanel.activeInHierarchy)
+			{
+				SwitchPanelScript.DataEntryPanel.SetActive(false);
+				SwitchPanelScript.ProfilesPanel.SetActive(false);
+				SwitchPanelScript.AssemblyPanel.SetActive(false);
+				MainTerminalPanel.SetActive(false);
+				guideIntro.SetActive(false);
+			}
+			else
+			{
+				MainTerminalPanel.SetActive(true);
+				guideIntro.SetActive(true);
+			}
 			Cursor.lockState = (MainTerminalPanel.activeInHierarchy) ? CursorLockMode.None : CursorLockMode.Locked;
 		}
 	}
