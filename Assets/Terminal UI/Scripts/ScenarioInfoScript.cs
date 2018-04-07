@@ -26,6 +26,18 @@ public class ScenarioInfoScript : MonoBehaviour
     public static string scenarioPatientDob;
     public static string scenarioPatientDrugPrice;
 
+    // void OnEnable()
+    // {
+    //     CustomerDestroyer.CustomerDestroyed += OnCustomerDestroyed;
+    // }
+    // void OnDisable()
+    // {
+    //     CustomerDestroyer.CustomerDestroyed -= OnCustomerDestroyed;
+    // }
+    // void OnCustomerDestroyed()
+    // {
+    //     OnAddRx();
+    // }
     public void OnAddRx()
     {
         if (currentScenario == Scenario.One && firstAccess)
@@ -68,7 +80,7 @@ public class ScenarioInfoScript : MonoBehaviour
         rxContent = GameObject.FindGameObjectWithTag("RxContent");
         profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
         assemblyContent = GameObject.FindGameObjectWithTag("AssemblyContent");
-    }
-
+        
+    }   
     private static bool firstAccess = true;
 }

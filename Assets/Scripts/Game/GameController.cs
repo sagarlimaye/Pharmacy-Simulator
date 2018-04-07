@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 	public GameObject prescriptionReadyDialog, pickupRequestDialog;
 	public GameObject spawnPoint, Customer, requestSpot, waitPos1, destroySpot, pickupSpot;
 	public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
+	public ScenarioInfoScript scenarioInfo;
 
 	private int pillCount;
 
@@ -29,7 +30,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	void SpawnNewCustomer()
-	{
+	{	
+		scenarioInfo.OnAddRx();
 		Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
 	}
 
