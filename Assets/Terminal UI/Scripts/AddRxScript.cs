@@ -5,14 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AddRxScript : MonoBehaviour {
-
-    public enum Scenario { One, Two, Three, Off };
-    public Scenario currentScenario;
-
-    public enum Mode { Practice, Challenge };
-    public Mode currentMode;
-
+public class AddRxScript : MonoBehaviour
+{
     #region On Scene Objects
     public static GameObject assemblyScreen;
     public static GameObject profileScreen;
@@ -201,25 +195,6 @@ public class AddRxScript : MonoBehaviour {
 
     private void Start()
     {
-        switch (currentScenario)
-        {
-            case Scenario.Off:
-
-                break;
-
-            case Scenario.One:
-
-                break;
-
-            case Scenario.Two:
-
-                break;
-
-            case Scenario.Three:
-
-                break;
-        }
-
         PopulateAddRxDrugDropdownValues();
     }
 

@@ -122,7 +122,7 @@ public class RxDataEntryScript : MonoBehaviour {
         de_LastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).GetComponent<Text>().text;
         ResetDEAddRxPanelInputs();
         TransferNameFromRxDataEntryToAddRx();
-        InstantiateRxImage();
+        //InstantiateRxImage();
         GenerateRxImageData();
         rxDEAddRxPanel.SetActive(true);
     }
@@ -179,7 +179,7 @@ public class RxDataEntryScript : MonoBehaviour {
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(2);
-        InitializaRandomRxDataEntryGeneration();
+        InitializeRandomRxDataEntryGeneration();
         PopulateRxDEAddRxDrugDropdownValues();
     }
 
@@ -289,24 +289,22 @@ public class RxDataEntryScript : MonoBehaviour {
         cloneAssemblyRxImageSig = Instantiate(rxDEAddRxImage.transform.GetChild(9).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
     }
 
-    private void InstantiateRxImage()
-    {
-        cloneRxImagePatient = Instantiate(rxImagePatientPrefab, rxDEAddRxImage.transform);
-        cloneRxImageDoctor = Instantiate(rxImageDoctorPrefab, rxDEAddRxImage.transform);
-        cloneRxImageDrug = Instantiate(rxImageDrugPrefab, rxDEAddRxImage.transform);
-        cloneRxImageQuantity = Instantiate(rxImageQuantityPrefab, rxDEAddRxImage.transform);
-        cloneRxImageRefills = Instantiate(rxImageRefillsPrefab, rxDEAddRxImage.transform);
-        cloneRxImageGenOrBr = Instantiate(rxImageGenOrBrPrefab, rxDEAddRxImage.transform);
-        cloneRxImageWritten = Instantiate(rxImageWrittenPrefab, rxDEAddRxImage.transform);
-        cloneRxImageExp = Instantiate(rxImageExpPrefab, rxDEAddRxImage.transform);
-        cloneRxImageSig = Instantiate(rxImageSigPrefab, rxDEAddRxImage.transform);
-    }
+    //private void InstantiateRxImage()
+    //{
+    //    cloneRxImagePatient = Instantiate(rxImagePatientPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageDoctor = Instantiate(rxImageDoctorPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageDrug = Instantiate(rxImageDrugPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageQuantity = Instantiate(rxImageQuantityPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageRefills = Instantiate(rxImageRefillsPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageGenOrBr = Instantiate(rxImageGenOrBrPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageWritten = Instantiate(rxImageWrittenPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageExp = Instantiate(rxImageExpPrefab, rxDEAddRxImage.transform);
+    //    cloneRxImageSig = Instantiate(rxImageSigPrefab, rxDEAddRxImage.transform);
+    //}
 
     private void GenerateRxImageData()
     {
-        var s = rxDEAddRxPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text;
-
-        cloneRxImagePatient.GetComponentInChildren<Text>().text = rxDEAddRxPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text;
+        rxDEAddRxImage.transform.GetChild(4).GetComponent<Text>().text = rxDEAddRxPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text;
 
         //Find matching profile and get doctor name
         for (int i = 3; i < (profilesContent.transform.childCount + 3); i++)
@@ -315,9 +313,11 @@ public class RxDataEntryScript : MonoBehaviour {
             string currentProfileFullName = currentProfileClone.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text + " "
                                         + currentProfileClone.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<InputField>().text;
 
-            if (currentProfileFullName == cloneRxImagePatient.GetComponentInChildren<Text>().text)
+            if (currentProfileFullName == rxDEAddRxImage.transform.GetChild(4).GetComponent<Text>().text)
             {
-                cloneRxImageDoctor.GetComponentInChildren<Text>().text = currentProfileClone.transform.GetChild(1).GetChild(8).GetChild(1).GetComponent<InputField>().text;
+                rxDEAddRxImage.transform.GetChild(0).GetComponent<Text>().text = currentProfileClone.transform.GetChild(1).GetChild(8).GetChild(1).GetComponent<InputField>().text;
+                rxDEAddRxImage.transform.GetChild(0).GetComponent<Text>().text = currentProfileClone.transform.GetChild(1).GetChild(9).GetChild(1).GetComponent<InputField>().text;
+                rxDEAddRxImage.transform.GetChild(0).GetComponent<Text>().text = currentProfileClone.transform.GetChild(1).GetChild(8).GetChild(1).GetComponent<InputField>().text;
                 break;
             }
         }
@@ -328,9 +328,9 @@ public class RxDataEntryScript : MonoBehaviour {
             GameObject currentRxDataEntry = rxContent.transform.GetChild(i).gameObject;
             string currentRxDataEntryFullName = currentRxDataEntry.transform.GetChild(0).GetChild(1).GetComponentInChildren<Text>().text;
 
-            if (currentRxDataEntryFullName == cloneRxImagePatient.GetComponentInChildren<Text>().text)
+            if (currentRxDataEntryFullName == rxDEAddRxImage.transform.GetChild(4).GetComponent<Text>().text)
             {
-                cloneRxImageDrug.GetComponentInChildren<Text>().text = currentRxDataEntry.transform.GetChild(0).GetChild(2).GetComponentInChildren<Text>().text;
+                rxDEAddRxImage.transform.GetChild(6).GetComponent<Text>().text = currentRxDataEntry.transform.GetChild(0).GetChild(2).GetComponentInChildren<Text>().text;
                 break;
             }
         }
@@ -418,7 +418,7 @@ public class RxDataEntryScript : MonoBehaviour {
         }
     }
 
-    private void InitializaRandomRxDataEntryGeneration()
+    private void InitializeRandomRxDataEntryGeneration()
     {
         for (int i = 0; i < rxDataEntries; i++)
         {
