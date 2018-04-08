@@ -26,18 +26,30 @@ public class ScenarioInfoScript : MonoBehaviour
     public static string scenarioPatientDob;
     public static string scenarioPatientDrugPrice;
 
-    // void OnEnable()
-    // {
-    //     CustomerDestroyer.CustomerDestroyed += OnCustomerDestroyed;
-    // }
-    // void OnDisable()
-    // {
-    //     CustomerDestroyer.CustomerDestroyed -= OnCustomerDestroyed;
-    // }
-    // void OnCustomerDestroyed()
-    // {
-    //     OnAddRx();
-    // }
+    public delegate void ScenarioInfoEvent(ScenarioInfoScript scenarioInfo);
+    public static event ScenarioInfoEvent ScenarioInfoReady;
+
+    void OnEnable()
+    {
+        RxDataEntryScript.RxEntriesPopulated += OnRxEntriesPopulated;
+        CustomerDestroyer.CustomerDestroyed += OnCustomerDestroyed;
+    }
+
+    void OnDisable()
+    {
+        RxDataEntryScript.RxEntriesPopulated -= OnRxEntriesPopulated;
+        CustomerDestroyer.CustomerDestroyed -= OnCustomerDestroyed;
+    }
+
+    private void OnRxEntriesPopulated(GameObject rxContent)
+    {
+        OnAddRx();
+    }
+
+    void OnCustomerDestroyed()
+    {
+        OnAddRx();
+    }
     public void OnAddRx()
     {
         if (currentScenario == Scenario.One && firstAccess)
@@ -64,6 +76,8 @@ public class ScenarioInfoScript : MonoBehaviour
                 }
             }
         }
+        if (ScenarioInfoReady != null)
+            ScenarioInfoReady(this);
     }
 
     public void OnOk()

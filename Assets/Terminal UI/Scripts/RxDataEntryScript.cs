@@ -117,6 +117,8 @@ public class RxDataEntryScript : MonoBehaviour {
     public GameObject rxImageSigPrefab;
     #endregion
 
+    public delegate void RxDataEntryEvent(GameObject rxContent);
+    public static event RxDataEntryEvent RxEntriesPopulated;
     public void OnAddRx()
     {
         de_LastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).GetComponent<Text>().text;
@@ -435,6 +437,8 @@ public class RxDataEntryScript : MonoBehaviour {
             cloneRxDataEntryID.GetComponent<Text>().text = randomProfileEntry.transform.GetChild(4).GetComponent<Text>().text;
 
         }
+        if (RxEntriesPopulated != null)
+            RxEntriesPopulated(cloneRxDataEntryObj);
     }
 
     private void InstantiateRxDataEntry()

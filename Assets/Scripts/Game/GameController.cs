@@ -16,22 +16,21 @@ public class GameController : MonoBehaviour {
 	
 	void OnEnable()
 	{
-		CustomerDestroyer.CustomerDestroyed += SpawnNewCustomer;
+        ScenarioInfoScript.ScenarioInfoReady += OnScenarioInfoReady;
 		CustomerAgent.CustomerSpawned += OnCustomerSpawned;
 		DialogueController.DialogCompleted += OnDialogCompleted;
 		BottleHolder.BottlePlaced += OnBottlePlaced;
 	}
 	void OnDisable()
 	{
-		CustomerDestroyer.CustomerDestroyed -= SpawnNewCustomer;
-		DialogueController.DialogCompleted -= OnDialogCompleted;
+        ScenarioInfoScript.ScenarioInfoReady -= OnScenarioInfoReady;
+        DialogueController.DialogCompleted -= OnDialogCompleted;
 		CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
 		BottleHolder.BottlePlaced -= OnBottlePlaced;
 	}
 
-	void SpawnNewCustomer()
+	void OnScenarioInfoReady(ScenarioInfoScript scenarioInfo)
 	{	
-		scenarioInfo.OnAddRx();
 		Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
 	}
 
@@ -65,11 +64,10 @@ public class GameController : MonoBehaviour {
 		pillCountText.text = "";
 
 		updatePillCount();
-		SpawnNewCustomer();
-	}
+    }
 
-	//We display the new pill count for the current prescription
-	void updatePillCount(){
+    //We display the new pill count for the current prescription
+    void updatePillCount(){
 		pillCountText.text = "Pills: " + pillCount;
 	}
 		
