@@ -28,7 +28,7 @@ public class ScenarioInfoScript : MonoBehaviour
 
     public void OnAddRx()
     {
-        if (currentScenario == Scenario.One && firstAccess)
+         if (currentScenario == Scenario.One && firstAccess)
         {
             //The first entry on the "Rx Data Entry" panel will always be the subject patient for scenario 1
 

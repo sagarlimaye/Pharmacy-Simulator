@@ -51,5 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf7d8b05148d3249955bfb05ba30a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GuideBtnTerminalIntro: {fileID: 0}
-  GuideBtnRxScreenPanel: {fileID: 0}
+  anim: {fileID: 0}
+  popUpSound: {fileID: 8300000, guid: e3c3eb773cc889041b4f6c14842314be, type: 3}
+  correctSound: {fileID: 0}
+  wrongSound: {fileID: 0}

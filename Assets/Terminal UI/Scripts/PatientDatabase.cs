@@ -258,14 +258,16 @@ public class PatientDatabase : MonoBehaviour
         "2728859000","3030323000","7433980000","2125797000","2890266000","8303373000","5441162000","4066593000","1248643000","6398433000",
         "5624153000","9048090000","3180767000","6256649000" };
 
-    public static List<string> pcps = new List<string>() { "Dr. Kevin Y. Nieto","Dr. Francisco L. Cooke","Dr. Gordon R. Peacock",
+    public static List<string> pcps = new List<string>()
+    {
+        "Dr. Kevin Y. Nieto","Dr. Francisco L. Cooke","Dr. Gordon R. Peacock",
         "Dr. David Q. Black","Dr. Alan Z. Ferrer","Dr. Barry L. Mattson","Dr. Jeffery U. Schubert","Dr. Lawrence B. Mize",
         "Dr. Ray U. Walsh","Dr. William W. Betts","Dr. Eddie B. Jamison","Dr. Greg G. Metcalf","Dr. Douglas T. Stringer",
         "Dr. Adam P. Beckman","Dr. Samuel L. Goddard","Dr. Joseph S. Baugh","Dr. Chris Y. Havens","Dr. Leroy N. Halverson",
         "Dr. Eric K. Welsh","Dr. Arthur O. Nance","Dr. Jonathan X. Ellington","Dr. Vincent W. Salter","Dr. Joshua C. Turpin",
         "Dr. Leonard U. Duckworth","Dr. Jon E. Willey","Dr. Chad N. Garrett","Dr. Patrick V. Bolden","Dr. Melvin K. Larue",
         "Dr. Jorge K. Hodges","Dr. Floyd G. Schmid","Dr. Martin B. Ferry","Dr. Gary C. Kane","Dr. Robert G. Denson",
-        "Dr. Kevin E. Head","Dr. Dan I. Bates","Dr. Jason U. Kong","Dr. Theodore X. Joy","Dr. Barry Q. Bass","Dr. Clifford R. McCracken",
+        "Dr. Kevin E. Head","Dr. Dan I. Bates","Dr. Jason U. Kong","Dr. Theodore X. Joy","Dr. Barry Q. Bass","Dr. Clifford R. McGuy",
         "Dr. Paul I. Everett","Dr. David B. Horne","Dr. Calvin L. Herr","Dr. Alvin D. Fuller","Dr. Anthony C. Lim",
         "Dr. Floyd Y. Tomlin","Dr. Patrick F. McCloud","Dr. Peter H. Gates","Dr. Ronald T. McManus","Dr. Ernest O. Rosa",
         "Dr. Edwin F. Herr","Dr. Thomas K. Mickelsen","Dr. Jamie R. Bucio","Dr. Arthur D. Bethune","Dr. Luis T. Cheever",
