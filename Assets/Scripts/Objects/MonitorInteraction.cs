@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MonitorInteraction : MonoBehaviour {
 	public Text notification;
-	public GameObject MainTerminalPanel, guideIntro;
+	public GameObject MainTerminalPanel;
 
 	private float distance;
 	bool available = true;
@@ -33,7 +33,6 @@ public class MonitorInteraction : MonoBehaviour {
 	void Awake()
 	{
 		MainTerminalPanel.SetActive(false);
-		guideIntro.SetActive(false);
 	}
 	// Update is called once per frame
 	void Update () {
@@ -46,13 +45,16 @@ public class MonitorInteraction : MonoBehaviour {
 				SwitchPanelScript.ProfilesPanel.SetActive(false);
 				SwitchPanelScript.AssemblyPanel.SetActive(false);
 				MainTerminalPanel.SetActive(false);
-				guideIntro.SetActive(false);
+				GuideButtonScript.guideIntro.SetActive(false);
 			}
 			else
 			{
 				MainTerminalPanel.SetActive(true);
-				guideIntro.SetActive(true);
-			}
+                var anim = GuideButtonScript.guideIntro.GetComponent<Animator>();
+                anim.SetTrigger("Active");
+                GuideButtonScript.guideIntro.SetActive(true);
+                SoundManager.instance.PlaySingle(GuideButtonScript.popUpSound);
+            }
 			Cursor.lockState = (MainTerminalPanel.activeInHierarchy) ? CursorLockMode.None : CursorLockMode.Locked;
 		}
 	}

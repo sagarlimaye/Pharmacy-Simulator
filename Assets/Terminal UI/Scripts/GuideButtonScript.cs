@@ -14,9 +14,9 @@ public class GuideButtonScript : MonoBehaviour
     public static GameObject guideAssemblyPanel;
     public static GameObject guideAssembly2;
 
-    public AudioClip popUpSound;
-    public AudioClip correctSound;
-    public AudioClip wrongSound;
+    public static AudioClip popUpSound;
+    public static AudioClip correctSound;
+    public static AudioClip wrongSound;
 
     public void OnGuideClick()
     {
@@ -85,16 +85,13 @@ public class GuideButtonScript : MonoBehaviour
         guideAssemblyPanel = guidePromptsPanel.transform.GetChild(0).GetChild(0).GetChild(4).gameObject;
         guideAssembly2 = guidePromptsPanel.transform.GetChild(0).GetChild(0).GetChild(5).gameObject;
 
-        anim = guideIntro.GetComponent<Animator>();
-        anim.SetTrigger("Active");
-
-        guideIntro.SetActive(true);
+        guideIntro.SetActive(false);
         guideRxDataEntry.SetActive(false);
         guideDeAddRxPanel.SetActive(false);
         guideAssembly1.SetActive(false);
         guideAssemblyPanel.SetActive(false);
         guideAssembly2.SetActive(false);
-        SoundManager.instance.PlaySingle(popUpSound);
+
     }
 
     private Animator anim;
