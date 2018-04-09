@@ -131,8 +131,8 @@ public class AddRxScript : MonoBehaviour
         if (AssemblyScript.lastModifiedId != null && lastAddRxId != AssemblyScript.lastModifiedId)
             lastAddRxId = AssemblyScript.lastModifiedId;
 
-        DestroyPreExistingRxEntry();
-        DestroyPreExistingRxAssemblyPanel();
+        DestroyPreExistingAssemblyEntry();
+        DestroyPreExistingAssemblyPanel();
         InstantiateAssemblyEntry();
         SaveAddRxDataToNewAssemblyEntry();
         InstantiateAssemblyPanel();
@@ -348,7 +348,7 @@ public class AddRxScript : MonoBehaviour
         }
     }
 
-    private void DestroyPreExistingRxEntry()
+    private void DestroyPreExistingAssemblyEntry()
     {
         for (int i = 0; i < assemblyContent.transform.childCount; i++)
         {
@@ -363,7 +363,7 @@ public class AddRxScript : MonoBehaviour
         }
     }
 
-    private void DestroyPreExistingRxAssemblyPanel()
+    private void DestroyPreExistingAssemblyPanel()
     {
         for (int i = 1; i < assemblyScreen.transform.childCount; i++)
         {
@@ -395,13 +395,14 @@ public class AddRxScript : MonoBehaviour
             }
         }
 
+        //Need to replace entirely for handwritten images
         cloneRxImageDrug.GetComponentInChildren<Text>().text = DrugDatabase.drugNames[rnd.Next(DrugDatabase.drugNames.Count)];
         List<string> quantities = DrugDatabase.drugInfo[cloneRxImageDrug.GetComponentInChildren<Text>().text][0];
         cloneRxImageQuantity.GetComponentInChildren<Text>().text = quantities[rnd.Next(quantities.Count)];
-        cloneRxImageRefills.GetComponentInChildren<Text>().text = PrescriptionDatabase.generateRefill();
-        cloneRxImageGenOrBr.GetComponentInChildren<Text>().text = PrescriptionDatabase.generateGenOrBr();
+        cloneRxImageRefills.GetComponentInChildren<Text>().text = PrescriptionDatabase.GenerateRefill();
+        //cloneRxImageGenOrBr.GetComponentInChildren<Text>().text = PrescriptionDatabase.GenerateGenOrBr();
         cloneRxImageWritten.GetComponentInChildren<Text>().text = PrescriptionDatabase.RandomDay().ToString();
-        cloneRxImageExp.GetComponentInChildren<Text>().text = PrescriptionDatabase.FutureRandomDay().ToString();
+        //cloneRxImageExp.GetComponentInChildren<Text>().text = PrescriptionDatabase.FutureRandomDay().ToString();
         cloneRxImageSig.GetComponentInChildren<Text>().text = PrescriptionDatabase.GenerateSig();
     }
 
