@@ -7,7 +7,7 @@ public class PlayerLook : MonoBehaviour {
 	public Text notification;
 	public Transform playerBody;
 	public float mouseSensitivity;
-
+    public static GameObject hitObject;
 	float xAxisClamp = 0.0f;
 	private void Awake()
 	{
@@ -57,6 +57,7 @@ public class PlayerLook : MonoBehaviour {
 
 		if (Physics.Raycast (cameraCenter, Camera.main.transform.forward, out hit, 3)) {
 			if (hit.transform.gameObject) {
+                hitObject = hit.transform.gameObject;
 				if (hit.transform.gameObject.tag == "Interactable") {
 					notification.text = "Press E to use.";
 				}

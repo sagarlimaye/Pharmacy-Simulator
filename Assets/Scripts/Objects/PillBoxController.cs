@@ -14,7 +14,7 @@ public class PillBoxController : MonoBehaviour {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
 		//If the player is close enough to the pill bottle, hits E, and the required pill threshold has been met, the bottle will turn into a prescription
-		if(distance < 3 && Input.GetKeyDown(KeyCode.E)){
+		if(distance < 3 && Input.GetKeyDown(KeyCode.E) && (PlayerLook.hitObject == gameObject)){
 			/*int userInput = int.Parse(userInputField.text.ToString());
 			if(userInput > 0){
 				//We get the position and rotation of the pill tray, assign it to the filled tray, delete the empty tray, then instantiate the filled tray
