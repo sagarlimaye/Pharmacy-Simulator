@@ -26,8 +26,8 @@ GameObject:
   - component: {fileID: 114475203532394240}
   - component: {fileID: 114946358304453648}
   m_Layer: 0
-  m_Name: OxycodoneAcetaminophen
-  m_TagString: Oxycodone
+  m_Name: Oxycodone
+  m_TagString: Prescription/Oxycodone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

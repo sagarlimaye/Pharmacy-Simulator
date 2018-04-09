@@ -42,9 +42,9 @@ public class FilledTrayController : MonoBehaviour {
 		//Reset pill count
 		gameController.resetPillCount();
 
-		Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
+        Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"));
 
-		Destroy (gameObject);
+        Destroy (gameObject);
 	}
 
 	public void setPillCount(int pills){

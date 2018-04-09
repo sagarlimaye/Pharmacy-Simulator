@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
 	{
         if(sender.tag == "FilledPrescriptionAnchor")
         {
-            if(ScenarioInfoScript.scenarioPatientDrug == bottle.tag)
+            if(bottle.tag.Contains(ScenarioInfoScript.scenarioPatientDrug))
                 pickupCheckpoint.dialog = prescriptionReadyDialog;
             else pickupCheckpoint.dialog = wrongPrescriptionPlacedDialog; // wrong prescription placed, raise event
             requestCheckpoint.dialog = null;

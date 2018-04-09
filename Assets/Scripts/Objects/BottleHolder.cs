@@ -32,14 +32,17 @@ public class BottleHolder : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        other.transform.position = transform.position + coll.center;
-        var rbody = other.GetComponent<Rigidbody>();
-        rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-        other.GetComponent<PickupObject>().putDown();
-        bottle = other.gameObject;
+        if (other.tag.Contains("Prescription"))
+        {
+            other.transform.position = transform.position + coll.center;
+            var rbody = other.GetComponent<Rigidbody>();
+            rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+            other.GetComponent<PickupObject>().putDown();
+            bottle = other.gameObject;
 
-        if (BottlePlaced != null)
-            BottlePlaced(this, other.gameObject);
+            if (BottlePlaced != null)
+                BottlePlaced(this, other.gameObject); 
+        }
     }
 	
 	public void RemoveBottle()

@@ -49,12 +49,13 @@ TagManager:
   - AntibioticFilledTray
   - FilledPrescriptionAnchor
   - EmptyPrescriptionAnchor
-  - Adulimumab
-  - Nexium
-  - Percocet
-  - Esomeprazole Magnesium
-  - Humira
-  - Oxycodone
+  - Prescription/Adulimumab
+  - Prescription/Nexium
+  - Prescription/Humira
+  - Prescription/Oxycodone
+  - Prescription/Percocet
+  - Prescription/Empty
+  - Prescription/Esomeprazole Magnesium
   layers:
   - Default
   - TransparentFX
