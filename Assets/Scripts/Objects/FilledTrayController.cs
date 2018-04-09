@@ -7,7 +7,7 @@ public class FilledTrayController : MonoBehaviour {
 
 	private float distance;
 	private int pillCount;
-
+    public string pillType;
 	public GameObject bottle;
 
 	// Update is called once per frame
@@ -22,8 +22,9 @@ public class FilledTrayController : MonoBehaviour {
 				var bottlePosition = pillBottle.transform.position;
 				var bottleRotation = pillBottle.transform.rotation;
 
-				//We now instantiate a filled prescription, then delete the empty pill bottle
-				var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/Prescription"), bottlePosition, bottleRotation).GetComponent<PrescriptionController>();
+                //We now instantiate a filled prescription, then delete the empty pill bottle
+                
+                var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/"+pillType), bottlePosition, bottleRotation).GetComponent<PrescriptionController>();
 				filledPrescription.isFilledCorrectly = gameController.prescriptionIsReady ();
 
 				Destroy (pillBottle);

@@ -7,7 +7,7 @@ public class BottleHolder : MonoBehaviour {
 
 	BoxCollider coll;
 	public GameObject bottle;
-	public delegate void BottleHolderEvent(GameObject bottle);
+	public delegate void BottleHolderEvent(BottleHolder sender, GameObject bottle);
 	public static event BottleHolderEvent BottlePlaced;
 	// Use this for initialization
 	void Start () {
@@ -31,19 +31,16 @@ public class BottleHolder : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other)
-	{
-		if(other.tag == "Interactable" || other.gameObject.name.Contains("Pill") || other.tag == "Antibiotic")
-		{
-			other.transform.position = transform.position + coll.center;
-			var rbody = other.GetComponent<Rigidbody>();
-			rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
-			other.GetComponent<PickupObject>().putDown();
-			bottle = other.gameObject;
+    {
+        other.transform.position = transform.position + coll.center;
+        var rbody = other.GetComponent<Rigidbody>();
+        rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+        other.GetComponent<PickupObject>().putDown();
+        bottle = other.gameObject;
 
-			if(BottlePlaced != null)
-				BottlePlaced(other.gameObject);
-		}
-	}
+        if (BottlePlaced != null)
+            BottlePlaced(this, other.gameObject);
+    }
 	
 	public void RemoveBottle()
 	{

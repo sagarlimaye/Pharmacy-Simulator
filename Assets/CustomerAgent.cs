@@ -11,7 +11,7 @@ public class CustomerAgent : MonoBehaviour {
     GameController controller;
     DialogueController dialogcontroller;
 
-    public string customerName = "Jamie",  dob ="12/23/1993", drug = "antibiotic";
+    public string customerName = "Jamie",  dob ="12/23/1993", drug = "Antibiotic";
 
     public delegate void CustomerAgentEvent(CustomerAgent customer);
     public static event CustomerAgentEvent CustomerSpawned;
@@ -35,10 +35,9 @@ public class CustomerAgent : MonoBehaviour {
         if(d.tag == "PrescriptionReadyDialog")
         agent.destination = controller.destroySpot.transform.position;
     }
-    void OnBottlePlaced(GameObject bottle)
+    void OnBottlePlaced(BottleHolder sender, GameObject bottle)
     {
-        
-        if(bottle.tag == "Antibiotic")
+        if(sender.tag == "FilledPrescriptionAnchor")
             agent.destination = controller.pickupSpot.transform.position;
     }
     void Start()

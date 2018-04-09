@@ -6,11 +6,10 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 	public int pillCountTarget;
 	public Text pillCountText;
-	public GameObject prescriptionReadyDialog, pickupRequestDialog;
-	public GameObject spawnPoint, Customer, requestSpot, waitPos1, destroySpot, pickupSpot;
+	public GameObject prescriptionReadyDialog, pickupRequestDialog, wrongPrescriptionPlacedDialog;
+	public GameObject spawnPoint, requestSpot, waitPos1, destroySpot, pickupSpot;
+    public GameObject Customer;
 	public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
-	public ScenarioInfoScript scenarioInfo;
-
 	private int pillCount;
 
 	
@@ -29,8 +28,8 @@ public class GameController : MonoBehaviour {
 		BottleHolder.BottlePlaced -= OnBottlePlaced;
 	}
 
-	void OnScenarioInfoReady(ScenarioInfoScript scenarioInfo)
-	{	
+	void OnScenarioInfoReady(ScenarioInfoScript sInfo)
+	{
 		Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
 	}
 
@@ -52,10 +51,15 @@ public class GameController : MonoBehaviour {
 			pickupCheckpoint.dialog = null;
 		}
 	}
-	void OnBottlePlaced(GameObject bottle)
+	void OnBottlePlaced(BottleHolder sender, GameObject bottle)
 	{
-		pickupCheckpoint.dialog = prescriptionReadyDialog;
-		requestCheckpoint.dialog = null;
+        if(sender.tag == "FilledPrescriptionAnchor")
+        {
+            if(ScenarioInfoScript.scenarioPatientDrug == bottle.tag)
+                pickupCheckpoint.dialog = prescriptionReadyDialog;
+            else pickupCheckpoint.dialog = wrongPrescriptionPlacedDialog; // wrong prescription placed, raise event
+            requestCheckpoint.dialog = null;
+        }
 	}
 	// Use this for initialization
 	void Start () {

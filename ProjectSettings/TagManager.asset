@@ -34,6 +34,27 @@ TagManager:
   - GuideRxAddRxDEPanel
   - RxDEAddRxImage
   - GuidePromptsPanel
+  - PatientInput
+  - DoctorInput
+  - RefillsInput
+  - WrittenInput
+  - ExpInput
+  - WaiterToggle
+  - PillBox
+  - Customer
+  - Antibiotic
+  - FilledTray
+  - PrescriptionReadyDialog
+  - PickupPrescriptionDialog
+  - AntibioticFilledTray
+  - FilledPrescriptionAnchor
+  - EmptyPrescriptionAnchor
+  - Adulimumab
+  - Nexium
+  - Percocet
+  - Esomeprazole Magnesium
+  - Humira
+  - Oxycodone
   layers:
   - Default
   - TransparentFX

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PillBoxController : MonoBehaviour {
 	public GameController gameController;
-	//public Input userInputField;
-
+    //public Input userInputField;
+    public string pillType;
 	private float distance;
 	
 	// Update is called once per frame
@@ -41,6 +41,7 @@ public class PillBoxController : MonoBehaviour {
 			filledTray.gameController = gameController;
 			filledTray.setPillCount (adjustPillInput(50));
 			emptyTray.transform.GetChild(0).parent = filledTray.transform;
+            filledTray.pillType = pillType;
 			Destroy (emptyTray);
 		}
 	}
