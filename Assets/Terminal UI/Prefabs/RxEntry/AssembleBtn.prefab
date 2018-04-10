@@ -87,7 +87,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 114680873978582488, guid: cfdc5bbd0b8c4a5478faac1907a00300,
           type: 2}
-        m_MethodName: OnAssemble
+        m_MethodName: OnAddRx
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -97,9 +97,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114435816048517188, guid: 2c8bdc6e2c9504a429e08dbcf7acd4e4,
+      - m_Target: {fileID: 114014282388640578, guid: ad555d2cd8c3607469b9950f94f26b66,
           type: 2}
-        m_MethodName: OnAssemble
+        m_MethodName: OnDeAddRx
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
