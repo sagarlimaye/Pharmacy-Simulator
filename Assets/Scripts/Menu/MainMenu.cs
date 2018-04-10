@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour {
 
 	public void StartTraining(){
-		SceneManager.LoadScene ("Prototype");
+		SceneManager.LoadScene ("Scenario1");
 	}
 
 	public void StartChallenge(){

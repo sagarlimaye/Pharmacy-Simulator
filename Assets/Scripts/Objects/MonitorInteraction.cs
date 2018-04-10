@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MonitorInteraction : MonoBehaviour {
     public Text notification;
     public GameObject MainTerminalPanel;
+    public AudioClip popUpSound;
 
     private float distance;
     bool available = true;
@@ -61,7 +62,7 @@ public class MonitorInteraction : MonoBehaviour {
                 var anim = GuideButtonScript.guideIntro.GetComponent<Animator>();
                 anim.SetTrigger("Active");
                 GuideButtonScript.guideIntro.SetActive(true);
-                SoundManager.instance.PlaySingle(GuideButtonScript.popUpSound);
+                SoundManager.instance.PlaySingle(popUpSound);
                 if (TerminalOpened != null)
                     TerminalOpened(gameObject);
             }

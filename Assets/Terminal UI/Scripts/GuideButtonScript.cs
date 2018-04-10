@@ -14,9 +14,9 @@ public class GuideButtonScript : MonoBehaviour
     public static GameObject guideAssemblyPanel;
     public static GameObject guideAssembly2;
 
-    public static AudioClip popUpSound;
-    public static AudioClip correctSound;
-    public static AudioClip wrongSound;
+    public AudioClip correctSound;
+    public AudioClip popUpSound;
+    public AudioClip wrongSound;
 
     public void OnGuideClick()
     {
