@@ -6577,6 +6577,31 @@ Prefab:
       propertyPath: m_textInfo.lineCount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114345606305003280, guid: 6cfd374f475d1be468146bdb629969fe,
+        type: 2}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114345606305003280, guid: 6cfd374f475d1be468146bdb629969fe,
+        type: 2}
+      propertyPath: m_textInfo.characterCount
+      value: 38
+      objectReference: {fileID: 0}
+    - target: {fileID: 114345606305003280, guid: 6cfd374f475d1be468146bdb629969fe,
+        type: 2}
+      propertyPath: m_textInfo.spaceCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114345606305003280, guid: 6cfd374f475d1be468146bdb629969fe,
+        type: 2}
+      propertyPath: m_textInfo.wordCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114345606305003280, guid: 6cfd374f475d1be468146bdb629969fe,
+        type: 2}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6cfd374f475d1be468146bdb629969fe, type: 2}
   m_IsPrefabParent: 0
@@ -23532,7 +23557,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1528901232}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -38574,12 +38599,22 @@ Prefab:
     - target: {fileID: 114100310066847274, guid: 0ec6f2d503243bf4ebb846efb779012d,
         type: 2}
       propertyPath: m_firstOverflowCharacterIndex
-      value: 22
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 114100310066847274, guid: 0ec6f2d503243bf4ebb846efb779012d,
         type: 2}
       propertyPath: m_textInfo.lineCount
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100310066847274, guid: 0ec6f2d503243bf4ebb846efb779012d,
+        type: 2}
+      propertyPath: m_fontSizeMin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100310066847274, guid: 0ec6f2d503243bf4ebb846efb779012d,
+        type: 2}
+      propertyPath: m_fontSize
+      value: 13.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ec6f2d503243bf4ebb846efb779012d, type: 2}
@@ -53410,7 +53445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.95900005, y: 1}
-  m_AnchoredPosition: {x: -0.00004048225, y: 0.00002597238}
+  m_AnchoredPosition: {x: -0.00004048225, y: -0.000014638734}
   m_SizeDelta: {x: 1.45, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1944520204
