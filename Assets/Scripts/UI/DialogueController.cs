@@ -23,8 +23,8 @@ public class DialogueController : MonoBehaviour {
     public delegate void DialogEvent(Dialog d);
     public delegate void DialogControllerEvent(GameObject d);
     public static event DialogControllerEvent DialogStarted;
-
     public static event DialogControllerEvent DialogCompleted;
+    public static event DialogControllerEvent DialogDisplayed;
     public static event DialogEvent IncorrectResponseChosen;
     public static event DialogEvent CorrectResponseChosen;
     // Use this for initialization
@@ -48,6 +48,8 @@ public class DialogueController : MonoBehaviour {
             if(line is CustomerDialog)
             {
                 Question.text = (line as CustomerDialog).text;
+                if (DialogDisplayed != null)
+                    DialogDisplayed(current.gameObject);
                 yield return new WaitForSeconds(3.0f);
                 Question.text = "";
             }
@@ -64,6 +66,8 @@ public class DialogueController : MonoBehaviour {
                 panelLeft.SetActive(true);
                 if (d.transform.parent.childCount > 2)
                     panelRight.SetActive(true);
+                if (DialogDisplayed != null)
+                    DialogDisplayed(current.gameObject);
                 Player.WalkSpeed = 0;
                 yield return new WaitUntil(() => playerSelection > 0);
                 Cursor.lockState = CursorLockMode.Locked;

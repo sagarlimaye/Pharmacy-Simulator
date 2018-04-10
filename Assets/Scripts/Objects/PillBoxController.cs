@@ -8,7 +8,8 @@ public class PillBoxController : MonoBehaviour {
     //public Input userInputField;
     public string pillType;
 	private float distance;
-	
+    public delegate void PillBoxControllerEvent(PillBoxController sender);
+    public static event PillBoxControllerEvent TrayFilledFromPillBox;
 	// Update is called once per frame
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
@@ -43,6 +44,8 @@ public class PillBoxController : MonoBehaviour {
 			emptyTray.transform.GetChild(0).parent = filledTray.transform;
             filledTray.pillType = pillType;
 			Destroy (emptyTray);
+            if (TrayFilledFromPillBox != null)
+                TrayFilledFromPillBox(this);
 		}
 	}
 

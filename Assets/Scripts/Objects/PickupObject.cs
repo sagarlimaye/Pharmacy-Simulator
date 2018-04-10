@@ -9,6 +9,8 @@ public class PickupObject : MonoBehaviour {
 
 	private float distance;
 	private bool isHeld;
+    public delegate void PickupObjectEvent(GameObject obj);
+    public static event PickupObjectEvent PickedUpObject;
 
 	//Called whenever the object is created
 	void Start(){
@@ -42,6 +44,9 @@ public class PickupObject : MonoBehaviour {
 		transform.parent   = GameObject.Find("Player").transform;
 		transform.parent   = GameObject.Find("FirstPersonPlayer").transform;
 		isHeld = true;
+        if (PickedUpObject != null)
+            PickedUpObject(gameObject);
+
 	}
 
 	public void putDown(){

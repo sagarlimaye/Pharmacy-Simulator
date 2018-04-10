@@ -43,7 +43,7 @@ public class MonitorInteraction : MonoBehaviour {
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
-		if ( available && distance < 3 && Input.GetKeyDown(KeyCode.E)) {
+        if (available && distance < 3 && Input.GetKeyDown(KeyCode.E) && PlayerLook.hitObject == gameObject) {
 			if(MainTerminalPanel.activeInHierarchy)
 			{
 				SwitchPanelScript.DataEntryPanel.SetActive(false);
@@ -51,6 +51,7 @@ public class MonitorInteraction : MonoBehaviour {
 				SwitchPanelScript.AssemblyPanel.SetActive(false);
 				MainTerminalPanel.SetActive(false);
 				GuideButtonScript.guideIntro.SetActive(false);
+                GuideButtonScript.guideAssembly2.SetActive(false);
                 if (TerminalClosed != null)
                     TerminalClosed(gameObject);
 			}

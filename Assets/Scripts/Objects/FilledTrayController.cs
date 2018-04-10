@@ -9,6 +9,8 @@ public class FilledTrayController : MonoBehaviour {
 	private int pillCount;
     public string pillType;
 	public GameObject bottle;
+    public delegate void FilledTrayControllerEvent(FilledTrayController sender);
+    public static event FilledTrayControllerEvent PrescriptionFilled;
 
 	// Update is called once per frame
 	void Update () {
@@ -30,6 +32,8 @@ public class FilledTrayController : MonoBehaviour {
 				Destroy (pillBottle);
 
 				replaceTray ();
+                if (PrescriptionFilled != null)
+                    PrescriptionFilled(this);
 			}
 			else if(Input.GetKeyDown(KeyCode.R)){
 				replaceTray ();
