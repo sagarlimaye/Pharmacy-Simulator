@@ -56,6 +56,7 @@ TagManager:
   - Prescription/Percocet
   - Prescription/Empty
   - Prescription/Esomeprazole Magnesium
+  - FileCabinetAnchor
   layers:
   - Default
   - TransparentFX

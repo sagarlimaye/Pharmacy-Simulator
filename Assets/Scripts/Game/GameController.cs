@@ -11,30 +11,25 @@ public class GameController : MonoBehaviour {
     public GameObject Customer;
 	public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
 	private int pillCount;
-
+    public int maxCustomers = 1;
+    private int spawnedCustomers = 0; 
 	
 	void OnEnable()
 	{
-        ScenarioInfoScript.ScenarioInfoReady += OnScenarioInfoReady;
 		CustomerAgent.CustomerSpawned += OnCustomerSpawned;
 		DialogueController.DialogCompleted += OnDialogCompleted;
 		BottleHolder.BottlePlaced += OnBottlePlaced;
 	}
 	void OnDisable()
 	{
-        ScenarioInfoScript.ScenarioInfoReady -= OnScenarioInfoReady;
         DialogueController.DialogCompleted -= OnDialogCompleted;
 		CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
 		BottleHolder.BottlePlaced -= OnBottlePlaced;
 	}
 
-	void OnScenarioInfoReady(ScenarioInfoScript sInfo)
-	{
-		Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
-	}
-
 	void OnCustomerSpawned(CustomerAgent customer)
 	{
+        spawnedCustomers++;
 		requestCheckpoint.dialog = pickupRequestDialog;
 		pickupCheckpoint.dialog = null;
 	}
@@ -60,7 +55,13 @@ public class GameController : MonoBehaviour {
             else pickupCheckpoint.dialog = wrongPrescriptionPlacedDialog; // wrong prescription placed, raise event
             requestCheckpoint.dialog = null;
         }
-	}
+        else if(sender.tag == "FileCabinetAnchor")
+        {
+            if(spawnedCustomers < maxCustomers)
+                Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
+        }
+    }
+	
 	// Use this for initialization
 	void Start () {
 		pillCount = 0;

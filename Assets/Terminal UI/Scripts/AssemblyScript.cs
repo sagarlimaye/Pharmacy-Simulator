@@ -32,7 +32,7 @@ public class AssemblyScript : MonoBehaviour {
 
     public AudioClip printingSound;
     public GameObject labelPrintingPrefab;
-
+    
     public void Awake()
     {
         assemblyScreen = GameObject.FindGameObjectWithTag("AssemblyScreen");

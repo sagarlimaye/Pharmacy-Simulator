@@ -4,12 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MonitorInteraction : MonoBehaviour {
-	public Text notification;
-	public GameObject MainTerminalPanel;
+    public Text notification;
+    public GameObject MainTerminalPanel;
 
-	private float distance;
-	bool available = true;
-	void OnEnable()
+    private float distance;
+    bool available = true;
+
+    public delegate void TerminalEvent(GameObject terminal);
+    public static event TerminalEvent TerminalOpened;
+    public static event TerminalEvent TerminalClosed;
+
+    void OnEnable()
 	{
 		DialogueController.DialogStarted += OnDialogStarted;
 		DialogueController.DialogCompleted += OnDialogCompleted;
@@ -46,6 +51,8 @@ public class MonitorInteraction : MonoBehaviour {
 				SwitchPanelScript.AssemblyPanel.SetActive(false);
 				MainTerminalPanel.SetActive(false);
 				GuideButtonScript.guideIntro.SetActive(false);
+                if (TerminalClosed != null)
+                    TerminalClosed(gameObject);
 			}
 			else
 			{
@@ -54,6 +61,8 @@ public class MonitorInteraction : MonoBehaviour {
                 anim.SetTrigger("Active");
                 GuideButtonScript.guideIntro.SetActive(true);
                 SoundManager.instance.PlaySingle(GuideButtonScript.popUpSound);
+                if (TerminalOpened != null)
+                    TerminalOpened(gameObject);
             }
 			Cursor.lockState = (MainTerminalPanel.activeInHierarchy) ? CursorLockMode.None : CursorLockMode.Locked;
 		}
