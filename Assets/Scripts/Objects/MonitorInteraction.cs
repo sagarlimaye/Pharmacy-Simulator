@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class MonitorInteraction : MonoBehaviour {
     public Text notification;
-    public static GameObject MainTerminalPanel;
-    public static GameObject profileScreen;
-    public static GameObject assemblyScreen;
+    public GameObject MainTerminalPanel;
+    public AudioClip popUpSound;
 
     private float distance;
     bool available = true;
@@ -39,27 +38,31 @@ public class MonitorInteraction : MonoBehaviour {
 
 	void Awake()
 	{
-        MainTerminalPanel = GameObject.FindGameObjectWithTag("MainUIPanel");
+		MainTerminalPanel.SetActive(false);
 	}
-
-    private void Start()
-    {
-        MainTerminalPanel.SetActive(false);
-    }
-
-    void Update () {
+	// Update is called once per frame
+	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
         if (available && distance < 3 && Input.GetKeyDown(KeyCode.E) && PlayerLook.hitObject == gameObject) {
 			if(MainTerminalPanel.activeInHierarchy)
 			{
-                SwitchPanelScript.TurnOffTerminal();
+				SwitchPanelScript.DataEntryPanel.SetActive(false);
+				SwitchPanelScript.ProfilesPanel.SetActive(false);
+				SwitchPanelScript.AssemblyPanel.SetActive(false);
+				MainTerminalPanel.SetActive(false);
+				GuideButtonScript.guideIntro.SetActive(false);
+                GuideButtonScript.guideAssembly2.SetActive(false);
                 if (TerminalClosed != null)
                     TerminalClosed(gameObject);
 			}
 			else
 			{
-                SwitchPanelScript.TurnOnTerminal();
+				MainTerminalPanel.SetActive(true);
+                var anim = GuideButtonScript.guideIntro.GetComponent<Animator>();
+                anim.SetTrigger("Active");
+                GuideButtonScript.guideIntro.SetActive(true);
+                SoundManager.instance.PlaySingle(popUpSound);
                 if (TerminalOpened != null)
                     TerminalOpened(gameObject);
             }

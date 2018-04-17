@@ -57,8 +57,6 @@ TagManager:
   - Prescription/Empty
   - Prescription/Esomeprazole Magnesium
   - FileCabinetAnchor
-  - MainUIPanel
-  - PopUpSound
   layers:
   - Default
   - TransparentFX

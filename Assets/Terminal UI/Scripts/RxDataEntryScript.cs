@@ -147,81 +147,45 @@ public class RxDataEntryScript : MonoBehaviour {
 
     public delegate void RxDataEntryEvent(GameObject rxContent);
     public static event RxDataEntryEvent RxEntriesPopulated;
-    public AudioClip wrongSound;
-
     public void OnAddRx()
     {
-        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One
-            && EventSystem.current.currentSelectedGameObject.transform.parent != rxContent.transform.GetChild(0).GetChild(0))
-        {
-            SoundManager.instance.PlaySingle(wrongSound);
-        }
-        else
-        {
-            deAddRxPanel.SetActive(true);
-            deLastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).GetComponent<Text>().text;
-            ResetDEAddRxPanelInputs();
-            TransferNameFromRxDataEntryToAddRx();
-            GenerateERxImageData();
-        }
+        deAddRxPanel.SetActive(true);
+        deLastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).GetComponent<Text>().text;
+        ResetDEAddRxPanelInputs();
+        TransferNameFromRxDataEntryToAddRx();
+        GenerateERxImageData();
     }
 
     public void OnOk()
     {
-        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One && !VerifyAddRxPanelInfoCorrect())
-        {
-            SoundManager.instance.PlaySingle(wrongSound);
-        }
+        if (AssemblyScript.lastModifiedId != null && deLastAddRxId != AssemblyScript.lastModifiedId)
+            deLastAddRxId = AssemblyScript.lastModifiedId;
 
-        else
-        {
-            if (AssemblyScript.lastModifiedId != null && deLastAddRxId != AssemblyScript.lastModifiedId)
-                deLastAddRxId = AssemblyScript.lastModifiedId;
+        //DestroyPreExistingAssemblyEntry(); //delete?
+        //DestroyPreExistingRxAssemblyPanel(); //delete?
+        InstantiateAssemblyEntry();
+        SaveDEAddRxDataToNewAssemblyEntry();
+        InstantiateAssemblyPanel();
+        SaveDeAddRxDataToNewAssemblyPanel();
+        ResetDEAddRxPanelInputs();
+        //DestroyRxImage(); Do i ever need to destroy?S
 
-            //DestroyPreExistingAssemblyEntry(); //delete?
-            //DestroyPreExistingRxAssemblyPanel(); //delete?
-            InstantiateAssemblyEntry();
-            SaveDEAddRxDataToNewAssemblyEntry();
-            InstantiateAssemblyPanel();
-            SaveDeAddRxDataToNewAssemblyPanel();
-            ResetDEAddRxPanelInputs();
-            //DestroyRxImage(); Do i ever need to destroy?S
-
-            deAddRxPanel.SetActive(false);
-            rxScreen.SetActive(false);
-            assemblyScreen.SetActive(true);
-
-            AssemblyScript.lastModifiedId = null;
-        }
+        deAddRxPanel.SetActive(false);
+        rxScreen.SetActive(false);
+        assemblyScreen.SetActive(true);
+ 
+        AssemblyScript.lastModifiedId = null;
     }
 
     public void OnCancel()
     {
-        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One)
-        {
-            SoundManager.instance.PlaySingle(wrongSound);
-        }
-        else
-        {
-            ResetDEAddRxPanelInputs();
-            deAddRxPanel.SetActive(false);
-        }
+        ResetDEAddRxPanelInputs();
+        deAddRxPanel.SetActive(false);
     }
 
     public void OnRxDEAddRxDrugDropdownValueChange()
     {
         UpdateQuantityDropdownValues();
-    }
-
-    public static bool VerifyAddRxPanelInfoCorrect()
-    {
-        var input = deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text;
-        var image = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-
-        if (deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text == deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text)
-            return true;
-        else
-            return false;
     }
 
     private void Awake()

@@ -52,6 +52,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   printingSound: {fileID: 8300000, guid: a4d436105d5bbfe4686dde14db635d95, type: 3}
-  wrongSound: {fileID: 8300000, guid: 7819310f052dabf429673d1f0118d13c, type: 3}
   labelPrintingPrefab: {fileID: 1945251381293048, guid: 287f9efab098172489c611491a215e00,
     type: 2}
