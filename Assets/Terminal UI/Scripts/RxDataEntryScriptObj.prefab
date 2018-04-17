@@ -197,21 +197,40 @@ MonoBehaviour:
     type: 2}
   apWaiterCheckToggleBackgroundPrefab: {fileID: 1891850907116134, guid: fefeb7c8d95d70a4bb597a461f1c71db,
     type: 2}
-  rxImagePatientPrefab: {fileID: 1278927880235846, guid: 209629d7268585748be08cd050d43364,
-    type: 2}
-  rxImageDoctorPrefab: {fileID: 1382497853724706, guid: d5f57908efffeb04b88342f8cf9706e2,
-    type: 2}
-  rxImageDrugPrefab: {fileID: 1976468120520290, guid: a87cab0c578029d4da205649b21e4c0d,
-    type: 2}
-  rxImageQuantityPrefab: {fileID: 1070919542234384, guid: 473437baef0667e49b692dd2897ce1da,
-    type: 2}
-  rxImageRefillsPrefab: {fileID: 1994867427722774, guid: 45526e964acb5fe4b8a361aadba11f5d,
-    type: 2}
-  rxImageGenOrBrPrefab: {fileID: 1096384813094444, guid: 9411c4c1a4d97574cbc91112d37eef77,
-    type: 2}
-  rxImageWrittenPrefab: {fileID: 1407750747430050, guid: f174910841c1c8b4983471dd816d8882,
-    type: 2}
-  rxImageExpPrefab: {fileID: 1895543645847128, guid: 9b9cb8c09269da044903853d6a786eb7,
-    type: 2}
-  rxImageSigPrefab: {fileID: 1700954729592982, guid: 878e0d48dbb3c86459524490caf9bf3e,
-    type: 2}
+  eRxFromInputPrefab: {fileID: 0}
+  eRxFromPhoneInputPrefab: {fileID: 0}
+  eRxFromFaxInputPrefab: {fileID: 0}
+  eRxWrittenInputPrefab: {fileID: 0}
+  eRxPatientInputPrefab: {fileID: 0}
+  eRxDobInputPrefab: {fileID: 0}
+  eRxRxInputPrefab: {fileID: 0}
+  eRxQuantityInputPrefab: {fileID: 0}
+  eRxRefillsInputPrefab: {fileID: 0}
+  eRxSigInputPrefab: {fileID: 0}
+  eRxBrandSignaturePrefab: {fileID: 0}
+  eRxGenericSignaturePrefab: {fileID: 0}
+  eRxToPrefab: {fileID: 0}
+  eRxToInputPrefab: {fileID: 0}
+  eRxToPhonePrefab: {fileID: 0}
+  eRxToPhoneInputPrefab: {fileID: 0}
+  eRxToFaxPrefab: {fileID: 0}
+  eRxToFaxInputPrefab: {fileID: 0}
+  eRxDivider1Prefab: {fileID: 0}
+  eRxFromTextPrefab: {fileID: 0}
+  eRxFromPhonePrefab: {fileID: 0}
+  eRxFromFaxPrefab: {fileID: 0}
+  eRxWrittenPrefab: {fileID: 0}
+  eRxDivider2Prefab: {fileID: 0}
+  eRxPatientPrefab: {fileID: 0}
+  eRxDobPrefab: {fileID: 0}
+  eRxRxPrefab: {fileID: 0}
+  eRxQuantityPrefab: {fileID: 0}
+  eRxRefillsPrefab: {fileID: 0}
+  eRxSigPrefab: {fileID: 0}
+  eRxBrandLinePrefab: {fileID: 0}
+  eRxOrPrefab: {fileID: 0}
+  eRxGenericLinePrefab: {fileID: 0}
+  eRxBrandTextPrefab: {fileID: 0}
+  eRxGenericTextPrefab: {fileID: 0}
+  eRxRxIconPrefab: {fileID: 0}
+  wrongSound: {fileID: 8300000, guid: 7819310f052dabf429673d1f0118d13c, type: 3}
