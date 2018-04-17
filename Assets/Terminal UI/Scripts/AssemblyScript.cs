@@ -31,6 +31,7 @@ public class AssemblyScript : MonoBehaviour {
     #endregion
 
     public AudioClip printingSound;
+    public AudioClip wrongSound;
     public GameObject labelPrintingPrefab;
     
     public void Awake()
@@ -79,15 +80,23 @@ public class AssemblyScript : MonoBehaviour {
 
     public void OnModify()
     {
-        lastModifiedId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(1).GetComponent<Text>().text;
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One)
+        {
+            SoundManager.instance.PlaySingle(wrongSound);
+        }
 
-        EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
-        EventSystem.current.currentSelectedGameObject.transform.parent.parent.gameObject.SetActive(false);
-        profileScreen.SetActive(true);
-        addRxPanel.SetActive(true);
-        addRxScanPromptPanel.SetActive(false);
+        else
+        {
+            lastModifiedId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(1).GetComponent<Text>().text;
 
-        RepopulateAddRxPanel();
+            EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
+            EventSystem.current.currentSelectedGameObject.transform.parent.parent.gameObject.SetActive(false);
+            profileScreen.SetActive(true);
+            addRxPanel.SetActive(true);
+            addRxScanPromptPanel.SetActive(false);
+
+            RepopulateAddRxPanel();
+        }
     }
 
     private void RepopulateAddRxPanel()
