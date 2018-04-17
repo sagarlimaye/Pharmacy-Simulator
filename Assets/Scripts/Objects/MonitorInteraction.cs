@@ -50,14 +50,8 @@ public class MonitorInteraction : MonoBehaviour {
     void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
-        if (available && distance < 3 && Input.GetKeyDown(KeyCode.E) && PlayerLook.hitObject == gameObject) {
-			if(MainTerminalPanel.activeInHierarchy)
-			{
-                SwitchPanelScript.TurnOffTerminal();
-                if (TerminalClosed != null)
-                    TerminalClosed(gameObject);
-			}
-			else
+        if (available && distance < 3 && Input.GetKeyDown(KeyCode.E) && PlayerLook.hitObject == gameObject && !MainTerminalPanel.activeInHierarchy) {
+			if(!MainTerminalPanel.activeInHierarchy)
 			{
                 SwitchPanelScript.TurnOnTerminal();
                 if (TerminalOpened != null)

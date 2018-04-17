@@ -43,8 +43,11 @@ public class PlayerController : MonoBehaviour {
 
 	void FixedUpdate() {
 		// Update is for physics-related code
-		MovePlayer();
-		ApplyGravity();
+        if(!MonitorInteraction.MainTerminalPanel.activeInHierarchy)
+        {
+		    MovePlayer();
+		    ApplyGravity();
+        }
 	}
 
 	void MovePlayer() {
