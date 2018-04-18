@@ -7,6 +7,7 @@ public class PlayerLook : MonoBehaviour {
 	public Text notification;
 	public Transform playerBody;
 	public float mouseSensitivity;
+	public GameObject mainTerminalPanel;
     public static GameObject hitObject;
 	float xAxisClamp = 0.0f;
 	private void Awake()
@@ -17,6 +18,12 @@ public class PlayerLook : MonoBehaviour {
 
 		if (Cursor.lockState == CursorLockMode.Locked) {
 			RotateCamera();
+		} else {
+			if (Input.GetMouseButtonDown(0)) {
+				if (!mainTerminalPanel.activeInHierarchy) {
+					Cursor.lockState = CursorLockMode.Locked;
+				}
+			}
 		}
 
 		//If the player is looking at an interactable object, show a message indicating they can use it

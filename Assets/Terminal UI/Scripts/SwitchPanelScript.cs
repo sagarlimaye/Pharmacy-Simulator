@@ -51,6 +51,8 @@ public class SwitchPanelScript : MonoBehaviour
         MainTerminalPanel.SetActive(false);
         powerOffBtn.SetActive(false);
         rxDictionaryBtn.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void OnRx()
