@@ -7,11 +7,15 @@ public class PlayerLook : MonoBehaviour {
 	public Text notification;
 	public Transform playerBody;
 	public float mouseSensitivity;
-
+    public static GameObject hitObject;
 	float xAxisClamp = 0.0f;
-
-	void Update() {
+    public Material material;
+    private static Renderer rend;
+	private void Awake()
+	{
 		Cursor.lockState = CursorLockMode.Locked;
+	}
+	void Update() {
 
 		if (Cursor.lockState == CursorLockMode.Locked) {
 			RotateCamera();
@@ -52,25 +56,47 @@ public class PlayerLook : MonoBehaviour {
 	void showObjectIsInteractable(){
 		Vector3 cameraCenter = Camera.main.ScreenToWorldPoint (new Vector3 (Screen.width / 2, Screen.height / 2, Camera.main.nearClipPlane));
 		RaycastHit hit;
-
+        
 		if (Physics.Raycast (cameraCenter, Camera.main.transform.forward, out hit, 3)) {
 			if (hit.transform.gameObject) {
+                hitObject = hit.transform.gameObject;
 				if (hit.transform.gameObject.tag == "Interactable") {
 					notification.text = "Press E to use.";
-				}
+                }
 				else if(hit.transform.gameObject.tag == "FilledTray"){
 					notification.text = "Press E to fill prescription or R to empty.";
-				}
+                    rend = hitObject.GetComponent<Renderer>();
+                    var m = rend.material;
+                    m.color = Color.blue;
+                    rend.material = m;
+                }
 				else if(hit.transform.gameObject.tag == "PillBox"){
 					notification.text = "Press E to fill pill tray.";
-				}
+                    rend = hitObject.GetComponent<Renderer>();
+                    var m = rend.material;
+                    m.color = Color.blue;
+                    rend.material = m;
+                }
 				else {
 					notification.text = "";
-				}
+                    rend = hitObject.GetComponent<Renderer>();
+                    if (rend != null)
+                    {
+                        var m = rend.material;
+                        m.color = Color.white;
+                        rend.material = m;
+                    }
+                }
 			}
 		}
 		else {
-			notification.text = "";
-		}
+            notification.text = "";
+            if(rend != null)
+            {
+                var m = rend.material;
+                m.color = Color.white;
+                rend.material = m;
+            }
+        }
 	}
 }

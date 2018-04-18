@@ -6,8 +6,63 @@ TagManager:
   tags:
   - Interactable
   - PillTray
+<<<<<<< HEAD
   - FilledTray
   - PillBox
+=======
+  - AssemblyPanel
+  - GenericToggle
+  - BrandToggle
+  - RxInfoPanel
+  - SearchInputField
+  - DrugDropdown
+  - QuantityDropdown
+  - RxContent
+  - RxScreen
+  - ProfilesScreen
+  - NewProfilePanel
+  - PatientInfoPanel
+  - ProfilesContent
+  - AssemblyScreen
+  - AddRxPanel
+  - AssemblyInfoPanel
+  - AddRxInfoPanel
+  - ScanPrompt
+  - AssemblyContent
+  - RxImage
+  - DataEntryAddRxPanel
+  - DataEntryAddRxInfoPanel
+  - rxDEDrugDropdown
+  - rxDEQuantityDropdown
+  - GuideRxAddRxDEPanel
+  - RxDEAddRxImage
+  - GuidePromptsPanel
+  - PatientInput
+  - DoctorInput
+  - RefillsInput
+  - WrittenInput
+  - ExpInput
+  - WaiterToggle
+  - PillBox
+  - Customer
+  - Antibiotic
+  - FilledTray
+  - PrescriptionReadyDialog
+  - PickupPrescriptionDialog
+  - AntibioticFilledTray
+  - FilledPrescriptionAnchor
+  - EmptyPrescriptionAnchor
+  - Prescription/Adulimumab
+  - Prescription/Nexium
+  - Prescription/Humira
+  - Prescription/Oxycodone
+  - Prescription/Percocet
+  - Prescription/Empty
+  - Prescription/Esomeprazole Magnesium
+  - FileCabinetAnchor
+  - MainUIPanel
+  - PopUpSound
+>>>>>>> origin/prototype-with-ui
   layers:
   - Default
   - TransparentFX

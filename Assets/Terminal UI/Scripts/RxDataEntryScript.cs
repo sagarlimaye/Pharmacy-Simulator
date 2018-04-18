@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,8 +15,8 @@ public class RxDataEntryScript : MonoBehaviour {
     public static GameObject assemblyContent;
     public static GameObject profilesContent;
     public static GameObject profileScreen;
-    public static GameObject rxDEAddRxPanel;
-    public static GameObject rxDEAddRxImage;
+    public static GameObject deAddRxPanel;
+    public static GameObject deAddRxImage;
     public static GameObject rxDEAddRxInfoPanel;
     public static Dropdown rxDEaddRxDrugDropdown;
     public static Dropdown rxDEaddRxQuantityDropdown;
@@ -106,57 +107,121 @@ public class RxDataEntryScript : MonoBehaviour {
     #endregion
 
     #region RxImage Public Prefabs
-    public GameObject rxImagePatientPrefab;
-    public GameObject rxImageDoctorPrefab;
-    public GameObject rxImageDrugPrefab;
-    public GameObject rxImageQuantityPrefab;
-    public GameObject rxImageRefillsPrefab;
-    public GameObject rxImageGenOrBrPrefab;
-    public GameObject rxImageWrittenPrefab;
-    public GameObject rxImageExpPrefab;
-    public GameObject rxImageSigPrefab;
+    public GameObject eRxFromInputPrefab;
+    public GameObject eRxFromPhoneInputPrefab;
+    public GameObject eRxFromFaxInputPrefab;
+    public GameObject eRxWrittenInputPrefab;
+    public GameObject eRxPatientInputPrefab;
+    public GameObject eRxDobInputPrefab;
+    public GameObject eRxRxInputPrefab;
+    public GameObject eRxQuantityInputPrefab;
+    public GameObject eRxRefillsInputPrefab;
+    public GameObject eRxSigInputPrefab;
+    public GameObject eRxBrandSignaturePrefab;
+    public GameObject eRxGenericSignaturePrefab;
+    public GameObject eRxToPrefab;
+    public GameObject eRxToInputPrefab;
+    public GameObject eRxToPhonePrefab;
+    public GameObject eRxToPhoneInputPrefab;
+    public GameObject eRxToFaxPrefab;
+    public GameObject eRxToFaxInputPrefab;
+    public GameObject eRxDivider1Prefab;
+    public GameObject eRxFromTextPrefab;
+    public GameObject eRxFromPhonePrefab;
+    public GameObject eRxFromFaxPrefab;
+    public GameObject eRxWrittenPrefab;
+    public GameObject eRxDivider2Prefab;
+    public GameObject eRxPatientPrefab;
+    public GameObject eRxDobPrefab;
+    public GameObject eRxRxPrefab;
+    public GameObject eRxQuantityPrefab;
+    public GameObject eRxRefillsPrefab;
+    public GameObject eRxSigPrefab;
+    public GameObject eRxBrandLinePrefab;
+    public GameObject eRxOrPrefab;
+    public GameObject eRxGenericLinePrefab;
+    public GameObject eRxBrandTextPrefab;
+    public GameObject eRxGenericTextPrefab;
+    public GameObject eRxRxIconPrefab;
     #endregion
+
+    public delegate void RxDataEntryEvent(GameObject rxContent);
+    public static event RxDataEntryEvent RxEntriesPopulated;
+    public AudioClip wrongSound;
 
     public void OnAddRx()
     {
-        de_LastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).GetComponent<Text>().text;
-        ResetDEAddRxPanelInputs();
-        TransferNameFromRxDataEntryToAddRx();
-        InstantiateRxImage();
-        GenerateRxImageData();
-        rxDEAddRxPanel.SetActive(true);
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One
+            && EventSystem.current.currentSelectedGameObject.transform.parent != rxContent.transform.GetChild(0).GetChild(0))
+        {
+            SoundManager.instance.PlaySingle(wrongSound);
+        }
+        else
+        {
+            deAddRxPanel.SetActive(true);
+            deLastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).GetComponent<Text>().text;
+            ResetDEAddRxPanelInputs();
+            TransferNameFromRxDataEntryToAddRx();
+            GenerateERxImageData();
+        }
     }
 
     public void OnOk()
     {
-        if (AssemblyScript.lastModifiedId != null && de_LastAddRxId != AssemblyScript.lastModifiedId)
-            de_LastAddRxId = AssemblyScript.lastModifiedId;
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One && !VerifyAddRxPanelInfoCorrect())
+        {
+            SoundManager.instance.PlaySingle(wrongSound);
+        }
 
-        DestroyPreExistingRxEntry();
-        DestroyPreExistingRxAssemblyPanel();
-        InstantiateAssemblyEntry();
-        SaveDEAddRxDataToNewAssemblyEntry();
-        InstantiateAssemblyPanel();
-        SaveDEAddRxDataToNewAssemblyPanel();
-        ResetDEAddRxPanelInputs();
-        DestroyRxImage();
+        else
+        {
+            if (AssemblyScript.lastModifiedId != null && deLastAddRxId != AssemblyScript.lastModifiedId)
+                deLastAddRxId = AssemblyScript.lastModifiedId;
 
-        rxDEAddRxPanel.SetActive(false);
-        rxScreen.SetActive(false);
-        assemblyScreen.SetActive(true);
- 
-        AssemblyScript.lastModifiedId = null;
+            //DestroyPreExistingAssemblyEntry(); //delete?
+            //DestroyPreExistingRxAssemblyPanel(); //delete?
+            InstantiateAssemblyEntry();
+            SaveDEAddRxDataToNewAssemblyEntry();
+            InstantiateAssemblyPanel();
+            SaveDeAddRxDataToNewAssemblyPanel();
+            ResetDEAddRxPanelInputs();
+            //DestroyRxImage(); Do i ever need to destroy?S
+
+            deAddRxPanel.SetActive(false);
+            rxScreen.SetActive(false);
+            assemblyScreen.SetActive(true);
+
+            AssemblyScript.lastModifiedId = null;
+        }
     }
 
     public void OnCancel()
     {
-        ResetDEAddRxPanelInputs();
-        rxDEAddRxPanel.SetActive(false);
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One)
+        {
+            SoundManager.instance.PlaySingle(wrongSound);
+        }
+        else
+        {
+            ResetDEAddRxPanelInputs();
+            deAddRxPanel.SetActive(false);
+        }
     }
 
     public void OnRxDEAddRxDrugDropdownValueChange()
     {
         UpdateQuantityDropdownValues();
+    }
+
+    public static bool VerifyAddRxPanelInfoCorrect()
+    {
+        var input = deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text;
+        var image = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+
+        if (deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text == deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text)
+            return true;
+        else
+            return false;
     }
 
     private void Awake()
@@ -167,19 +232,19 @@ public class RxDataEntryScript : MonoBehaviour {
         rxContent = GameObject.FindGameObjectWithTag("RxContent");
         assemblyContent = GameObject.FindGameObjectWithTag("AssemblyContent");
         profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
-        rxDEAddRxPanel = GameObject.FindGameObjectWithTag("DataEntryAddRxPanel");
-        rxDEAddRxImage = GameObject.FindGameObjectWithTag("RxDEAddRxImage");
+        deAddRxPanel = GameObject.FindGameObjectWithTag("DataEntryAddRxPanel");
+        deAddRxImage = GameObject.FindGameObjectWithTag("RxDEAddRxImage");
         rxDEAddRxInfoPanel = GameObject.FindGameObjectWithTag("DataEntryAddRxInfoPanel");
         rxDEaddRxDrugDropdown = GameObject.FindGameObjectWithTag("rxDEDrugDropdown").GetComponent<Dropdown>();
         rxDEaddRxQuantityDropdown = GameObject.FindGameObjectWithTag("rxDEQuantityDropdown").GetComponent<Dropdown>();
 
-        rxDEAddRxPanel.SetActive(false);
+        deAddRxPanel.SetActive(false);
     }
 
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(2);
-        InitializaRandomRxDataEntryGeneration();
+        InitializeRandomRxDataEntryGeneration();
         PopulateRxDEAddRxDrugDropdownValues();
     }
 
@@ -278,46 +343,64 @@ public class RxDataEntryScript : MonoBehaviour {
         cloneApGenericToggle.GetComponent<Toggle>().graphic = cloneApGenericToggleBackground.transform.GetChild(0).GetComponent<Image>();
         cloneApWaiterToggle.GetComponent<Toggle>().graphic = cloneApWaiterToggleBackground.transform.GetChild(0).GetComponent<Image>();
 
-        cloneAssemblyRxImagePatient = Instantiate(rxDEAddRxImage.transform.GetChild(1).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageDoctor = Instantiate(rxDEAddRxImage.transform.GetChild(2).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageDrug = Instantiate(rxDEAddRxImage.transform.GetChild(3).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageQuantity = Instantiate(rxDEAddRxImage.transform.GetChild(4).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageRefills = Instantiate(rxDEAddRxImage.transform.GetChild(5).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageGenOrBr = Instantiate(rxDEAddRxImage.transform.GetChild(6).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageWritten = Instantiate(rxDEAddRxImage.transform.GetChild(7).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageExp = Instantiate(rxDEAddRxImage.transform.GetChild(8).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
-        cloneAssemblyRxImageSig = Instantiate(rxDEAddRxImage.transform.GetChild(9).gameObject, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxFromInput = Instantiate(eRxFromInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxFromPhoneInput = Instantiate(eRxFromPhoneInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxFromFaxInput = Instantiate(eRxFromFaxInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxWrittenInput = Instantiate(eRxWrittenInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxPatientInput = Instantiate(eRxPatientInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxDobInput = Instantiate(eRxDobInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxRxInput = Instantiate(eRxRxInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxQuantityInput = Instantiate(eRxQuantityInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxRefillsInput = Instantiate(eRxRefillsInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxSigInput = Instantiate(eRxSigInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxBrandSignature = Instantiate(eRxBrandSignaturePrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        cloneERxGenericSignature = Instantiate(eRxGenericSignaturePrefab, cloneApAssemblyPanel.transform.GetChild(0));
+
+        Instantiate(eRxToPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxToInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxToPhonePrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxToPhoneInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxToFaxPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxToFaxInputPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxDivider1Prefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxFromTextPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxFromPhonePrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxFromFaxPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxWrittenPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxDivider2Prefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxPatientPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxDobPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxRxPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxQuantityPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxRefillsPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxSigPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxBrandLinePrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxOrPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxGenericLinePrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxBrandTextPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxGenericTextPrefab, cloneApAssemblyPanel.transform.GetChild(0));
+        Instantiate(eRxRxIconPrefab, cloneApAssemblyPanel.transform.GetChild(0));
     }
 
-    private void InstantiateRxImage()
+    private void GenerateERxImageData()
     {
-        cloneRxImagePatient = Instantiate(rxImagePatientPrefab, rxDEAddRxImage.transform);
-        cloneRxImageDoctor = Instantiate(rxImageDoctorPrefab, rxDEAddRxImage.transform);
-        cloneRxImageDrug = Instantiate(rxImageDrugPrefab, rxDEAddRxImage.transform);
-        cloneRxImageQuantity = Instantiate(rxImageQuantityPrefab, rxDEAddRxImage.transform);
-        cloneRxImageRefills = Instantiate(rxImageRefillsPrefab, rxDEAddRxImage.transform);
-        cloneRxImageGenOrBr = Instantiate(rxImageGenOrBrPrefab, rxDEAddRxImage.transform);
-        cloneRxImageWritten = Instantiate(rxImageWrittenPrefab, rxDEAddRxImage.transform);
-        cloneRxImageExp = Instantiate(rxImageExpPrefab, rxDEAddRxImage.transform);
-        cloneRxImageSig = Instantiate(rxImageSigPrefab, rxDEAddRxImage.transform);
-    }
+        deAddRxImage.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = deAddRxPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text;
 
-    private void GenerateRxImageData()
-    {
-        var s = rxDEAddRxPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text;
 
-        cloneRxImagePatient.GetComponentInChildren<Text>().text = rxDEAddRxPanel.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text;
-
-        //Find matching profile and get doctor name
+        //Find matching profile and get doctor name and phone. Generate fax
         for (int i = 3; i < (profilesContent.transform.childCount + 3); i++)
         {
             GameObject currentProfileClone = profileScreen.transform.GetChild(i).gameObject;
             string currentProfileFullName = currentProfileClone.transform.GetChild(1).GetChild(0).GetChild(1).GetComponent<InputField>().text + " "
                                         + currentProfileClone.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<InputField>().text;
 
-            if (currentProfileFullName == cloneRxImagePatient.GetComponentInChildren<Text>().text)
+            if (currentProfileFullName == deAddRxImage.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text)
             {
-                cloneRxImageDoctor.GetComponentInChildren<Text>().text = currentProfileClone.transform.GetChild(1).GetChild(8).GetChild(1).GetComponent<InputField>().text;
+                deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentProfileClone.transform.GetChild(1).GetChild(8).GetChild(1).GetComponent<InputField>().text;
+                deAddRxImage.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = currentProfileClone.transform.GetChild(1).GetChild(9).GetChild(1).GetComponent<InputField>().text;
+                deAddRxImage.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text.Remove(10) + "0000";
+                deAddRxImage.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = currentProfileClone.transform.GetChild(1).GetChild(2).GetChild(1).GetComponent<InputField>().text;
+
                 break;
             }
         }
@@ -328,23 +411,34 @@ public class RxDataEntryScript : MonoBehaviour {
             GameObject currentRxDataEntry = rxContent.transform.GetChild(i).gameObject;
             string currentRxDataEntryFullName = currentRxDataEntry.transform.GetChild(0).GetChild(1).GetComponentInChildren<Text>().text;
 
-            if (currentRxDataEntryFullName == cloneRxImagePatient.GetComponentInChildren<Text>().text)
+            if (currentRxDataEntryFullName == deAddRxImage.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text)
             {
-                cloneRxImageDrug.GetComponentInChildren<Text>().text = currentRxDataEntry.transform.GetChild(0).GetChild(2).GetComponentInChildren<Text>().text;
+                deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = currentRxDataEntry.transform.GetChild(0).GetChild(2).GetComponentInChildren<Text>().text;
                 break;
             }
         }
 
-        List<string> quantities = DrugDatabase.drugInfo[cloneRxImageDrug.GetComponentInChildren<Text>().text][0];
-        cloneRxImageQuantity.GetComponentInChildren<Text>().text = quantities[rnd.Next(quantities.Count)];
-        cloneRxImageRefills.GetComponentInChildren<Text>().text = PrescriptionDatabase.generateRefill();
-        cloneRxImageGenOrBr.GetComponentInChildren<Text>().text = PrescriptionDatabase.generateGenOrBr();
-        cloneRxImageWritten.GetComponentInChildren<Text>().text = PrescriptionDatabase.RandomDay().ToString();
-        cloneRxImageExp.GetComponentInChildren<Text>().text = PrescriptionDatabase.FutureRandomDay().ToString();
-        cloneRxImageSig.GetComponentInChildren<Text>().text = PrescriptionDatabase.GenerateSig();
+        List<string> quantities = DrugDatabase.drugInfo[deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text][0];
+        deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = quantities[rnd.Next(quantities.Count)];
+        deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.GenerateRefill();
+        deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.RandomDay().ToString();
+        deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.GenerateSig();
+
+        if(PrescriptionDatabase.GenerateGenOrBr())
+        {
+            deAddRxImage.transform.GetChild(10).GetComponent<Text>().text = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            deAddRxImage.transform.GetChild(11).GetComponent<Text>().text = "";
+
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(11).GetComponent<Text>().text = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+            deAddRxImage.transform.GetChild(10).GetComponent<Text>().text = "";
+
+        }
     }
 
-    private void SaveDEAddRxDataToNewAssemblyPanel()
+    private void SaveDeAddRxDataToNewAssemblyPanel()
     {
         UpdateAssemblyPanelPriceAndId();
 
@@ -392,8 +486,20 @@ public class RxDataEntryScript : MonoBehaviour {
         bool waiter = waiterPanel.transform.GetChild(0).GetComponent<Toggle>().isOn;
         cloneApWaiterToggle.GetComponent<Toggle>().isOn = waiter;
 
-        cloneApAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text = de_LastAddRxId;
+        cloneApAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text = deLastAddRxId;
 
+        cloneERxFromInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        cloneERxFromPhoneInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text;
+        cloneERxFromFaxInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text;
+        cloneERxWrittenInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text;
+        cloneERxPatientInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text;
+        cloneERxDobInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text;
+        cloneERxRxInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text;
+        cloneERxQuantityInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text;
+        cloneERxRefillsInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text;
+        cloneERxSigInput.GetComponent<TextMeshProUGUI>().text = deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().text;
+        cloneERxBrandSignature.GetComponent<Text>().text = deAddRxImage.transform.GetChild(10).GetComponent<Text>().text;
+        cloneERxGenericSignature.GetComponent<Text>().text = deAddRxImage.transform.GetChild(11).GetComponent<Text>().text;
     }
 
     private void UpdateAssemblyPanelPriceAndId()
@@ -418,23 +524,34 @@ public class RxDataEntryScript : MonoBehaviour {
         }
     }
 
-    private void InitializaRandomRxDataEntryGeneration()
+    private void InitializeRandomRxDataEntryGeneration()
     {
+        List<int> randomUniqueNumbers = new List<int>();
+        int number;
+
         for (int i = 0; i < rxDataEntries; i++)
         {
+            do
+            {
+                number = rnd.Next(3, profileScreen.transform.childCount - 3);
+            } while (randomUniqueNumbers.Contains(number));
+            randomUniqueNumbers.Add(number);
+        }
+
+        foreach (int randomNumber in randomUniqueNumbers)
+        {
             InstantiateRxDataEntry();
-            
-            //Generate random patient data
-            int randomNum = 2 + rnd.Next(profileScreen.transform.childCount - 2);
-            GameObject randomProfileEntry = profileScreen.transform.GetChild(randomNum).gameObject;
+
+            GameObject randomProfileEntry = profileScreen.transform.GetChild(randomNumber).gameObject;
         
             cloneRxDataEntryNameBtn.GetComponentInChildren<Text>().text = randomProfileEntry.transform.GetChild(1).GetChild(0).GetComponentInChildren<InputField>().text
                                                 + " " + randomProfileEntry.transform.GetChild(1).GetChild(1).GetComponentInChildren<InputField>().text;
 
             cloneRxDataEntryDrugBtn.GetComponentInChildren<Text>().text = DrugDatabase.drugNames[rnd.Next(DrugDatabase.drugNames.Count)];
             cloneRxDataEntryID.GetComponent<Text>().text = randomProfileEntry.transform.GetChild(4).GetComponent<Text>().text;
-
         }
+        if (RxEntriesPopulated != null)
+            RxEntriesPopulated(cloneRxDataEntryObj);
     }
 
     private void InstantiateRxDataEntry()
@@ -466,7 +583,7 @@ public class RxDataEntryScript : MonoBehaviour {
             bool waiter = waiterPanel.transform.GetChild(0).GetComponent<Toggle>().isOn;
             cloneAEntryWaiterToggle.GetComponent<Toggle>().isOn = waiter;
 
-            cloneAEntryID.GetComponentInChildren<Text>().text = de_LastAddRxId;
+            cloneAEntryID.GetComponentInChildren<Text>().text = deLastAddRxId;
         }
     }
 
@@ -481,8 +598,9 @@ public class RxDataEntryScript : MonoBehaviour {
         rxDEaddRxDrugDropdown.AddOptions(drugNames);
     }
 
-    private void DestroyPreExistingRxEntry()
+    private void DestroyPreExistingAssemblyEntry()
     {
+        //Destroys any previous existing assembly entry with same "last modified" id to prevent duplication when modifying
         for (int i = 0; i < assemblyContent.transform.childCount; i++)
         {
             GameObject currentRxEntryClone = assemblyContent.transform.GetChild(i).gameObject;
@@ -498,6 +616,7 @@ public class RxDataEntryScript : MonoBehaviour {
 
     private void DestroyPreExistingRxAssemblyPanel()
     {
+        //Destroys any previous existing assembly panel with same "last modified" id to prevent duplication when modifying
         for (int i = 1; i < assemblyScreen.transform.childCount; i++)
         {
             GameObject currentAssemblyPanel = assemblyScreen.transform.GetChild(i).gameObject;
@@ -513,9 +632,9 @@ public class RxDataEntryScript : MonoBehaviour {
 
     private void DestroyRxImage()
     {
-        for (int i = 1; i < rxDEAddRxPanel.transform.GetChild(0).childCount; i++)
+        for (int i = 1; i < deAddRxPanel.transform.GetChild(0).childCount; i++)
         {
-            Destroy(rxDEAddRxPanel.transform.GetChild(0).GetChild(i).transform.gameObject);
+            Destroy(deAddRxPanel.transform.GetChild(0).GetChild(i).transform.gameObject);
         }
     }
 
@@ -587,13 +706,13 @@ public class RxDataEntryScript : MonoBehaviour {
     {
         GameObject currentRxDataEntry = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         string patientFullName = currentRxDataEntry.transform.GetChild(1).GetComponentInChildren<Text>().text;
-        rxDEAddRxPanel.transform.GetChild(1).transform.GetChild(0).transform.GetChild(1).GetComponent<InputField>().text = patientFullName;
+        deAddRxPanel.transform.GetChild(1).transform.GetChild(0).transform.GetChild(1).GetComponent<InputField>().text = patientFullName;
     }
 
 
     private int rxDataEntries = 6;
     private static bool eRx;
-    private static string de_LastAddRxId;
+    private static string deLastAddRxId;
     private static System.Random rnd = new System.Random();
 
     #region Rx Data Entry Clones
@@ -680,27 +799,19 @@ public class RxDataEntryScript : MonoBehaviour {
     private GameObject cloneApWaiterCheckToggleBackground;
     #endregion
 
-    #region Rx Image Clones
-    private GameObject cloneRxImagePatient;
-    private GameObject cloneRxImageDoctor;
-    private GameObject cloneRxImageDrug;
-    private GameObject cloneRxImageQuantity;
-    private GameObject cloneRxImageRefills;
-    private GameObject cloneRxImageGenOrBr;
-    private GameObject cloneRxImageWritten;
-    private GameObject cloneRxImageExp;
-    private GameObject cloneRxImageSig;
-    #endregion
+    #region eRx Image clones
+    private GameObject cloneERxFromInput;
+    private GameObject cloneERxFromPhoneInput;
+    private GameObject cloneERxFromFaxInput;
+    private GameObject cloneERxWrittenInput;
+    private GameObject cloneERxPatientInput;
+    private GameObject cloneERxDobInput;
+    private GameObject cloneERxRxInput;
+    private GameObject cloneERxQuantityInput;
+    private GameObject cloneERxRefillsInput;
+    private GameObject cloneERxSigInput;
+    private GameObject cloneERxBrandSignature;
+    private GameObject cloneERxGenericSignature;
 
-    #region Assembly Panel Rx Image Clones
-    private GameObject cloneAssemblyRxImagePatient;
-    private GameObject cloneAssemblyRxImageDoctor;
-    private GameObject cloneAssemblyRxImageDrug;
-    private GameObject cloneAssemblyRxImageQuantity;
-    private GameObject cloneAssemblyRxImageRefills;
-    private GameObject cloneAssemblyRxImageGenOrBr;
-    private GameObject cloneAssemblyRxImageWritten;
-    private GameObject cloneAssemblyRxImageExp;
-    private GameObject cloneAssemblyRxImageSig;
     #endregion
 }

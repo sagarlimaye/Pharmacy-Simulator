@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class ScenarioInfoScript : MonoBehaviour
 {
     public enum Scenario { One, Two, Three, Off };
-    public Scenario currentScenario;
+    public static Scenario currentScenario;
 
     public enum Mode { Practice, Challenge };
-    public Mode currentMode;
+    public static Mode currentMode;
 
     public static GameObject rxScreen;
     public static GameObject profileScreen;
@@ -26,9 +26,33 @@ public class ScenarioInfoScript : MonoBehaviour
     public static string scenarioPatientDob;
     public static string scenarioPatientDrugPrice;
 
+    public delegate void ScenarioInfoEvent(ScenarioInfoScript scenarioInfo);
+    public static event ScenarioInfoEvent ScenarioInfoReady;
+
+    void OnEnable()
+    {
+        RxDataEntryScript.RxEntriesPopulated += OnRxEntriesPopulated;
+        CustomerDestroyer.CustomerDestroyed += OnCustomerDestroyed;
+    }
+
+    void OnDisable()
+    {
+        RxDataEntryScript.RxEntriesPopulated -= OnRxEntriesPopulated;
+        CustomerDestroyer.CustomerDestroyed -= OnCustomerDestroyed;
+    }
+
+    private void OnRxEntriesPopulated(GameObject rxContent)
+    {
+        OnAddRx();
+    }
+
+    void OnCustomerDestroyed()
+    {
+        OnAddRx();
+    }
     public void OnAddRx()
     {
-        if (currentScenario == Scenario.One && firstAccess)
+         if (currentScenario == Scenario.One && firstAccess)
         {
             //The first entry on the "Rx Data Entry" panel will always be the subject patient for scenario 1
 
@@ -52,6 +76,8 @@ public class ScenarioInfoScript : MonoBehaviour
                 }
             }
         }
+        if (ScenarioInfoReady != null)
+            ScenarioInfoReady(this);
     }
 
     public void OnOk()
@@ -68,7 +94,7 @@ public class ScenarioInfoScript : MonoBehaviour
         rxContent = GameObject.FindGameObjectWithTag("RxContent");
         profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
         assemblyContent = GameObject.FindGameObjectWithTag("AssemblyContent");
-    }
-
+        
+    }   
     private static bool firstAccess = true;
 }

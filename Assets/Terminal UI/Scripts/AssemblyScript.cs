@@ -30,6 +30,10 @@ public class AssemblyScript : MonoBehaviour {
     public static Toggle addRxWaiterToggle;
     #endregion
 
+    public AudioClip printingSound;
+    public AudioClip wrongSound;
+    public GameObject labelPrintingPrefab;
+    
     public void Awake()
     {
         assemblyScreen = GameObject.FindGameObjectWithTag("AssemblyScreen");
@@ -63,20 +67,36 @@ public class AssemblyScript : MonoBehaviour {
     public void OnDone()
     {
         DestroyRxEntry();
+        GameObject PrintingLabel = Instantiate(labelPrintingPrefab, assemblyScreen.transform);
+        PrintingLabel.SetActive(true);
+        SoundManager.instance.PlaySingle(printingSound);
         EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
+    }
+
+    public IEnumerator Wait(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 
     public void OnModify()
     {
-        lastModifiedId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(1).GetComponent<Text>().text;
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One)
+        {
+            SoundManager.instance.PlaySingle(wrongSound);
+        }
 
-        EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
-        EventSystem.current.currentSelectedGameObject.transform.parent.parent.gameObject.SetActive(false);
-        profileScreen.SetActive(true);
-        addRxPanel.SetActive(true);
-        addRxScanPromptPanel.SetActive(false);
+        else
+        {
+            lastModifiedId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(1).GetComponent<Text>().text;
 
-        RepopulateAddRxPanel();
+            EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
+            EventSystem.current.currentSelectedGameObject.transform.parent.parent.gameObject.SetActive(false);
+            profileScreen.SetActive(true);
+            addRxPanel.SetActive(true);
+            addRxScanPromptPanel.SetActive(false);
+
+            RepopulateAddRxPanel();
+        }
     }
 
     private void RepopulateAddRxPanel()

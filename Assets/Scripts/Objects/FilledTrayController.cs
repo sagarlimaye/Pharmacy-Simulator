@@ -7,6 +7,10 @@ public class FilledTrayController : MonoBehaviour {
 
 	private float distance;
 	private int pillCount;
+    public string pillType;
+	public GameObject bottle;
+    public delegate void FilledTrayControllerEvent(FilledTrayController sender);
+    public static event FilledTrayControllerEvent PrescriptionFilled;
 
 	// Update is called once per frame
 	void Update () {
@@ -15,17 +19,21 @@ public class FilledTrayController : MonoBehaviour {
 		//If the player hits E, replace the empty pill bottle with a filled prescription; if they hit R, we only replace the tray
 		if(distance < 3 && pillCount != 0){
 			if(Input.GetKeyDown(KeyCode.E)){
-				GameObject pillBottle = GameObject.Find ("Bottle");
+				var holder = transform.GetChild(0).GetComponent<BottleHolder>();
+				GameObject pillBottle = holder.bottle;
 				var bottlePosition = pillBottle.transform.position;
 				var bottleRotation = pillBottle.transform.rotation;
 
-				//We now instantiate a filled prescription, then delete the empty pill bottle
-				var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/Prescription"), bottlePosition, bottleRotation).GetComponent<PrescriptionController>();
+                //We now instantiate a filled prescription, then delete the empty pill bottle
+                
+                var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/"+pillType), bottlePosition, bottleRotation).GetComponent<PrescriptionController>();
 				filledPrescription.isFilledCorrectly = gameController.prescriptionIsReady ();
 
 				Destroy (pillBottle);
 
 				replaceTray ();
+                if (PrescriptionFilled != null)
+                    PrescriptionFilled(this);
 			}
 			else if(Input.GetKeyDown(KeyCode.R)){
 				replaceTray ();
@@ -38,9 +46,9 @@ public class FilledTrayController : MonoBehaviour {
 		//Reset pill count
 		gameController.resetPillCount();
 
-		Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
+        Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"));
 
-		Destroy (gameObject);
+        Destroy (gameObject);
 	}
 
 	public void setPillCount(int pills){
