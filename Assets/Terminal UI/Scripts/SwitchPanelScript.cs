@@ -15,30 +15,42 @@ public class SwitchPanelScript : MonoBehaviour
     public static bool dataEntryScreenIsEnabled = true;
 
     public static GameObject popUpSound;
+    public static GameObject powerOffBtn;
+    public static GameObject rxDictionaryBtn;
 
     public AudioClip wrongSound;
 
     public static void TurnOnTerminal()
     {
         MainTerminalPanel.SetActive(true);
+        powerOffBtn.SetActive(true);
+        rxDictionaryBtn.SetActive(true);
 
-        var anim = GuideButtonScript.guideIntro.GetComponent<Animator>();
+        var anim = GuideButtonScript.guideIntroS1.GetComponent<Animator>();
         anim.SetTrigger("Active");
-        GuideButtonScript.guideIntro.SetActive(true);     
         popUpSound.GetComponent<AudioSource>().Play();
 
         if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One)
         {
+            GuideButtonScript.guideIntroS1.SetActive(true);
             profileScreenIsEnabled = false;
             assemblyScreenIsEnabled = false;
         }
+        else if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.Two)
+        {
+            GuideButtonScript.guideIntroS2.SetActive(true);
+            dataEntryScreenIsEnabled = false;
+            assemblyScreenIsEnabled = false;
+        }
     }
-    public static void TurnOffTerminal()
+    public void TurnOffTerminal()
     {
         DataEntryPanel.SetActive(false);
         ProfilesPanel.SetActive(false);
         AssemblyPanel.SetActive(false);
         MainTerminalPanel.SetActive(false);
+        powerOffBtn.SetActive(false);
+        rxDictionaryBtn.SetActive(false);
     }
 
     public void OnRx()
@@ -98,12 +110,17 @@ public class SwitchPanelScript : MonoBehaviour
         ProfilesPanel = GameObject.FindGameObjectWithTag("ProfilesScreen");
         AssemblyPanel = GameObject.FindGameObjectWithTag("AssemblyScreen");
         popUpSound = GameObject.FindGameObjectWithTag("PopUpSound");
+        powerOffBtn = GameObject.FindGameObjectWithTag("PowerOff");
+        rxDictionaryBtn = GameObject.FindGameObjectWithTag("RxDictionary");
     }
 
     private void Start()
     {
+        MainTerminalPanel.SetActive(false);
         DataEntryPanel.SetActive(false);
         ProfilesPanel.SetActive(false);
         AssemblyPanel.SetActive(false);
+        powerOffBtn.SetActive(false);
+        rxDictionaryBtn.SetActive(false);
     }
 }

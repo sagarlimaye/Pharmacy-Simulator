@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 public class RxDataEntryScript : MonoBehaviour {
 
+    private static string playerInputDoctor;
+    private static string rxImageDoctor;
+
     #region On Scene Objects
     public static GameObject rxScreen;
     public static GameObject assemblyScreen;
@@ -215,10 +218,11 @@ public class RxDataEntryScript : MonoBehaviour {
 
     public static bool VerifyAddRxPanelInfoCorrect()
     {
-        var input = deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text;
-        var image = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        playerInputDoctor = deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text;
+        rxImageDoctor = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
 
-        if (deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text == deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text)
+        //if (deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text == deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text)
+        if (playerInputDoctor == rxImageDoctor)
             return true;
         else
             return false;
@@ -708,7 +712,6 @@ public class RxDataEntryScript : MonoBehaviour {
         string patientFullName = currentRxDataEntry.transform.GetChild(1).GetComponentInChildren<Text>().text;
         deAddRxPanel.transform.GetChild(1).transform.GetChild(0).transform.GetChild(1).GetComponent<InputField>().text = patientFullName;
     }
-
 
     private int rxDataEntries = 6;
     private static bool eRx;

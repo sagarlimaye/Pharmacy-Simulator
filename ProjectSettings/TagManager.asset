@@ -62,6 +62,11 @@ TagManager:
   - FileCabinetAnchor
   - MainUIPanel
   - PopUpSound
+<<<<<<< HEAD
+>>>>>>> origin/prototype-with-ui
+=======
+  - PowerOff
+  - RxDictionary
 >>>>>>> origin/prototype-with-ui
   layers:
   - Default

@@ -88,6 +88,8 @@ public class ScenarioInfoScript : MonoBehaviour
 
     private void Awake()
     {
+        currentScenario = Scenario.Two;
+
         rxScreen = GameObject.FindGameObjectWithTag("RxScreen");
         profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
         assemblyScreen = GameObject.FindGameObjectWithTag("AssemblyScreen");
