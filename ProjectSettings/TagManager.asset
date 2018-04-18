@@ -59,6 +59,8 @@ TagManager:
   - FileCabinetAnchor
   - MainUIPanel
   - PopUpSound
+  - PowerOff
+  - RxDictionary
   layers:
   - Default
   - TransparentFX

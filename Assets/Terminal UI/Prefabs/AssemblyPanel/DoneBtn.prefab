@@ -159,7 +159,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 114014282388640578, guid: ad555d2cd8c3607469b9950f94f26b66,
           type: 2}
-        m_MethodName: OnAssemblePanelDone
+        m_MethodName: OnAssemblePanelDoneS1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -176,6 +176,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 114014282388640578, guid: ad555d2cd8c3607469b9950f94f26b66,
+          type: 2}
+        m_MethodName: OnAssemblePanelDoneS2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

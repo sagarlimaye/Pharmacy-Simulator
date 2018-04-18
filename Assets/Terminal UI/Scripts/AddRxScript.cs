@@ -454,7 +454,8 @@ public class AddRxScript : MonoBehaviour
         bool waiter = waiterPanel.transform.GetChild(0).GetComponent<Toggle>().isOn;
         cloneApWaiterToggle.GetComponent<Toggle>().isOn = waiter;
 
-        cloneApAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text = lastAddRxId;
+        //cloneApAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text = lastAddRxId;
+        cloneApAssemblyPanel.transform.GetChild(1).GetComponent<Text>().text = "0";
 
         //If RxImage previously created, transfer to assembly panel
         if (AssemblyScript.lastModifiedId != null)
@@ -485,7 +486,8 @@ public class AddRxScript : MonoBehaviour
             bool waiter = waiterPanel.transform.GetChild(0).GetComponent<Toggle>().isOn;
             cloneAEntryWaiterToggle.GetComponent<Toggle>().isOn = waiter;
 
-            cloneAEntryID.GetComponentInChildren<Text>().text = lastAddRxId;
+            //cloneAEntryID.GetComponentInChildren<Text>().text = lastAddRxId;
+            cloneAEntryID.GetComponentInChildren<Text>().text = "0";
         }
     }
 
