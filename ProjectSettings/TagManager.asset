@@ -4,70 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Interactable
-  - PillTray
-<<<<<<< HEAD
-  - FilledTray
-  - PillBox
-=======
   - AssemblyPanel
-  - GenericToggle
-  - BrandToggle
-  - RxInfoPanel
-  - SearchInputField
-  - DrugDropdown
-  - QuantityDropdown
-  - RxContent
-  - RxScreen
-  - ProfilesScreen
-  - NewProfilePanel
-  - PatientInfoPanel
-  - ProfilesContent
-  - AssemblyScreen
-  - AddRxPanel
   - AssemblyInfoPanel
-  - AddRxInfoPanel
-  - ScanPrompt
-  - AssemblyContent
-  - RxImage
-  - DataEntryAddRxPanel
-  - DataEntryAddRxInfoPanel
-  - rxDEDrugDropdown
-  - rxDEQuantityDropdown
-  - GuideRxAddRxDEPanel
-  - RxDEAddRxImage
-  - GuidePromptsPanel
-  - PatientInput
-  - DoctorInput
-  - RefillsInput
+  - GenericToggle
   - WrittenInput
-  - ExpInput
+  - QuantityDropdown
+  - PatientInput
+  - BrandToggle
+  - DoctorInput
+  - DrugDropdown
   - WaiterToggle
-  - PillBox
-  - Customer
-  - Antibiotic
-  - FilledTray
-  - PrescriptionReadyDialog
-  - PickupPrescriptionDialog
-  - AntibioticFilledTray
-  - FilledPrescriptionAnchor
-  - EmptyPrescriptionAnchor
-  - Prescription/Adulimumab
-  - Prescription/Nexium
-  - Prescription/Humira
-  - Prescription/Oxycodone
-  - Prescription/Percocet
-  - Prescription/Empty
-  - Prescription/Esomeprazole Magnesium
-  - FileCabinetAnchor
-  - MainUIPanel
-  - PopUpSound
-<<<<<<< HEAD
->>>>>>> origin/prototype-with-ui
-=======
-  - PowerOff
-  - RxDictionary
->>>>>>> origin/prototype-with-ui
+  - ExpInput
+  - RefillsInput
   layers:
   - Default
   - TransparentFX
