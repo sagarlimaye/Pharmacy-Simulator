@@ -26,7 +26,7 @@ public class FilledTrayController : MonoBehaviour {
 
                 //We now instantiate a filled prescription, then delete the empty pill bottle
                 
-                var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/"+pillType), bottlePosition, bottleRotation).GetComponent<PrescriptionController>();
+                var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/"+pillType), bottlePosition + new Vector3(0f, 0.475f, 0f), Quaternion.identity).GetComponent<PrescriptionController>();
 				filledPrescription.isFilledCorrectly = gameController.prescriptionIsReady ();
 
 				Destroy (pillBottle);
@@ -46,7 +46,7 @@ public class FilledTrayController : MonoBehaviour {
 		//Reset pill count
 		gameController.resetPillCount();
 
-        Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"));
+        Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
 
         Destroy (gameObject);
 	}
