@@ -34,7 +34,8 @@ public class BottleHolder : MonoBehaviour {
     {
         if (other.tag.Contains("Prescription"))
         {
-            other.transform.position = transform.position + coll.center;
+            other.transform.position = transform.position + coll.center + new Vector3(0f, -0.1f, 0f);
+            other.transform.rotation = Quaternion.identity;
             var rbody = other.GetComponent<Rigidbody>();
             rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
             other.GetComponent<PickupObject>().putDown();
