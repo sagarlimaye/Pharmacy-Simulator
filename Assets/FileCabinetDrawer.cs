@@ -5,9 +5,10 @@ using UnityEngine;
 public class FileCabinetDrawer : MonoBehaviour {
     private float distance;
     private bool closed = true;
+    public BoxCollider collider;
     // Use this for initialization
     void Start () {
-		
+        collider.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -20,11 +21,13 @@ public class FileCabinetDrawer : MonoBehaviour {
             {
                 transform.position += new Vector3(0, 0, 1);
                 closed = false;
+                collider.enabled = true;
             }
             else
             {
                 closed = true;
                 transform.position += new Vector3(0, 0, -1);
+                collider.enabled = false;
             }
         }
     }
