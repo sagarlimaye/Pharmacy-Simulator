@@ -8,6 +8,8 @@ public class PlayerLook : MonoBehaviour {
 	public Transform playerBody;
 	public float mouseSensitivity;
 	public GameObject mainTerminalPanel;
+	public GameObject answerPanel;
+	public GameObject answerPanel2;
     public static GameObject hitObject;
 	float xAxisClamp = 0.0f;
 	private void Awake()
@@ -20,7 +22,7 @@ public class PlayerLook : MonoBehaviour {
 			RotateCamera();
 		} else {
 			if (Input.GetMouseButtonDown(0)) {
-				if (!mainTerminalPanel.activeInHierarchy) {
+				if (!mainTerminalPanel.activeInHierarchy && !answerPanel.activeInHierarchy && !answerPanel2.activeInHierarchy) {
 					Cursor.lockState = CursorLockMode.Locked;
 				}
 			}
