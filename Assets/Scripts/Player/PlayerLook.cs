@@ -65,7 +65,7 @@ public class PlayerLook : MonoBehaviour {
 		if (Physics.Raycast (cameraCenter, Camera.main.transform.forward, out hit, 3)) {
 			if (hit.transform.gameObject) {
                 hitObject = hit.transform.gameObject;
-				if (hit.transform.gameObject.tag == "Interactable") {
+				if (hit.transform.gameObject.tag == "Interactable" || hit.transform.gameObject.tag == "FileCabinetAnchor") {
 					notification.text = "Press E to use.";
 				}
 				else if(hit.transform.gameObject.tag == "FilledTray"){

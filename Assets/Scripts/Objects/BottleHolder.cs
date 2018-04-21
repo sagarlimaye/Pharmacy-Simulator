@@ -32,7 +32,7 @@ public class BottleHolder : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Contains("Prescription"))
+        if (other.tag.Contains("Prescription") && enabled)
         {
             other.transform.position = transform.position + coll.center + new Vector3(0f, -0.1f, 0f);
             other.transform.rotation = Quaternion.identity;
@@ -40,6 +40,7 @@ public class BottleHolder : MonoBehaviour {
             rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
             other.GetComponent<PickupObject>().putDown();
             bottle = other.gameObject;
+            other.gameObject.transform.parent = transform;
 
             if (BottlePlaced != null)
                 BottlePlaced(this, other.gameObject); 
