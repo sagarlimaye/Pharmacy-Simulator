@@ -113,7 +113,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: b86d9e6b891082d46a644a42272e74d7, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: bb37d5033e95c5e4885372d70ac79da0, type: 2}
 --- !u!1 &5511202
 GameObject:
   m_ObjectHideFlags: 0
@@ -7501,7 +7501,7 @@ GameObject:
   m_Name: Shelf2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &229659340
@@ -10749,7 +10749,7 @@ GameObject:
   m_Name: Shelf2 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &367368533
@@ -20143,7 +20143,7 @@ GameObject:
   m_Name: Shelf2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &657104081
@@ -21100,7 +21100,7 @@ GameObject:
   m_Name: Shelf2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &680586640
@@ -23521,7 +23521,7 @@ GameObject:
   m_Name: Shelf2 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &740204529
@@ -59665,7 +59665,7 @@ GameObject:
   m_Name: Shelf2 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1925594631
