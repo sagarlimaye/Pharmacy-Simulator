@@ -56,7 +56,6 @@ public class PickupObject : MonoBehaviour {
 		transform.parent = null;
 		rigidBody.useGravity  = true;
 		rigidBody.isKinematic = false;
-        
 
 		isHeld = false;
 	}

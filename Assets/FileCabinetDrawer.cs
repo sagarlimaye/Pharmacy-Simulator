@@ -7,12 +7,14 @@ public class FileCabinetDrawer : MonoBehaviour {
     private bool closed = true;
     public BoxCollider collider;
     public BottleHolder bottleHolder;
+    private Vector3 closedPosition;
     // Use this for initialization
     void Start () {
         collider = GetComponent<BoxCollider>();
         bottleHolder = GetComponent<BottleHolder>();
         collider.enabled = false;
         bottleHolder.enabled = false;
+        closedPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -31,7 +33,7 @@ public class FileCabinetDrawer : MonoBehaviour {
             else
             {
                 closed = true;
-                transform.position += new Vector3(0, 0, -1);
+                transform.position = closedPosition;
                 collider.enabled = false;
                 bottleHolder.enabled = false;
             }

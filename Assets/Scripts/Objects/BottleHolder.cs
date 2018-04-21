@@ -6,7 +6,13 @@ using UnityEngine;
 public class BottleHolder : MonoBehaviour {
 
 	BoxCollider coll;
-	public GameObject bottle;
+    [HideInInspector]
+    public GameObject bottle;
+    public enum Placement
+    {
+        faceDown, vertical
+    };
+    public Placement placeAs;
 	public delegate void BottleHolderEvent(BottleHolder sender, GameObject bottle);
 	public static event BottleHolderEvent BottlePlaced;
 	// Use this for initialization
@@ -34,13 +40,19 @@ public class BottleHolder : MonoBehaviour {
     {
         if (other.tag.Contains("Prescription") && enabled)
         {
-            other.transform.position = transform.position + coll.center + new Vector3(0f, -0.1f, 0f);
-            other.transform.rotation = Quaternion.identity;
-            var rbody = other.GetComponent<Rigidbody>();
-            rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
             other.GetComponent<PickupObject>().putDown();
-            bottle = other.gameObject;
             other.gameObject.transform.parent = transform;
+            if(placeAs == Placement.faceDown)
+            {
+                other.transform.rotation = Quaternion.Euler(0, 0, 90);
+                other.transform.position = transform.TransformPoint(coll.center) + new Vector3(-0.1f, 0f);
+            }
+            else
+            {
+                other.transform.rotation = Quaternion.identity;
+                other.transform.position = transform.TransformPoint(coll.center);
+            }
+            bottle = other.gameObject;
 
             if (BottlePlaced != null)
                 BottlePlaced(this, other.gameObject); 
