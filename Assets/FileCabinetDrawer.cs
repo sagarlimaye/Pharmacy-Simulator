@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FileCabinetDrawer : MonoBehaviour {
-    public float distance;
+    private float distance;
     private bool closed = true;
-    public BoxCollider collider;
-    public BottleHolder bottleHolder;
+    private BoxCollider collider;
+    private BottleHolder bottleHolder;
     private Vector3 closedPosition;
+
+    public GameObject player;
     // Use this for initialization
     void Start () {
         collider = GetComponent<BoxCollider>();
@@ -19,7 +21,7 @@ public class FileCabinetDrawer : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
+        distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance < 3 && Input.GetKeyDown(KeyCode.E) && PlayerLook.hitObject == gameObject)
         {
