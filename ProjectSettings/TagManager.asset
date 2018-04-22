@@ -61,6 +61,12 @@ TagManager:
   - PopUpSound
   - PowerOff
   - RxDictionary
+  - deBrandToggle
+  - deGenericToggle
+  - WrongClickPrompt
+  - WrongClickPromptInPanel
+  - WrongClickPromptInput
+  - YellowArrow
   layers:
   - Default
   - TransparentFX

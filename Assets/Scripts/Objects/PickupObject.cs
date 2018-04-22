@@ -9,20 +9,24 @@ public class PickupObject : MonoBehaviour {
 
 	private float distance;
 	private bool isHeld;
+    private Rigidbody rigidBody;
+    public GameObject player;
     public delegate void PickupObjectEvent(GameObject obj);
     public static event PickupObjectEvent PickedUpObject;
-
 	//Called whenever the object is created
 	void Start(){
 		isHeld = false;
 
 		//Some objects are instantiated, meaning we need to search for the player's holder
 		holder = GameObject.Find("HoldAnchor").GetComponent<Transform>();
+        rigidBody = GetComponent<Rigidbody>();
+        if (player == null)
+            player = GameObject.Find("Player");
 	}
 
 	//Called once per frame
 	void Update(){
-		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
+		distance = Vector3.Distance(transform.position, player.transform.position);
 	}
 
 	//When player clicks and is close enough to object, they pick it up; if they're already holding it, they'll drop it
@@ -44,6 +48,7 @@ public class PickupObject : MonoBehaviour {
 		transform.parent   = GameObject.Find("Player").transform;
 		transform.parent   = GameObject.Find("FirstPersonPlayer").transform;
 		isHeld = true;
+        rigidBody.constraints = RigidbodyConstraints.None;
         if (PickedUpObject != null)
             PickedUpObject(gameObject);
 
@@ -51,8 +56,9 @@ public class PickupObject : MonoBehaviour {
 
 	public void putDown(){
 		transform.parent = null;
-		GetComponent<Rigidbody>().useGravity  = true;
-		GetComponent<Rigidbody>().isKinematic = false;
+		rigidBody.useGravity  = true;
+		rigidBody.isKinematic = false;
+
 		isHeld = false;
 	}
 }

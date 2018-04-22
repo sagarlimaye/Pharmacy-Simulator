@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4437280205826344}
-  - component: {fileID: 33026421723549414}
-  - component: {fileID: 65768445051810438}
   - component: {fileID: 23437357801621788}
   - component: {fileID: 54229628671456924}
+  - component: {fileID: 33068310162831172}
+  - component: {fileID: 65544840722869310}
   m_Layer: 0
   m_Name: PillTray
   m_TagString: PillTray
@@ -54,8 +54,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576844469075684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21056199, y: 0.21185923, z: -2.8330004}
-  m_LocalScale: {x: 1, y: 4, z: 0.75360525}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0.441}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4437280205826344}
   m_RootOrder: 0
@@ -66,14 +66,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003355344088624}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.484562, y: 1.1470352, z: -8.27958}
-  m_LocalScale: {x: 1, y: 0.25, z: 1.3269547}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 2.397, y: 1.1470352, z: -8.856}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4038068022801380}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
 --- !u!23 &23437357801621788
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -88,7 +88,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ed6221a728eb4c24fbaf16c125aa79fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 0
@@ -108,13 +108,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33026421723549414
+--- !u!33 &33068310162831172
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003355344088624}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 76a744fd739ef7643a0e52a666c41c52, type: 3}
 --- !u!54 &54229628671456924
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -126,9 +126,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!65 &65483824987980288
 BoxCollider:
@@ -140,9 +140,9 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.27839756, z: 0.35715008}
+  m_Size: {x: 0.5, y: 0.5, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65768445051810438
+--- !u!65 &65544840722869310
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -152,8 +152,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1, y: 0.5, z: 0.3651011}
+  m_Center: {x: 0.4, y: 0, z: 0.05}
 --- !u!114 &114251026211405788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottle: {fileID: 0}
+  placeAs: 1

@@ -231,11 +231,16 @@ public class RxDataEntryScript : MonoBehaviour {
         playerInputQuantity = deAddRxPanel.transform.GetChild(1).GetChild(3).GetChild(1).GetComponent<Dropdown>().options[playerInputQuantityValue].text;
         playerInputRefills = deAddRxPanel.transform.GetChild(1).GetChild(4).GetChild(1).GetComponentInChildren<InputField>().text;
         if (deAddRxPanel.transform.GetChild(1).GetChild(5).GetChild(0).GetComponent<Toggle>().isOn)
+        {
             playerInputBrand = true;
-        else if (deAddRxPanel.transform.GetChild(1).GetChild(5).GetChild(1).GetComponent<Toggle>().isOn)
+            playerInputGeneric = false;
+        }
+        if (deAddRxPanel.transform.GetChild(1).GetChild(5).GetChild(1).GetComponent<Toggle>().isOn)
+        {
+            playerInputBrand = false;
             playerInputGeneric = true;
-        else
-            playerInputBrand = playerInputGeneric = false;
+        }
+
         playerInputWritten = deAddRxPanel.transform.GetChild(1).GetChild(6).GetChild(1).GetComponentInChildren<InputField>().text;
         playerInputSig = deAddRxPanel.transform.GetChild(1).GetChild(7).GetChild(1).GetComponentInChildren<InputField>().text;
         //playerInputWaiter = deAddRxPanel.transform.GetChild(1).GetChild(8).GetChild(0).GetComponent<Toggle>().isOn;

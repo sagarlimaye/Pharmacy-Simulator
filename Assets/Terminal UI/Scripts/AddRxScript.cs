@@ -269,11 +269,15 @@ public class AddRxScript : MonoBehaviour
         playerInputQuantity = addRxInfoPanel.transform.GetChild(3).GetChild(1).GetComponent<Dropdown>().options[playerInputQuantityValue].text;
         playerInputRefills = addRxInfoPanel.transform.GetChild(4).GetChild(1).GetComponent<InputField>().text;
         if (addRxInfoPanel.transform.GetChild(5).GetChild(0).GetComponent<Toggle>().isOn)
+        {
             playerInputBrand = true;
-        else if (addRxInfoPanel.transform.GetChild(5).GetChild(1).GetComponent<Toggle>().isOn)
+            playerInputGeneric = false;
+        }
+        if (addRxInfoPanel.transform.GetChild(5).GetChild(1).GetComponent<Toggle>().isOn)
+        {
+            playerInputBrand = false;
             playerInputGeneric = true;
-        else
-            playerInputBrand = playerInputGeneric = false;
+        }
         playerInputWritten = addRxInfoPanel.transform.GetChild(6).GetChild(1).GetComponent<InputField>().text;
         playerInputSig = addRxInfoPanel.transform.GetChild(7).GetChild(1).GetComponent<InputField>().text;
 
