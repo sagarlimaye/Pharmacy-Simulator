@@ -8,9 +8,6 @@ using UnityEngine.UI;
 
 public class RxDataEntryScript : MonoBehaviour {
 
-    private static string playerInputDoctor;
-    private static string rxImageDoctor;
-
     #region On Scene Objects
     public static GameObject rxScreen;
     public static GameObject assemblyScreen;
@@ -23,6 +20,8 @@ public class RxDataEntryScript : MonoBehaviour {
     public static GameObject rxDEAddRxInfoPanel;
     public static Dropdown rxDEaddRxDrugDropdown;
     public static Dropdown rxDEaddRxQuantityDropdown;
+    public static Toggle deAddRxBrandToggle;
+    public static Toggle deAddRxGenericToggle;
     #endregion
 
     #region Rx Data Entry Public Prefabs
@@ -109,7 +108,7 @@ public class RxDataEntryScript : MonoBehaviour {
     public GameObject apWaiterCheckToggleBackgroundPrefab;
     #endregion
 
-    #region RxImage Public Prefabs
+    #region eRxImage Public Prefabs
     public GameObject eRxFromInputPrefab;
     public GameObject eRxFromPhoneInputPrefab;
     public GameObject eRxFromFaxInputPrefab;
@@ -158,9 +157,12 @@ public class RxDataEntryScript : MonoBehaviour {
             && EventSystem.current.currentSelectedGameObject.transform.parent != rxContent.transform.GetChild(0).GetChild(0))
         {
             SoundManager.instance.PlaySingle(wrongSound);
+            GuideButtonScript.OnWrongClick();
         }
         else
         {
+            SwitchPanelScript.panelOpen = true;
+
             deAddRxPanel.SetActive(true);
             deLastAddRxId = EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(4).GetComponent<Text>().text;
             ResetDEAddRxPanelInputs();
@@ -171,9 +173,12 @@ public class RxDataEntryScript : MonoBehaviour {
 
     public void OnOk()
     {
-        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One && !VerifyAddRxPanelInfoCorrect())
+        deAddRxOkAttempts++;
+
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One && !VerifyDeAddRxPanelInfoCorrect())
         {
             SoundManager.instance.PlaySingle(wrongSound);
+            GuideButtonScript.OnWrongClickInput();
         }
 
         else
@@ -181,20 +186,19 @@ public class RxDataEntryScript : MonoBehaviour {
             if (AssemblyScript.lastModifiedId != null && deLastAddRxId != AssemblyScript.lastModifiedId)
                 deLastAddRxId = AssemblyScript.lastModifiedId;
 
-            //DestroyPreExistingAssemblyEntry(); //delete?
-            //DestroyPreExistingRxAssemblyPanel(); //delete?
             InstantiateAssemblyEntry();
             SaveDEAddRxDataToNewAssemblyEntry();
             InstantiateAssemblyPanel();
             SaveDeAddRxDataToNewAssemblyPanel();
             ResetDEAddRxPanelInputs();
-            //DestroyRxImage(); Do i ever need to destroy?S
 
             deAddRxPanel.SetActive(false);
             rxScreen.SetActive(false);
             assemblyScreen.SetActive(true);
 
             AssemblyScript.lastModifiedId = null;
+
+            SwitchPanelScript.panelOpen = false;
         }
     }
 
@@ -203,6 +207,7 @@ public class RxDataEntryScript : MonoBehaviour {
         if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One)
         {
             SoundManager.instance.PlaySingle(wrongSound);
+            GuideButtonScript.OnWrongClickInPanel();
         }
         else
         {
@@ -216,16 +221,211 @@ public class RxDataEntryScript : MonoBehaviour {
         UpdateQuantityDropdownValues();
     }
 
-    public static bool VerifyAddRxPanelInfoCorrect()
-    {
-        playerInputDoctor = deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text;
-        rxImageDoctor = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-
-        //if (deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<Text>().text == deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text)
-        if (playerInputDoctor == rxImageDoctor)
-            return true;
+    public static bool VerifyDeAddRxPanelInfoCorrect()
+    {   
+        //Get player inputs on Add Rx window for Data Entry Panel
+        playerInputDoctor = deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponentInChildren<InputField>().text;
+        int playerInputDrugValue = deAddRxPanel.transform.GetChild(1).GetChild(2).GetChild(1).GetComponent<Dropdown>().value;
+        playerInputDrug = deAddRxPanel.transform.GetChild(1).GetChild(2).GetChild(1).GetComponent<Dropdown>().options[playerInputDrugValue].text;
+        int playerInputQuantityValue = deAddRxPanel.transform.GetChild(1).GetChild(3).GetChild(1).GetComponent<Dropdown>().value;
+        playerInputQuantity = deAddRxPanel.transform.GetChild(1).GetChild(3).GetChild(1).GetComponent<Dropdown>().options[playerInputQuantityValue].text;
+        playerInputRefills = deAddRxPanel.transform.GetChild(1).GetChild(4).GetChild(1).GetComponentInChildren<InputField>().text;
+        if (deAddRxPanel.transform.GetChild(1).GetChild(5).GetChild(0).GetComponent<Toggle>().isOn)
+            playerInputBrand = true;
+        else if (deAddRxPanel.transform.GetChild(1).GetChild(5).GetChild(1).GetComponent<Toggle>().isOn)
+            playerInputGeneric = true;
         else
-            return false;
+            playerInputBrand = playerInputGeneric = false;
+        playerInputWritten = deAddRxPanel.transform.GetChild(1).GetChild(6).GetChild(1).GetComponentInChildren<InputField>().text;
+        playerInputSig = deAddRxPanel.transform.GetChild(1).GetChild(7).GetChild(1).GetComponentInChildren<InputField>().text;
+        //playerInputWaiter = deAddRxPanel.transform.GetChild(1).GetChild(8).GetChild(0).GetComponent<Toggle>().isOn;
+
+        rxImageDoctor = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        rxImageWritten = deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text;
+        rxImageDrug = deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text;
+        rxImageQuantity = deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text;
+        rxImageRefills = deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text;
+        rxImageSig = deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().text;
+        if (deAddRxImage.transform.GetChild(10).GetComponent<Text>().text != "")
+            rxImageBrand = true;
+        else
+            rxImageBrand = false;
+        if (deAddRxImage.transform.GetChild(11).GetComponent<Text>().text != "")
+            rxImageGeneric = true;
+        else
+            rxImageGeneric = false;
+
+        //rxImageWaiter = Get waiter status from data entry
+
+        //If any input does not match the Rx image info, play animation highlighting input field red
+        if (playerInputDoctor != rxImageDoctor)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(1).GetChild(1).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+            //TODO: Implement red circle and arrows when 2+ incorrect attempts. Need rxImage info string length to size the red circle and place arrow
+            //else if (addRxOkAttempts == 2)
+            //{
+            //    deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            //    deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
+
+            //    int strLength = deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text.Length;
+
+            //}
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        if (playerInputDrug != rxImageDrug)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(2).GetChild(1).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        if (playerInputQuantity != rxImageQuantity)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(3).GetChild(1).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        if (playerInputRefills != rxImageRefills)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(4).GetChild(1).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        if (playerInputBrand != rxImageBrand)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(5).GetChild(0).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                    deAddRxImage.transform.GetChild(33).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                    deAddRxImage.transform.GetChild(33).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(33).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(33).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        if (playerInputGeneric != rxImageGeneric)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(5).GetChild(1).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                deAddRxImage.transform.GetChild(34).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                deAddRxImage.transform.GetChild(34).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(34).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(34).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        if (playerInputWritten != rxImageWritten)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(6).GetChild(1).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        if (playerInputSig != rxImageSig)
+        {
+            anim = deAddRxPanel.transform.GetChild(1).GetChild(7).GetChild(1).GetComponent<Animator>();
+            anim.SetTrigger("Active");
+
+            if (deAddRxOkAttempts == 1)
+            {
+                deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Bold;
+                deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().color = Color.red;
+            }
+        }
+        else
+        {
+            deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().fontStyle = FontStyles.Normal;
+            deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
+
+        //if all inputs correct, return true
+        if (playerInputDoctor == rxImageDoctor &&
+                playerInputDrug == rxImageDrug &&
+                playerInputQuantity == rxImageQuantity &&
+                playerInputRefills == rxImageRefills &&
+                playerInputBrand == rxImageBrand &&
+                playerInputWritten == rxImageWritten &&
+                playerInputSig == rxImageSig)
+            {
+                return true;
+            }
+        else
+            {
+                return false;
+            }
+    }
+
+    public void OnGenericOrBrand()
+    {
+        if (EventSystem.current.currentSelectedGameObject.name == "BrandToggle")
+            deAddRxGenericToggle.isOn = false;
+        else if (EventSystem.current.currentSelectedGameObject.name == "GenericToggle")
+            deAddRxBrandToggle.isOn = false;
     }
 
     private void Awake()
@@ -238,6 +438,8 @@ public class RxDataEntryScript : MonoBehaviour {
         profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
         deAddRxPanel = GameObject.FindGameObjectWithTag("DataEntryAddRxPanel");
         deAddRxImage = GameObject.FindGameObjectWithTag("RxDEAddRxImage");
+        deAddRxBrandToggle = GameObject.FindGameObjectWithTag("deBrandToggle").GetComponent<Toggle>();
+        deAddRxGenericToggle = GameObject.FindGameObjectWithTag("deGenericToggle").GetComponent<Toggle>();
         rxDEAddRxInfoPanel = GameObject.FindGameObjectWithTag("DataEntryAddRxInfoPanel");
         rxDEaddRxDrugDropdown = GameObject.FindGameObjectWithTag("rxDEDrugDropdown").GetComponent<Dropdown>();
         rxDEaddRxQuantityDropdown = GameObject.FindGameObjectWithTag("rxDEQuantityDropdown").GetComponent<Dropdown>();
@@ -425,7 +627,7 @@ public class RxDataEntryScript : MonoBehaviour {
         List<string> quantities = DrugDatabase.drugInfo[deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text][0];
         deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = quantities[rnd.Next(quantities.Count)];
         deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.GenerateRefill();
-        deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.RandomDay().ToString();
+        deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.RandomDay().Date.ToString("yyyy-MM-dd");
         deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.GenerateSig();
 
         if(PrescriptionDatabase.GenerateGenOrBr())
@@ -644,51 +846,23 @@ public class RxDataEntryScript : MonoBehaviour {
 
     private void UpdateQuantityDropdownValues()
     {
-        //Refactor: Switch to loop
-        switch (rxDEaddRxDrugDropdown.value)
+        for (int i = 0; i < DrugDatabase.drugNames.Count + 1; i++)
         {
-            case 1:
+            if (rxDEaddRxDrugDropdown.value == 0)
+            {
                 rxDEaddRxQuantityDropdown.ClearOptions();
-                rxDEaddRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
-                List<List<string>> d1 = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[1].text];
+                return;
+            }
+
+            else if (rxDEaddRxDrugDropdown.value == i)
+            {
+                rxDEaddRxQuantityDropdown.ClearOptions();
+                rxDEaddRxQuantityDropdown.AddOptions(new List<string>() { "Select quantity" });
+                List<List<string>> d1 = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[i].text];
                 List<string> dq1 = d1[0];
                 rxDEaddRxQuantityDropdown.AddOptions(dq1);
                 break;
-            case 2:
-                rxDEaddRxQuantityDropdown.ClearOptions();
-                rxDEaddRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
-                List<List<string>> d2 = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[2].text];
-                List<string> dq2 = d2[0];
-                rxDEaddRxQuantityDropdown.AddOptions(dq2);
-                break;
-            case 3:
-                rxDEaddRxQuantityDropdown.ClearOptions();
-                rxDEaddRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
-                List<List<string>> d3 = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[3].text];
-                List<string> dq3 = d3[0];
-                rxDEaddRxQuantityDropdown.AddOptions(dq3);
-                break;
-            case 4:
-                rxDEaddRxQuantityDropdown.ClearOptions();
-                rxDEaddRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
-                List<List<string>> d4 = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[4].text];
-                List<string> dq4 = d4[0];
-                rxDEaddRxQuantityDropdown.AddOptions(dq4);
-                break;
-            case 5:
-                rxDEaddRxQuantityDropdown.ClearOptions();
-                rxDEaddRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
-                List<List<string>> d5 = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[5].text];
-                List<string> dq5 = d5[0];
-                rxDEaddRxQuantityDropdown.AddOptions(dq5);
-                break;
-            case 6:
-                rxDEaddRxQuantityDropdown.ClearOptions();
-                rxDEaddRxQuantityDropdown.AddOptions(new List<string>() { "Select Quantity" });
-                List<List<string>> d6 = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[6].text];
-                List<string> dq6 = d6[0];
-                rxDEaddRxQuantityDropdown.AddOptions(dq6);
-                break;
+            }
         }
     }
 
@@ -714,7 +888,8 @@ public class RxDataEntryScript : MonoBehaviour {
     }
 
     private int rxDataEntries = 6;
-    private static bool eRx;
+    private static Animator anim;
+    private static int deAddRxOkAttempts = 0;
     private static string deLastAddRxId;
     private static System.Random rnd = new System.Random();
 
@@ -815,6 +990,24 @@ public class RxDataEntryScript : MonoBehaviour {
     private GameObject cloneERxSigInput;
     private GameObject cloneERxBrandSignature;
     private GameObject cloneERxGenericSignature;
+    #endregion
 
+    #region Add Rx panel input field entries & image info
+    private static string playerInputDoctor;
+    private static string playerInputDrug;
+    private static string playerInputQuantity;
+    private static string playerInputRefills;
+    private static bool playerInputBrand;
+    private static bool playerInputGeneric;
+    private static string playerInputWritten;
+    private static string playerInputSig;
+    private static string rxImageDoctor;
+    private static string rxImageWritten;
+    private static string rxImageDrug;
+    private static string rxImageQuantity;
+    private static string rxImageRefills;
+    private static string rxImageSig;
+    private static bool rxImageBrand;
+    private static bool rxImageGeneric;
     #endregion
 }

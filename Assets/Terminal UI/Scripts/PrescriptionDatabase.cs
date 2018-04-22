@@ -33,7 +33,7 @@ public class PrescriptionDatabase : MonoBehaviour
         return start.AddDays(rnd.Next(range)).Date;
     }
 
-    private static List<string> refills = new List<string>() { "None", "1", "2" };
+    private static List<string> refills = new List<string>() { "0", "1", "2" };
     private static List<bool> genOrBrOptions = new List<bool>() { true, false };
     private static List<string> signatureFonts = new List<string>() { "Arty Signature.ttf", "mayqueen.ttf", "Geovanna.ttf", "Beastfom.ttf" };
 

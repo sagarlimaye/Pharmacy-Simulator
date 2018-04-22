@@ -15,6 +15,8 @@ public class SearchFunctionScript : MonoBehaviour {
     public InputField searchInput;
     public ScrollRect scroll;
 
+    public AudioClip wrongSound;
+
     // Update is called once per frame
     public void Update () {
 		
@@ -45,62 +47,75 @@ public class SearchFunctionScript : MonoBehaviour {
 
     public void Search()
     {
-        Update();
-
-        for (int i = 0; i < scroll.content.childCount; i++)
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.Two)
         {
-            GameObject patientEntry = scroll.content.GetChild(i).gameObject;
-            GameObject patientEntryPanel = patientEntry.transform.GetChild(0).gameObject;
-            Button[] entryFields = patientEntryPanel.GetComponentsInChildren<Button>();
-            string firstNameFieldTxt = entryFields[0].GetComponentInChildren<Text>().text;
-            string lastNameFieldTxt = entryFields[1].GetComponentInChildren<Text>().text;
-            string dobFieldTxt = entryFields[2].GetComponentInChildren<Text>().text;
-            string phoneFieldTxt = entryFields[3].GetComponentInChildren<Text>().text;
-            string addressFieldTxt = entryFields[4].GetComponentInChildren<Text>().text;
+            SoundManager.instance.PlaySingle(wrongSound);
 
-            if (searchInput.text == "")
-            {
-                patientEntry.SetActive(true);
-            }
-            else if (searchByDropdown.value == 1)
-            {
-                if (firstNameSearchEntry != firstNameFieldTxt)
-                    patientEntry.SetActive(false);
-                else
-                    patientEntry.SetActive(true);
-            }
-            else if (searchByDropdown.value == 2)
-            {
-                if (lastNameSearchEntry != lastNameFieldTxt)
-                    patientEntry.SetActive(false);
-                else
-                    patientEntry.SetActive(true);
-            }
-            else if (searchByDropdown.value == 3)
-            {
-                if (dobSearchEntry != dobFieldTxt)
-                    patientEntry.SetActive(false);
-                else
-                    patientEntry.SetActive(true);
-            }
-            else if (searchByDropdown.value == 4)
-            {
-                if (phoneSearchEntry != phoneFieldTxt)
-                    patientEntry.SetActive(false);
-                else
-                    patientEntry.SetActive(true);
-            }
-            else if (searchByDropdown.value == 5)
-            {
-                if (addressSearchEntry != addressFieldTxt)
-                    patientEntry.SetActive(false);
-                else
-                    patientEntry.SetActive(true);
-            }
-            else if (searchInput.text == "")
-                patientEntry.SetActive(true);
+            if (SwitchPanelScript.panelOpen)
+                GuideButtonScript.OnWrongClickInPanel();
             else
-                patientEntry.SetActive(true);
+                GuideButtonScript.OnWrongClick();
+        }
+
+        else
+        {
+            Update();
+
+            for (int i = 0; i < scroll.content.childCount; i++)
+            {
+                GameObject patientEntry = scroll.content.GetChild(i).gameObject;
+                GameObject patientEntryPanel = patientEntry.transform.GetChild(0).gameObject;
+                Button[] entryFields = patientEntryPanel.GetComponentsInChildren<Button>();
+                string firstNameFieldTxt = entryFields[0].GetComponentInChildren<Text>().text;
+                string lastNameFieldTxt = entryFields[1].GetComponentInChildren<Text>().text;
+                string dobFieldTxt = entryFields[2].GetComponentInChildren<Text>().text;
+                string phoneFieldTxt = entryFields[3].GetComponentInChildren<Text>().text;
+                string addressFieldTxt = entryFields[4].GetComponentInChildren<Text>().text;
+
+                if (searchInput.text == "")
+                {
+                    patientEntry.SetActive(true);
+                }
+                else if (searchByDropdown.value == 1)
+                {
+                    if (firstNameSearchEntry != firstNameFieldTxt)
+                        patientEntry.SetActive(false);
+                    else
+                        patientEntry.SetActive(true);
+                }
+                else if (searchByDropdown.value == 2)
+                {
+                    if (lastNameSearchEntry != lastNameFieldTxt)
+                        patientEntry.SetActive(false);
+                    else
+                        patientEntry.SetActive(true);
+                }
+                else if (searchByDropdown.value == 3)
+                {
+                    if (dobSearchEntry != dobFieldTxt)
+                        patientEntry.SetActive(false);
+                    else
+                        patientEntry.SetActive(true);
+                }
+                else if (searchByDropdown.value == 4)
+                {
+                    if (phoneSearchEntry != phoneFieldTxt)
+                        patientEntry.SetActive(false);
+                    else
+                        patientEntry.SetActive(true);
+                }
+                else if (searchByDropdown.value == 5)
+                {
+                    if (addressSearchEntry != addressFieldTxt)
+                        patientEntry.SetActive(false);
+                    else
+                        patientEntry.SetActive(true);
+                }
+                else if (searchInput.text == "")
+                    patientEntry.SetActive(true);
+                else
+                    patientEntry.SetActive(true);
+            }
         }
     }
 }

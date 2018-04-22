@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 224756943713012494}
   - component: {fileID: 222015516707006932}
   - component: {fileID: 114067821368245314}
+  - component: {fileID: 95465284952865118}
   m_Layer: 5
   m_Name: DrCheckToggleBckg
   m_TagString: Untagged
@@ -45,6 +46,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95465284952865118
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1794427031163056}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1acac3c2298bb0143878471080300a9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114067821368245314
 MonoBehaviour:
   m_ObjectHideFlags: 1

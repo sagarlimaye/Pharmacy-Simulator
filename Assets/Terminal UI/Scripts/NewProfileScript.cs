@@ -57,32 +57,13 @@ public class NewProfileScript : MonoBehaviour
     public Button cancelBtnPrefab;
     #endregion
 
-    public void Start()
-    {
-        switch (currentScenario)
-        {
-            case Scenario.Off:
-
-                break;
-
-            case Scenario.One:
-
-                break;
-
-            case Scenario.Two:
-
-                break;
-
-            case Scenario.Three:
-
-                break;
-        }      
-    }
+    public AudioClip wrongSound;
 
     private void InitializeRandomProfileGeneration()
     {
         for (int i = 0; i < patientEntries; i++)
         {
+
             InstantiatePatientEntry();
 
             cloneFirstBtn.GetComponentInChildren<Text>().text = PatientDatabase.firsts[rnd.Next(PatientDatabase.firsts.Count)];
@@ -119,12 +100,25 @@ public class NewProfileScript : MonoBehaviour
             cloneIdTxtProfile.GetComponentInChildren<Text>().text = (i + 1).ToString();
         }
     }
-    
+
     public void OnNewProfile()
     {
-        addingNewProfile = true;
-        newProfilePanel.SetActive(true);
-        patientInfoPanel.SetActive(true);
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.Two)
+        {
+            SoundManager.instance.PlaySingle(wrongSound);
+
+            if (SwitchPanelScript.panelOpen)
+                GuideButtonScript.OnWrongClickInPanel();
+            else
+                GuideButtonScript.OnWrongClick();
+        }
+
+        else
+        {
+            addingNewProfile = true;
+            newProfilePanel.SetActive(true);
+            patientInfoPanel.SetActive(true);
+        }
     }
     public void OnAddRx()
     {

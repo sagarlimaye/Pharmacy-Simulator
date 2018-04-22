@@ -51,15 +51,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19dd1787a00ef6345a53faa6e22d4651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rxImagePatientPrefab: {fileID: 0}
-  rxImageDoctorPrefab: {fileID: 0}
-  rxImageDrugPrefab: {fileID: 0}
-  rxImageQuantityPrefab: {fileID: 0}
-  rxImageRefillsPrefab: {fileID: 0}
-  rxImageGenOrBrPrefab: {fileID: 0}
-  rxImageWrittenPrefab: {fileID: 0}
-  rxImageExpPrefab: {fileID: 0}
-  rxImageSigPrefab: {fileID: 0}
+  rxImageHwTemplatePrefab: {fileID: 1107452934080792, guid: dccd510619e66384591dae2804f0d1a9,
+    type: 2}
+  rxImageHwDrInputPrefab: {fileID: 1558240172799132, guid: 0aa848c1445c21048bc170593947ab4f,
+    type: 2}
+  rxImageHwDrAddressInputPrefab: {fileID: 1487741222952282, guid: 52c5690e4e56dce428097a5ed47f018f,
+    type: 2}
+  rxImageHwDrPhoneInputPrefab: {fileID: 1168763004013516, guid: f8d6f22ba61f4aa4c877f02c6f66d2b8,
+    type: 2}
+  rxImageHwDrFaxInputPrefab: {fileID: 1746725283884156, guid: 92d58752a0a0cba4b99c346532b47339,
+    type: 2}
+  rxImageHwPatientInputPrefab: {fileID: 1161701788938352, guid: bfaa45df91607b041bc7e2838c696ee8,
+    type: 2}
+  rxImageHwWrittenInputPrefab: {fileID: 1477473824145074, guid: 1c2e67e306a7baf48bd4ab93be9894f2,
+    type: 2}
+  rxImageHwPatientAddressInputPrefab: {fileID: 1090343875328140, guid: 31f26bf51a0870f42890fb13b8b84d6a,
+    type: 2}
+  rxImageHwDrugInputPrefab: {fileID: 1675421423938348, guid: 0cebcff421c10e144b895bce9b42fb32,
+    type: 2}
+  rxImageHwQuantityInputPrefab: {fileID: 1402861819644134, guid: 359d1d428a32abc4b9884f3bb622d50d,
+    type: 2}
+  rxImageHwSigInputPrefab: {fileID: 1929668956159192, guid: ef2a1f41296c22d4e9eaa44055c03fd4,
+    type: 2}
+  rxImageHwRefillsInputPrefab: {fileID: 1926348273539270, guid: a73a3fceb131e544b94ecf9d23c0640c,
+    type: 2}
+  rxImageHwGenericInputPrefab: {fileID: 1180529139760692, guid: 749c6fe561c77564485d648ffbc7ecd0,
+    type: 2}
+  rxImageHwBrandInputPrefab: {fileID: 1545037688569960, guid: 9f94dfb511a80b84899f3947ab4eca6e,
+    type: 2}
+  rxImageHwDotPrefab: {fileID: 1644212679054570, guid: 424bdbfe5abb4ef48b6ec789cfe4e707,
+    type: 2}
+  rxImageHwPatientTextPrefab: {fileID: 1840445017509646, guid: c05b1449d6327a04e90f57b6dde58f5c,
+    type: 2}
+  rxImageHwAddressTextPrefab: {fileID: 1925950691297164, guid: 34d4ce38bf2f7d143bd9ec9dec11cc7a,
+    type: 2}
+  rxImageHwWrittenTextPrefab: {fileID: 1304134037074734, guid: 4869c99bc93cda54baafcce1bf21d5ba,
+    type: 2}
+  rxImageHwGenericTextPrefab: {fileID: 1799646920415370, guid: 06cb098562787c548bce69c962bd26b3,
+    type: 2}
+  rxImageHwBrandTextPrefab: {fileID: 1997230030159782, guid: d0bbd3cab3a73e947bfd0c4d8364f745,
+    type: 2}
+  rxImageHwRefillsTextPrefab: {fileID: 1547815731491782, guid: 0e04190979225a443a072a71e62c0ee3,
+    type: 2}
   aentryObjPrefab: {fileID: 1660321378674982, guid: c9fb31b9378a50b488d649a168e492d4,
     type: 2}
   aentryPanelPrefab: {fileID: 1107442003416162, guid: c137187c76a85b34f9855c93a042e26a,
@@ -190,3 +223,4 @@ MonoBehaviour:
     type: 2}
   apWaiterCheckToggleBackgroundPrefab: {fileID: 1891850907116134, guid: fefeb7c8d95d70a4bb597a461f1c71db,
     type: 2}
+  wrongSound: {fileID: 8300000, guid: 7819310f052dabf429673d1f0118d13c, type: 3}

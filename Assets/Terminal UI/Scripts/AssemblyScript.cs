@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -33,21 +34,11 @@ public class AssemblyScript : MonoBehaviour {
     public AudioClip printingSound;
     public AudioClip wrongSound;
     public GameObject labelPrintingPrefab;
-    
-    public void Awake()
-    {
-        assemblyScreen = GameObject.FindGameObjectWithTag("AssemblyScreen");
-        profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
-        assemblyContent = GameObject.FindGameObjectWithTag("AssemblyContent");
-        profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
-        addRxPanel = GameObject.FindGameObjectWithTag("AddRxPanel");
-        addRxScanPromptPanel = GameObject.FindGameObjectWithTag("ScanPrompt");
-        addRxDrugDropdown = GameObject.FindGameObjectWithTag("DrugDropdown").GetComponent<Dropdown>();
-        addRxQuantityDropdown = GameObject.FindGameObjectWithTag("QuantityDropdown").GetComponent<Dropdown>();
-    }
 
     public void OnAssemble()
     {
+        SwitchPanelScript.panelOpen = true;
+
         GameObject currentRxEntry = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         string currentRxIDTxt = currentRxEntry.transform.GetChild(4).GetComponent<Text>().text;
 
@@ -66,11 +57,22 @@ public class AssemblyScript : MonoBehaviour {
 
     public void OnDone()
     {
-        DestroyRxEntry();
-        GameObject PrintingLabel = Instantiate(labelPrintingPrefab, assemblyScreen.transform);
-        PrintingLabel.SetActive(true);
-        SoundManager.instance.PlaySingle(printingSound);
-        EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
+        if (ScenarioInfoScript.currentScenario != ScenarioInfoScript.Scenario.Challenge && !VerifyAssemblyPanelCheckedmarked())
+        {
+            SoundManager.instance.PlaySingle(wrongSound);
+            GuideButtonScript.OnWrongClickInput();
+        }
+        else
+        {
+            SwitchPanelScript.panelOpen = false;
+            DestroyRxEntry();
+            GameObject PrintingLabel = Instantiate(labelPrintingPrefab, assemblyScreen.transform);
+            PrintingLabel.SetActive(true);
+            SoundManager.instance.PlaySingle(printingSound);
+            EventSystem.current.currentSelectedGameObject.transform.parent.gameObject.SetActive(false);
+
+            SwitchPanelScript.terminalOffButtonEnabled = true;
+        }
     }
 
     public IEnumerator Wait(float seconds)
@@ -80,9 +82,10 @@ public class AssemblyScript : MonoBehaviour {
 
     public void OnModify()
     {
-        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.One)
+        if (ScenarioInfoScript.currentScenario != ScenarioInfoScript.Scenario.Challenge)
         {
             SoundManager.instance.PlaySingle(wrongSound);
+            GuideButtonScript.OnWrongClickInPanel();
         }
 
         else
@@ -99,8 +102,60 @@ public class AssemblyScript : MonoBehaviour {
         }
     }
 
+    public static bool VerifyAssemblyPanelCheckedmarked()
+    {
+        GameObject currentAssemblyPanel = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
+
+        //Keep variables in case I need them
+        //playerCheckPatient = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(0).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckDoctor = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(1).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckDrug = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(2).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckQuantity = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(3).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckRefills = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(4).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckBrandOrGeneric = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(5).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckWritten = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(6).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckSig = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(7).GetChild(0).GetComponent<Toggle>().isOn;
+        //playerCheckWaiter = currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(8).GetChild(0).GetComponent<Toggle>().isOn;
+
+        List<GameObject> checks = new List<GameObject>();
+
+        for (int i = 0; i < currentAssemblyPanel.transform.GetChild(2).GetChild(1).childCount; i++)
+        {
+            checks.Add(currentAssemblyPanel.transform.GetChild(2).GetChild(1).GetChild(i).GetChild(0).gameObject);
+        }
+
+        //if a toggle is not checked, play highlight animation
+        foreach (var playerCheck in checks)
+        {
+            if (!playerCheck.GetComponent<Toggle>().isOn)
+                playerCheck.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Active");
+        }
+
+        //if any toggle not checked, return false
+        foreach (var playerCheck in checks)
+        {
+            if (!playerCheck.GetComponent<Toggle>().isOn)
+                return false;
+        }
+
+        return true;
+    }
+
+    private void Awake()
+    {
+        assemblyScreen = GameObject.FindGameObjectWithTag("AssemblyScreen");
+        profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
+        assemblyContent = GameObject.FindGameObjectWithTag("AssemblyContent");
+        profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
+        addRxPanel = GameObject.FindGameObjectWithTag("AddRxPanel");
+        addRxScanPromptPanel = GameObject.FindGameObjectWithTag("ScanPrompt");
+        addRxDrugDropdown = GameObject.FindGameObjectWithTag("DrugDropdown").GetComponent<Dropdown>();
+        addRxQuantityDropdown = GameObject.FindGameObjectWithTag("QuantityDropdown").GetComponent<Dropdown>();
+    }
+
     private void RepopulateAddRxPanel()
     {
+        //Transfer input info from the assembly panel being modified, back to Add Rx panel
         GameObject currentAssembly = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
         GameObject assemblyRxInfoPanel = currentAssembly.transform.GetChild(2).transform.GetChild(0).gameObject;
 
@@ -142,15 +197,23 @@ public class AssemblyScript : MonoBehaviour {
         bool waiterInput = assemblyRxInfoPanel.transform.GetChild(8).GetChild(0).GetComponent<Toggle>().isOn;
         addRxPanel.transform.GetChild(1).GetChild(8).GetChild(0).GetComponent<Toggle>().isOn = waiterInput;
 
-        //Transfter RxImage back to AddRxPanel
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(0).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(1).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(2).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(3).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(4).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(5).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(6).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
-        Instantiate(currentAssembly.transform.GetChild(0).GetChild(7).gameObject, profileScreen.transform.GetChild(2).GetChild(0));
+        //Loop through assembly panels, find last modified, transfer handwritten Rx image data back to Add Rx panel
+        for (int i = 1; i < assemblyScreen.transform.childCount; i++)
+        {
+            GameObject currentAssemblyClone = assemblyScreen.transform.GetChild(i).gameObject;
+            string currentAssemblyIdTxt = currentAssemblyClone.transform.GetChild(1).GetComponent<Text>().text;
+
+            if (lastModifiedId == currentAssemblyIdTxt)
+            {
+                for (int j = 1; j < currentAssemblyClone.transform.GetChild(0).childCount; j++)
+                {
+                    var a = currentAssemblyClone.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
+                    addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text =
+                        currentAssemblyClone.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
+                }
+                break;
+            }
+        }
     }
 
     private void DestroyRxEntry()
@@ -170,5 +233,17 @@ public class AssemblyScript : MonoBehaviour {
             }
         }
     }
+
+    #region Assembly panel input field entries & image info
+    private static bool playerCheckPatient;
+    private static bool playerCheckDoctor;
+    private static bool playerCheckDrug;
+    private static bool playerCheckQuantity;
+    private static bool playerCheckRefills;
+    private static bool playerCheckBrandOrGeneric;
+    private static bool playerCheckWritten;
+    private static bool playerCheckSig;
+    private static bool playerCheckWaiter;
+    #endregion
 }
 

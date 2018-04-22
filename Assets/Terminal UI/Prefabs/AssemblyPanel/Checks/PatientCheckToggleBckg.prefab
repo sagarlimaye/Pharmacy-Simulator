@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 224414130610926084}
   - component: {fileID: 222741003438405824}
   - component: {fileID: 114660731294627370}
+  - component: {fileID: 95270960410443018}
   m_Layer: 5
   m_Name: PatientCheckToggleBckg
   m_TagString: Untagged
@@ -45,6 +46,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95270960410443018
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1857477380679030}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1acac3c2298bb0143878471080300a9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114350665444632214
 MonoBehaviour:
   m_ObjectHideFlags: 1

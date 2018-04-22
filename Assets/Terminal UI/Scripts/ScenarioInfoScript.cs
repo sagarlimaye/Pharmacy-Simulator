@@ -6,11 +6,12 @@ using UnityEngine.UI;
 
 public class ScenarioInfoScript : MonoBehaviour
 {
-    public enum Scenario { One, Two, Three, Off };
+    public enum Scenario { One, Two, Three, Challenge };
     public static Scenario currentScenario;
 
     public enum Mode { Practice, Challenge };
-    public static Mode currentMode;
+    
+    public Mode currentMode;
 
     public static GameObject rxScreen;
     public static GameObject profileScreen;
