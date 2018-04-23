@@ -45,12 +45,12 @@ public class BottleHolder : MonoBehaviour {
             if(placeAs == Placement.faceDown)
             {
                 other.transform.rotation = Quaternion.Euler(0, 0, 90);
-                other.transform.position = transform.TransformPoint(coll.center) + new Vector3(-0.1f, 0f);
+                other.transform.position = transform.position + new Vector3(-0.1f, 0f);
             }
             else
             {
                 other.transform.rotation = Quaternion.identity;
-                other.transform.position = transform.TransformPoint(coll.center);
+                other.transform.position = transform.position;
             }
             bottle = other.gameObject;
 
