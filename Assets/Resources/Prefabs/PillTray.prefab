@@ -40,8 +40,9 @@ GameObject:
   - component: {fileID: 4038068022801380}
   - component: {fileID: 114251026211405788}
   - component: {fileID: 64283106200048744}
-  - component: {fileID: 33939534201277220}
-  - component: {fileID: 23517116449704000}
+  - component: {fileID: 64039627134930926}
+  - component: {fileID: 33692634427257780}
+  - component: {fileID: 23681366389485906}
   m_Layer: 0
   m_Name: EmptyBottleTarget
   m_TagString: Untagged
@@ -56,8 +57,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576844469075684}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.572, y: 0, z: -0.088}
-  m_LocalScale: {x: 0.044785127, y: 0.044785142, z: 0.044785142}
+  m_LocalPosition: {x: -0.572, y: 0, z: 0.13}
+  m_LocalScale: {x: 0.044785127, y: 0.044785142, z: 0.06053341}
   m_Children: []
   m_Father: {fileID: 4437280205826344}
   m_RootOrder: 0
@@ -110,15 +111,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23517116449704000
+--- !u!23 &23681366389485906
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576844469075684}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -151,7 +152,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003355344088624}
   m_Mesh: {fileID: 4300000, guid: 76a744fd739ef7643a0e52a666c41c52, type: 3}
---- !u!33 &33939534201277220
+--- !u!33 &33692634427257780
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -173,6 +174,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!64 &64039627134930926
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576844469075684}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 0c36dd306b19fc1479c9037451636f1e, type: 3}
 --- !u!64 &64283106200048744
 MeshCollider:
   m_ObjectHideFlags: 1
