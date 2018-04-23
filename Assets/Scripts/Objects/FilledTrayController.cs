@@ -46,8 +46,8 @@ public class FilledTrayController : MonoBehaviour {
 		//Reset pill count
 		gameController.resetPillCount();
 
-        Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
-
+        var clone = Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
+        gameController.emptyBottleTarget = clone.transform.GetChild(0).gameObject;
         Destroy (gameObject);
 	}
 

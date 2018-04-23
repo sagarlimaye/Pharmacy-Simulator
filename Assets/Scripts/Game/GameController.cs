@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public GameObject spawnPoint, requestSpot, waitPos1, destroySpot, pickupSpot;
     public GameObject Customer;
 	public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
+    public GameObject filledBottleTarget, emptyBottleTarget;
 	private int pillCount;
     public int maxCustomers = 1;
     private int spawnedCustomers = 0; 
@@ -20,14 +22,18 @@ public class GameController : MonoBehaviour {
 		DialogueController.DialogCompleted += OnDialogCompleted;
 		BottleHolder.BottlePlaced += OnBottlePlaced;
 	}
-	void OnDisable()
+
+
+    void OnDisable()
 	{
         DialogueController.DialogCompleted -= OnDialogCompleted;
 		CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
 		BottleHolder.BottlePlaced -= OnBottlePlaced;
-	}
+    }
 
-	void OnCustomerSpawned(CustomerAgent customer)
+
+
+    void OnCustomerSpawned(CustomerAgent customer)
 	{
         spawnedCustomers++;
 		requestCheckpoint.dialog = pickupRequestDialog;
@@ -39,6 +45,8 @@ public class GameController : MonoBehaviour {
 		{
 			pickupCheckpoint.dialog = prescriptionReadyDialog;
 			requestCheckpoint.dialog = null;
+            filledBottleTarget.SetActive(true);
+            emptyBottleTarget.SetActive(false);
 		}
 		if(dialog.tag == "PrescriptionReadyDialog")
 		{
