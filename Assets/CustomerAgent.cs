@@ -4,44 +4,45 @@ using UnityEngine.AI;
 using UnityEngine;
 
 public class CustomerAgent : MonoBehaviour {
-
     public Transform target;
-    NavMeshAgent agent;
-    public int scenario;
+	public int scenario;
+	public string customerName = "Jamie",  dob ="12/23/1993", drug = "Antibiotic";
+
+	NavMeshAgent agent;
     GameController controller;
     DialogueController dialogcontroller;
 
-    public string customerName = "Jamie",  dob ="12/23/1993", drug = "Antibiotic";
+	static Animator anim;
 
     public delegate void CustomerAgentEvent(CustomerAgent customer);
     public static event CustomerAgentEvent CustomerSpawned;
 
-    void OnEnable()
-    {
+    void OnEnable(){
         DialogueController.DialogCompleted += OnDialogCompleted;
         BottleHolder.BottlePlaced += OnBottlePlaced;
-        
+		DialogueController.IncorrectResponseChosen += OnIncorrectResponse;
     }
-    void OnDisable()
-    {
+
+    void OnDisable(){
         DialogueController.DialogCompleted -= OnDialogCompleted;
         BottleHolder.BottlePlaced -= OnBottlePlaced;
-        
+		DialogueController.IncorrectResponseChosen -= OnIncorrectResponse;
     }
-    void OnDialogCompleted(GameObject d)
-    {
+
+    void OnDialogCompleted(GameObject d){
         if(d.tag == "PickupPrescriptionDialog")
             agent.destination = controller.waitPos1.transform.position;
         if(d.tag == "PrescriptionReadyDialog")
-        agent.destination = controller.destroySpot.transform.position;
+        	agent.destination = controller.destroySpot.transform.position;
     }
-    void OnBottlePlaced(BottleHolder sender, GameObject bottle)
-    {
+
+    void OnBottlePlaced(BottleHolder sender, GameObject bottle){
         if(sender.tag == "FilledPrescriptionAnchor")
             agent.destination = controller.pickupSpot.transform.position;
     }
-    void Start()
-    {
+    
+	void Start(){
+		anim = GetComponent<Animator>();
         controller = FindObjectOfType<GameController>();
         dialogcontroller = FindObjectOfType<DialogueController>(); 
         agent = GetComponent<NavMeshAgent>();
@@ -64,7 +65,31 @@ public class CustomerAgent : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        
-       
+		//We need to check if customer is moving in order to activate walk animation
+		checkIfMoving();
+	}
+
+	//Determine if customer is currently moving by comparing nav mesh agent's current velocity to zero vector
+	void checkIfMoving(){
+		if (agent.velocity != Vector3.zero) {
+			anim.SetBool ("IsWalking", true);
+		}
+		else {
+			anim.SetBool ("IsWalking", false);
+		}
+	}
+
+	void OnIncorrectResponse(Dialog dialog){
+		playAngryAnimation ();
+	}
+
+	//Play the "anger" animation
+	void playAngryAnimation(){
+		anim.SetTrigger ("IsAngry");
+	}
+
+	//Play the "give item" animation
+	public void playGiveItemAnimation(){
+		anim.SetTrigger ("IsGivingItem");
 	}
 }

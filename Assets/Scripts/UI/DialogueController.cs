@@ -15,8 +15,8 @@ public class DialogueController : MonoBehaviour {
     public int playerSelection = -1;
 
     private GameObject dialog;
-    public void setPlayerSelection(int s)
-    {
+
+    public void setPlayerSelection(int s){
         playerSelection = s;
     }
     
@@ -27,6 +27,7 @@ public class DialogueController : MonoBehaviour {
     public static event DialogControllerEvent DialogDisplayed;
     public static event DialogEvent IncorrectResponseChosen;
     public static event DialogEvent CorrectResponseChosen;
+
     // Use this for initialization
     void Start () {
         panelLeft.SetActive(false);
@@ -80,8 +81,9 @@ public class DialogueController : MonoBehaviour {
                 }
                 else
                 {
-                    if(IncorrectResponseChosen != null)
-                        IncorrectResponseChosen(dialog.GetComponent<Dialog>());
+					if(IncorrectResponseChosen != null)
+						IncorrectResponseChosen(dialog.GetComponent<Dialog>());
+                    
                     current = response.transform.parent;
                 }
             }
@@ -91,6 +93,7 @@ public class DialogueController : MonoBehaviour {
         if(DialogCompleted != null)
             DialogCompleted(dialog);
     }
+
     public void startDialog(GameObject d)
     {
         busy = true;
