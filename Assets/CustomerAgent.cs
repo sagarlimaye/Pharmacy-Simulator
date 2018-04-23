@@ -72,10 +72,12 @@ public class CustomerAgent : MonoBehaviour {
 	//Determine if customer is currently moving by comparing nav mesh agent's current velocity to zero vector
 	void checkIfMoving(){
 		if (agent.velocity != Vector3.zero) {
-			anim.SetBool ("IsWalking", true);
+            if(anim != null)
+			    anim.SetBool ("IsWalking", true);
 		}
 		else {
-			anim.SetBool ("IsWalking", false);
+            if (anim != null)
+			    anim.SetBool ("IsWalking", false);
 		}
 	}
 
@@ -85,11 +87,13 @@ public class CustomerAgent : MonoBehaviour {
 
 	//Play the "anger" animation
 	void playAngryAnimation(){
-		anim.SetTrigger ("IsAngry");
+        if(anim != null)
+		    anim.SetTrigger ("IsAngry");
 	}
 
 	//Play the "give item" animation
 	public void playGiveItemAnimation(){
-		anim.SetTrigger ("IsGivingItem");
+        if(anim != null)
+    		anim.SetTrigger ("IsGivingItem");
 	}
 }
