@@ -50,7 +50,10 @@ public class DialogCheckpoint : MonoBehaviour {
                 
         // if(player not busy)
     }
-
+    public void clearDialog()
+    {
+        dialog = null;
+    }
     void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player")

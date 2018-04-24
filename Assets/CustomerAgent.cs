@@ -33,10 +33,10 @@ public class CustomerAgent : MonoBehaviour {
         //if (d.tag == "PickupPrescriptionDialog")
         //    GoToWaitPos();
         if (d.tag == "PrescriptionReadyDialog")
-            GoToPickupPos();
+            GoToDestroySpot();
     }
 
-    public void GoToPickupPos()
+    public void GoToDestroySpot()
     {
         agent.destination = controller.destroySpot.transform.position;
     }
@@ -47,13 +47,17 @@ public class CustomerAgent : MonoBehaviour {
     }
 
     void OnBottlePlaced(BottleHolder sender, GameObject bottle){
-        if(sender.tag == "FilledPrescriptionAnchor")
-            agent.destination = controller.pickupSpot.transform.position;
+        //if (sender.tag == "FilledPrescriptionAnchor")
+        //    GoToPickupSpot();
     }
 
-    
+    public void GoToPickupSpot()
+    {
+        agent.destination = controller.pickupSpot.transform.position;
+    }
 
-	void Start(){
+
+    void Start(){
 		anim = GetComponent<Animator>();
         controller = FindObjectOfType<GameController>();
         dialogcontroller = FindObjectOfType<DialogueController>(); 
@@ -92,6 +96,7 @@ public class CustomerAgent : MonoBehaviour {
 			    anim.SetBool ("IsWalking", false);
 		}
 	}
+    
 
 	void OnIncorrectResponse(Dialog dialog){
 		playAngryAnimation ();

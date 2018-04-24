@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -22,6 +23,8 @@ public class AddRxScript : MonoBehaviour
     public static Dropdown addRxQuantityDropdown;
     public static Toggle addRxBrandToggle;
     public static Toggle addRxGenericToggle;
+    public UnityEvent onDrugMismatch;
+    
     #endregion
 
     #region RxImage Public Prefabs
@@ -232,6 +235,9 @@ public class AddRxScript : MonoBehaviour
         GenerateRxImageData();
 
         addRxScanPromptPanel.SetActive(false);
+        if (SwitchPanelScript.s2part1)
+            onDrugMismatch.Invoke();
+        
     }
 
     public void OnNoScan()
