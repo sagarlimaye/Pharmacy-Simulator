@@ -9,9 +9,22 @@ public class DialogCheckpoint : MonoBehaviour {
     //public Dialog[] sentences;
     BoxCollider boxCollider;
 
-    public GameObject dialog;
+    private GameObject dialog;
     public bool isPlayer, isCustomer;
-    
+
+    public GameObject Dialog
+    {
+        get
+        {
+            return dialog;
+        }
+
+        set
+        {
+            dialog = value;
+        }
+    }
+
     void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
@@ -32,7 +45,7 @@ public class DialogCheckpoint : MonoBehaviour {
 		}
 		
         if(isPlayer && isCustomer)
-            if(!controller.busy && dialog != null)
+            if(!controller.busy && Dialog != null)
                 activate();
                 
         // if(player not busy)
@@ -51,6 +64,7 @@ public class DialogCheckpoint : MonoBehaviour {
 
     public void activate()
     {
-        controller.startDialog(dialog);        
+        controller.startDialog(Dialog);        
     }
+
 }

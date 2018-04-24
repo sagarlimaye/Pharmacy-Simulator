@@ -9,6 +9,7 @@ public class FilledTrayController : MonoBehaviour {
 	private int pillCount;
     public string pillType;
 	public GameObject bottle;
+    public GameObject emptyTray;
     public delegate void FilledTrayControllerEvent(FilledTrayController sender);
     public static event FilledTrayControllerEvent PrescriptionFilled;
 
@@ -45,9 +46,9 @@ public class FilledTrayController : MonoBehaviour {
 	void replaceTray(){
 		//Reset pill count
 		gameController.resetPillCount();
-
-        var clone = Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
-        gameController.emptyBottleTarget = clone.transform.GetChild(0).gameObject;
+        emptyTray.SetActive(true);
+        //var clone = Instantiate(Resources.Load<GameObject>("Prefabs/PillTray"), transform.position, transform.rotation);
+        transform.GetChild(0).parent = emptyTray.transform;
         Destroy (gameObject);
 	}
 

@@ -33,7 +33,12 @@ public class CustomerAgent : MonoBehaviour {
         //if (d.tag == "PickupPrescriptionDialog")
         //    GoToWaitPos();
         if (d.tag == "PrescriptionReadyDialog")
-        	agent.destination = controller.destroySpot.transform.position;
+            GoToPickupPos();
+    }
+
+    public void GoToPickupPos()
+    {
+        agent.destination = controller.destroySpot.transform.position;
     }
 
     public void GoToWaitPos()
@@ -46,6 +51,7 @@ public class CustomerAgent : MonoBehaviour {
             agent.destination = controller.pickupSpot.transform.position;
     }
 
+    
 
 	void Start(){
 		anim = GetComponent<Animator>();

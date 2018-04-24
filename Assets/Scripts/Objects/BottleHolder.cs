@@ -17,7 +17,9 @@ public class BottleHolder : MonoBehaviour {
 	public delegate void BottleHolderEvent(BottleHolder sender, GameObject bottle);
 	public static event BottleHolderEvent BottlePlaced;
 
-    public UnityEvent onBottlePlaced;
+    [System.Serializable]
+    public class OnBottlePlaced : UnityEvent<GameObject> { };
+    public OnBottlePlaced onBottlePlaced;
 	// Use this for initialization
 	void Start () {
 		coll = GetComponent<BoxCollider>();
@@ -59,7 +61,7 @@ public class BottleHolder : MonoBehaviour {
 
             if (BottlePlaced != null)
                 BottlePlaced(this, other.gameObject);
-            onBottlePlaced.Invoke();
+            onBottlePlaced.Invoke(other.gameObject);
         }
     }
 	
