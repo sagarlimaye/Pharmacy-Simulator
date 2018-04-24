@@ -27,9 +27,18 @@ public class ScenarioInfoScript : MonoBehaviour
     public static string scenarioPatientDob;
     public static string scenarioPatientDrugPrice;
 
+    public AudioClip backgroundNoise;
+    public AudioClip backgroundJazz;
+
     public delegate void ScenarioInfoEvent(ScenarioInfoScript scenarioInfo);
     public static event ScenarioInfoEvent ScenarioInfoReady;
 
+
+    private void Start()
+    {
+        SoundManager.instance.PlayMusic(backgroundNoise);
+        SoundManager.instance.PlayMusic2(backgroundJazz);
+    }
     void OnEnable()
     {
         RxDataEntryScript.RxEntriesPopulated += OnRxEntriesPopulated;
@@ -89,7 +98,7 @@ public class ScenarioInfoScript : MonoBehaviour
 
     private void Awake()
     {
-        currentScenario = Scenario.Two;
+        currentScenario = Scenario.One;
 
         rxScreen = GameObject.FindGameObjectWithTag("RxScreen");
         profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");

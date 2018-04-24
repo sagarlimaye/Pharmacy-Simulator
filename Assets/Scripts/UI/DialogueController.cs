@@ -87,6 +87,7 @@ public class DialogueController : MonoBehaviour {
                     current = response.transform.parent;
                 }
             }
+            line.onDisplay.Invoke();
         }
         while (current.transform.childCount != 0);
         busy = false;

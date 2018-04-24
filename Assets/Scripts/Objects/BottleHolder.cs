@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BottleHolder : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public class BottleHolder : MonoBehaviour {
     public Placement placeAs;
 	public delegate void BottleHolderEvent(BottleHolder sender, GameObject bottle);
 	public static event BottleHolderEvent BottlePlaced;
+
+    public UnityEvent onBottlePlaced;
 	// Use this for initialization
 	void Start () {
 		coll = GetComponent<BoxCollider>();
@@ -55,7 +58,8 @@ public class BottleHolder : MonoBehaviour {
             bottle = other.gameObject;
 
             if (BottlePlaced != null)
-                BottlePlaced(this, other.gameObject); 
+                BottlePlaced(this, other.gameObject);
+            onBottlePlaced.Invoke();
         }
     }
 	

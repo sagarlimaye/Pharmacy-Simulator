@@ -14,7 +14,6 @@ public class MonitorInteraction : MonoBehaviour {
 
     public delegate void TerminalEvent(GameObject terminal);
     public static event TerminalEvent TerminalOpened;
-    public static event TerminalEvent TerminalClosed;
 
     void OnEnable()
 	{
@@ -57,7 +56,8 @@ public class MonitorInteraction : MonoBehaviour {
                 if (TerminalOpened != null)
                     TerminalOpened(gameObject);
             }
-			Cursor.lockState = (MainTerminalPanel.activeInHierarchy) ? CursorLockMode.None : CursorLockMode.Locked;
+
+            Cursor.lockState = (MainTerminalPanel.activeInHierarchy) ? CursorLockMode.None : CursorLockMode.Locked;
 		}
 	}
 }

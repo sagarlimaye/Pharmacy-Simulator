@@ -283,7 +283,7 @@ public class GuideButtonScript : MonoBehaviour
         guideWrongClick = GameObject.FindGameObjectWithTag("WrongClickPrompt");
         guideWrongClickInPanel = GameObject.FindGameObjectWithTag("WrongClickPromptInPanel");
         guideWrongClickInput = GameObject.FindGameObjectWithTag("WrongClickPromptInput");
-        yellowArrow = GameObject.FindGameObjectWithTag("YellowArrow");
+        yellowArrow = GameObject.FindGameObjectWithTag("Yellow Arrow UI");
     }
 
     private void Start()

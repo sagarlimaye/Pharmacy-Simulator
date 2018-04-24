@@ -67,6 +67,10 @@ TagManager:
   - WrongClickPromptInPanel
   - WrongClickPromptInput
   - YellowArrow
+  - Main Menu
+  - Training Menu
+  - Yellow Arrow UI
+  - WrongSound
   layers:
   - Default
   - TransparentFX

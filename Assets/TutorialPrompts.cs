@@ -7,14 +7,17 @@ using UnityEngine.UI;
 
 public class TutorialPrompts : MonoBehaviour {
 
-    public TextMeshProUGUI textMesh;
-    private Button button;
-    private Image image;
-    private Animator anim;
+    public TextMeshProUGUI currentTextMesh;
+    public Image currentAvatar;
     public TextMeshProUGUI promptGetBottle, promptGetMed, promptFillBottle, promptPlaceInFileCabinet, 
         promptCustomerArrives, PromptDialog1, PromptDialog2, PromptGetRx, PromptFinished;
-    // Use this for initialization
-    void Start () {
+
+    public static Image avatarNormal;
+    public static Image avatarWorried;
+    public static Image avatarHorrified;
+
+    void Start ()
+    {
         button = GetComponent<Button>();
         image = GetComponent<Image>();
         anim = GetComponent<Animator>();
@@ -22,7 +25,7 @@ public class TutorialPrompts : MonoBehaviour {
     private void OnEnable()
     {
         MonitorInteraction.TerminalOpened += OnTerminalOpened;
-        MonitorInteraction.TerminalClosed += OnTerminalClosed;
+        SwitchPanelScript.TerminalClosed += OnTerminalClosed;
         PickupObject.PickedUpObject += OnPickedUpObject;
         PillBoxController.TrayFilledFromPillBox += OnTrayFilledFromPillBox;
         FilledTrayController.PrescriptionFilled += OnPrescriptionFilled;
@@ -35,7 +38,7 @@ public class TutorialPrompts : MonoBehaviour {
     private void OnDisable()
     {
         MonitorInteraction.TerminalOpened -= OnTerminalOpened;
-        MonitorInteraction.TerminalClosed -= OnTerminalClosed;
+        SwitchPanelScript.TerminalClosed -= OnTerminalClosed;
         PickupObject.PickedUpObject -= OnPickedUpObject;
         PillBoxController.TrayFilledFromPillBox -= OnTrayFilledFromPillBox;
         FilledTrayController.PrescriptionFilled -= OnPrescriptionFilled;
@@ -49,12 +52,12 @@ public class TutorialPrompts : MonoBehaviour {
         if (d.tag == "PickupPrescriptionDialog")
         {
             anim.SetBool("Active", true);
-            textMesh.text = PromptDialog2.text;
+            currentTextMesh.text = PromptDialog2.text;
         }
         else if (d.tag == "PrescriptionReadyDialog")
         {
             anim.SetBool("Active", true);
-            textMesh.text = PromptFinished.text;
+            currentTextMesh.text = PromptFinished.text;
             DialogueController.DialogCompleted -= OnDialogCompleted;
         }
     }
@@ -65,7 +68,7 @@ public class TutorialPrompts : MonoBehaviour {
         if (dialog is CustomerDialog && dialog.text.Contains("Pickup"))
         {
             anim.SetBool("Active", true);
-            textMesh.text = PromptDialog1.text;
+            currentTextMesh.text = PromptDialog1.text;
             DialogueController.DialogDisplayed -= OnDialogDisplayed;
         }
     }
@@ -75,7 +78,7 @@ public class TutorialPrompts : MonoBehaviour {
         if(sender.tag == "FileCabinetAnchor")
         {
             anim.SetBool("Active", true);
-            textMesh.text = promptCustomerArrives.text;
+            currentTextMesh.text = promptCustomerArrives.text;
             BottleHolder.BottlePlaced -= OnBottlePlaced;
         }
     }
@@ -83,14 +86,14 @@ public class TutorialPrompts : MonoBehaviour {
     private void OnPrescriptionFilled(FilledTrayController sender)
     {
         anim.SetBool("Active", true);
-        textMesh.text = promptPlaceInFileCabinet.text;
+        currentTextMesh.text = promptPlaceInFileCabinet.text;
         FilledTrayController.PrescriptionFilled -= OnPrescriptionFilled;
     }
 
     private void OnTrayFilledFromPillBox(PillBoxController sender)
     {
         anim.SetBool("Active", true);
-        textMesh.text = promptFillBottle.text;
+        currentTextMesh.text = promptFillBottle.text;
         PillBoxController.TrayFilledFromPillBox -= OnTrayFilledFromPillBox;
     }
 
@@ -99,35 +102,37 @@ public class TutorialPrompts : MonoBehaviour {
         if (obj.tag == "Prescription/Empty")
         {
             anim.SetBool("Active", true);
-            textMesh.text = promptGetMed.text;
+            currentTextMesh.text = promptGetMed.text;
         }
         PickupObject.PickedUpObject -= OnPickedUpObject;
     }
 
     private void OnTerminalClosed(GameObject terminal)
     {
-        textMesh.enabled = true;
+        currentTextMesh.enabled = true;
         button.enabled = true;
         image.enabled = true;
+        currentAvatar.enabled = true;
         anim.SetBool("Active", true);
-        textMesh.text = promptGetBottle.text;
-        MonitorInteraction.TerminalClosed -= OnTerminalClosed;
+        currentTextMesh.text = promptGetBottle.text;
+        SwitchPanelScript.TerminalClosed -= OnTerminalClosed;
     }
 
     private void OnTerminalOpened(GameObject terminal)
     {
         button.enabled = false;
         image.enabled = false;
-        textMesh.enabled = false;
+        currentTextMesh.enabled = false;
+        currentAvatar.enabled = false;
         MonitorInteraction.TerminalOpened -= OnTerminalOpened;
     }
 
-    public void showPrompt(string prompt)
+    public void ShowPrompt(string prompt)
     {
-        textMesh.text = prompt;
+        currentTextMesh.text = prompt;
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
+
+    private Button button;
+    private Image image;
+    private Animator anim;
 }

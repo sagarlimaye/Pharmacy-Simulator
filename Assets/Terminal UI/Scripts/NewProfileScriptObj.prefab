@@ -119,3 +119,4 @@ MonoBehaviour:
     type: 2}
   cancelBtnPrefab: {fileID: 114725450416232462, guid: d7dc8f68de8e9c3429ba8c55f6100bbf,
     type: 2}
+  wrongSound: {fileID: 8300000, guid: 7819310f052dabf429673d1f0118d13c, type: 3}

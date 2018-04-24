@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
@@ -23,15 +24,12 @@ public class GameController : MonoBehaviour {
 		BottleHolder.BottlePlaced += OnBottlePlaced;
 	}
 
-
     void OnDisable()
 	{
         DialogueController.DialogCompleted -= OnDialogCompleted;
 		CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
 		BottleHolder.BottlePlaced -= OnBottlePlaced;
     }
-
-
 
     void OnCustomerSpawned(CustomerAgent customer)
 	{
@@ -63,15 +61,19 @@ public class GameController : MonoBehaviour {
             else pickupCheckpoint.dialog = wrongPrescriptionPlacedDialog; // wrong prescription placed, raise event
             requestCheckpoint.dialog = null;
         }
-        else if(sender.tag == "FileCabinetAnchor")
+    }
+    public void CreateOrActivateCustomer()
+    {
+        if (Customer == null)
         {
-            if(spawnedCustomers < maxCustomers)
+            if (spawnedCustomers < maxCustomers)
                 Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
         }
+        else Customer.SetActive(true);
     }
-	
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
 		pillCount = 0;
 
 		pillCountText.text = "";

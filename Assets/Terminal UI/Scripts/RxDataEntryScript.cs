@@ -632,7 +632,7 @@ public class RxDataEntryScript : MonoBehaviour {
         List<string> quantities = DrugDatabase.drugInfo[deAddRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text][0];
         deAddRxImage.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = quantities[rnd.Next(quantities.Count)];
         deAddRxImage.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.GenerateRefill();
-        deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.RandomDay().Date.ToString("yyyy-MM-dd");
+        deAddRxImage.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.RandomDay().Date.ToString("MM-dd-yyyy");
         deAddRxImage.transform.GetChild(9).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.GenerateSig();
 
         if(PrescriptionDatabase.GenerateGenOrBr())
@@ -722,9 +722,9 @@ public class RxDataEntryScript : MonoBehaviour {
                 List<List<string>> drugInfo = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[i].text];
                 List<string> drugPrices = drugInfo[1];
 
-                for (int j = 1; j < drugPrices.Count; j++)
+                for (int j = 0; j < drugPrices.Count; j++)
                 {
-                    if (rxDEaddRxDrugDropdown.value == j)
+                    if (rxDEaddRxDrugDropdown.value == j+1)
                     {
                         cloneApPriceBtn.transform.GetComponentInChildren<Text>().text = drugPrices[j];
                         break;

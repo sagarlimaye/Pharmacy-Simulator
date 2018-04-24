@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AssemblyScript : MonoBehaviour {
+public class AssemblyScript : MonoBehaviour
+{
 
     public static string lastModifiedId;
 
@@ -17,6 +18,7 @@ public class AssemblyScript : MonoBehaviour {
     public static GameObject profilesContent;
     public static GameObject assemblyPanel;
     public static GameObject addRxPanel;
+    public static GameObject deAddRxPanel;
     public static GameObject addRxScanPromptPanel;
     public static GameObject rxInfoPanel;
     public static InputField addRxPatientInput;
@@ -47,7 +49,7 @@ public class AssemblyScript : MonoBehaviour {
             GameObject currentAssemblyClone = assemblyScreen.transform.GetChild(i).gameObject;
             string currentAssemblyIdTxt = currentAssemblyClone.transform.GetChild(1).GetComponent<Text>().text;
 
-            if(currentRxIDTxt == currentAssemblyIdTxt)
+            if (currentRxIDTxt == currentAssemblyIdTxt)
             {
                 assemblyScreen.transform.GetChild(i).gameObject.SetActive(true);
                 break;
@@ -97,6 +99,7 @@ public class AssemblyScript : MonoBehaviour {
             profileScreen.SetActive(true);
             addRxPanel.SetActive(true);
             addRxScanPromptPanel.SetActive(false);
+            addRxPanel.transform.GetChild(5).GetComponent<Button>().interactable = false;
 
             RepopulateAddRxPanel();
         }
@@ -205,13 +208,89 @@ public class AssemblyScript : MonoBehaviour {
 
             if (lastModifiedId == currentAssemblyIdTxt)
             {
-                for (int j = 1; j < currentAssemblyClone.transform.GetChild(0).childCount; j++)
+                int assemblyRxImageChildCount = currentAssemblyClone.transform.GetChild(0).childCount;
+
+                //if currentAssemblyClone child count == 21, then we are copying back handwritten Rx
+                if (assemblyRxImageChildCount == 21)
                 {
-                    var a = currentAssemblyClone.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
-                    addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text =
-                        currentAssemblyClone.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
+                    for (int j = 1; j < 14; j++)
+                    {
+                        var from = currentAssemblyClone.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
+                        var to = addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
+
+                        addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text =
+                            currentAssemblyClone.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
+                    }
+                    break;
                 }
-                break;
+                //if currentAssemblyClone child count == 35, then we are copying back eRx
+                else if (assemblyRxImageChildCount == 36)
+                {
+                    //destroy existing handwritten rx that comes by default
+                    for (int k = 0; k < 22; k++)
+                        Destroy(addRxPanel.transform.GetChild(0).GetChild(k).gameObject);
+
+                    Instantiate(eRxFromInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxFromPhoneInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxFromFaxInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxWrittenInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxPatientInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxDobInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxRxInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxQuantityInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxRefillsInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxSigInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxBrandSignaturePrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxGenericSignaturePrefab, addRxPanel.transform.GetChild(0));
+
+                    Instantiate(eRxToPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxToInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxToPhonePrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxToPhoneInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxToFaxPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxToFaxInputPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxDivider1Prefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxFromTextPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxFromPhonePrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxFromFaxPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxWrittenPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxDivider2Prefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxPatientPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxDobPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxRxPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxQuantityPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxRefillsPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxSigPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxBrandLinePrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxOrPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxGenericLinePrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxBrandTextPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxGenericTextPrefab, addRxPanel.transform.GetChild(0));
+                    Instantiate(eRxRxIconPrefab, addRxPanel.transform.GetChild(0));
+
+                    //horrible hack: since handwritten objects are not destroyed until function returns, the indeces for assembly clone and the panel
+                    //are offset by 22
+
+                    for (int j = 22; j < 32; j++)
+                    {
+                        var from = currentAssemblyClone.transform.GetChild(0).GetChild(j-22).GetComponent<TextMeshProUGUI>().text;
+                        var to = addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text;
+
+                        addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<TextMeshProUGUI>().text =
+                            currentAssemblyClone.transform.GetChild(0).GetChild(j-22).GetComponent<TextMeshProUGUI>().text;
+                    }
+
+                    //the signatures are text and not TextMesh
+                    for (int j = 32; j < 34; j++)
+                    {
+                        var from = currentAssemblyClone.transform.GetChild(0).GetChild(j-22).GetComponent<Text>().text;
+                        var to = addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<Text>().text;
+
+                        addRxPanel.transform.GetChild(0).GetChild(j).GetComponent<Text>().text =
+                            currentAssemblyClone.transform.GetChild(0).GetChild(j-22).GetComponent<Text>().text;
+                    }
+                    break;
+                }
             }
         }
     }
@@ -244,6 +323,45 @@ public class AssemblyScript : MonoBehaviour {
     private static bool playerCheckWritten;
     private static bool playerCheckSig;
     private static bool playerCheckWaiter;
+    #endregion
+
+    #region eRxImage Public Prefabs
+    public GameObject eRxFromInputPrefab;
+    public GameObject eRxFromPhoneInputPrefab;
+    public GameObject eRxFromFaxInputPrefab;
+    public GameObject eRxWrittenInputPrefab;
+    public GameObject eRxPatientInputPrefab;
+    public GameObject eRxDobInputPrefab;
+    public GameObject eRxRxInputPrefab;
+    public GameObject eRxQuantityInputPrefab;
+    public GameObject eRxRefillsInputPrefab;
+    public GameObject eRxSigInputPrefab;
+    public GameObject eRxBrandSignaturePrefab;
+    public GameObject eRxGenericSignaturePrefab;
+    public GameObject eRxToPrefab;
+    public GameObject eRxToInputPrefab;
+    public GameObject eRxToPhonePrefab;
+    public GameObject eRxToPhoneInputPrefab;
+    public GameObject eRxToFaxPrefab;
+    public GameObject eRxToFaxInputPrefab;
+    public GameObject eRxDivider1Prefab;
+    public GameObject eRxFromTextPrefab;
+    public GameObject eRxFromPhonePrefab;
+    public GameObject eRxFromFaxPrefab;
+    public GameObject eRxWrittenPrefab;
+    public GameObject eRxDivider2Prefab;
+    public GameObject eRxPatientPrefab;
+    public GameObject eRxDobPrefab;
+    public GameObject eRxRxPrefab;
+    public GameObject eRxQuantityPrefab;
+    public GameObject eRxRefillsPrefab;
+    public GameObject eRxSigPrefab;
+    public GameObject eRxBrandLinePrefab;
+    public GameObject eRxOrPrefab;
+    public GameObject eRxGenericLinePrefab;
+    public GameObject eRxBrandTextPrefab;
+    public GameObject eRxGenericTextPrefab;
+    public GameObject eRxRxIconPrefab;
     #endregion
 }
 

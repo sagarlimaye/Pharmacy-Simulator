@@ -30,17 +30,23 @@ public class CustomerAgent : MonoBehaviour {
     }
 
     void OnDialogCompleted(GameObject d){
-        if(d.tag == "PickupPrescriptionDialog")
-            agent.destination = controller.waitPos1.transform.position;
-        if(d.tag == "PrescriptionReadyDialog")
+        //if (d.tag == "PickupPrescriptionDialog")
+        //    GoToWaitPos();
+        if (d.tag == "PrescriptionReadyDialog")
         	agent.destination = controller.destroySpot.transform.position;
+    }
+
+    public void GoToWaitPos()
+    {
+        agent.destination = controller.waitPos1.transform.position;
     }
 
     void OnBottlePlaced(BottleHolder sender, GameObject bottle){
         if(sender.tag == "FilledPrescriptionAnchor")
             agent.destination = controller.pickupSpot.transform.position;
     }
-    
+
+
 	void Start(){
 		anim = GetComponent<Animator>();
         controller = FindObjectOfType<GameController>();

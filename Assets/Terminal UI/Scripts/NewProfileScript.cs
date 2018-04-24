@@ -6,9 +6,6 @@ using UnityEngine.EventSystems;
 
 public class NewProfileScript : MonoBehaviour
 {
-    public enum Scenario { One, Two, Three, Off };
-    public Scenario currentScenario;
-
     #region On Scene Objects
     public static InputField searchInput;
     public static GameObject newProfilePanel;

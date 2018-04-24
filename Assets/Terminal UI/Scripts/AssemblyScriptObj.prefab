@@ -55,3 +55,75 @@ MonoBehaviour:
   wrongSound: {fileID: 8300000, guid: 7819310f052dabf429673d1f0118d13c, type: 3}
   labelPrintingPrefab: {fileID: 1945251381293048, guid: 287f9efab098172489c611491a215e00,
     type: 2}
+  eRxFromInputPrefab: {fileID: 1201993210082078, guid: 19b1a0c20449a86498255e745a31983b,
+    type: 2}
+  eRxFromPhoneInputPrefab: {fileID: 1801847945180820, guid: a4ec201d0bb63274e9c03f5a14b02acc,
+    type: 2}
+  eRxFromFaxInputPrefab: {fileID: 1515560042690106, guid: c4e4109179c50b042b74476e77f96b33,
+    type: 2}
+  eRxWrittenInputPrefab: {fileID: 1767384093384918, guid: 9b65e69ab1f0c1f42b6b4cdf22ab878c,
+    type: 2}
+  eRxPatientInputPrefab: {fileID: 1033188652917384, guid: 1d186b3379b575a44bbc4fe3d0c5996c,
+    type: 2}
+  eRxDobInputPrefab: {fileID: 1332060569776718, guid: eca6d5c6f87800f4097c03fb1f49ecac,
+    type: 2}
+  eRxRxInputPrefab: {fileID: 1314059457908110, guid: 81e6985e5ac7c7c4783e9308fc3d2cf0,
+    type: 2}
+  eRxQuantityInputPrefab: {fileID: 1291805078172200, guid: 10c6d1ff403325840a7120551dc31dfd,
+    type: 2}
+  eRxRefillsInputPrefab: {fileID: 1327902602570354, guid: 76b3d710f17c8c04784f435f70a25785,
+    type: 2}
+  eRxSigInputPrefab: {fileID: 1558082841285048, guid: 0ec6f2d503243bf4ebb846efb779012d,
+    type: 2}
+  eRxBrandSignaturePrefab: {fileID: 1578939444268392, guid: 1b8e8cf53e37bab459b67e88fe1183de,
+    type: 2}
+  eRxGenericSignaturePrefab: {fileID: 1795522695508462, guid: 7d38c09a3c5d6ae408d3abd6ddc7845e,
+    type: 2}
+  eRxToPrefab: {fileID: 1586241601249462, guid: 18eb8b10897b31d4288f56da3aabdaca,
+    type: 2}
+  eRxToInputPrefab: {fileID: 1588337647304856, guid: d2ac9e26c34c6ec4b9537119b2f34c29,
+    type: 2}
+  eRxToPhonePrefab: {fileID: 1109148135987106, guid: f0b36cf9640c44c40bdf287a733a44f5,
+    type: 2}
+  eRxToPhoneInputPrefab: {fileID: 1448537779325076, guid: e88891f4169df1a4497f8863f567bb92,
+    type: 2}
+  eRxToFaxPrefab: {fileID: 1014717669377136, guid: 6e9a5857e1a5b5d4b9c942eea79841c6,
+    type: 2}
+  eRxToFaxInputPrefab: {fileID: 1631176386848482, guid: f4f939efb5df13e4b8b3ca729bc0f57a,
+    type: 2}
+  eRxDivider1Prefab: {fileID: 1471011561629298, guid: 8dde37c6984a66b42a8470f83332c2a5,
+    type: 2}
+  eRxFromTextPrefab: {fileID: 1484278481363786, guid: 4173a5ece8cbea04aa016c480ae50558,
+    type: 2}
+  eRxFromPhonePrefab: {fileID: 1696126603743668, guid: db133ba89b8f5cc4791c67debd3fa991,
+    type: 2}
+  eRxFromFaxPrefab: {fileID: 1134598090275060, guid: 0a1c6bd0259557e4aafb9565080a2945,
+    type: 2}
+  eRxWrittenPrefab: {fileID: 1641169435560478, guid: 7b359b863ea357a48b8c79fd90e6cc41,
+    type: 2}
+  eRxDivider2Prefab: {fileID: 1423675943836300, guid: 17121a5b79b374944b8b3c3974687a64,
+    type: 2}
+  eRxPatientPrefab: {fileID: 1246397189912640, guid: 97d2e2355a5c6504d8e0bf0daf8e3d8f,
+    type: 2}
+  eRxDobPrefab: {fileID: 1438482847056652, guid: 1a6305703f951c84dbaef60b77d7070f,
+    type: 2}
+  eRxRxPrefab: {fileID: 1145700826964832, guid: 58652039b44dd5543a38f118f2efe001,
+    type: 2}
+  eRxQuantityPrefab: {fileID: 1455445293508122, guid: 3fb401d94c71d91418f8b228f9407172,
+    type: 2}
+  eRxRefillsPrefab: {fileID: 1893625934551246, guid: dac7f5f1aa84b774cb8c71abfad7f052,
+    type: 2}
+  eRxSigPrefab: {fileID: 1023109899808734, guid: 7115ac62a23a48d40ba5245f03435422,
+    type: 2}
+  eRxBrandLinePrefab: {fileID: 1654142401224128, guid: 37d0c1b6988de6c4d89c90f249c9efc1,
+    type: 2}
+  eRxOrPrefab: {fileID: 1275081816574352, guid: 0e53f8118d6c16f438cf515e9bb0d4b7,
+    type: 2}
+  eRxGenericLinePrefab: {fileID: 1785356939753998, guid: 1b81c373b9fbb0046be18a52641701de,
+    type: 2}
+  eRxBrandTextPrefab: {fileID: 1119905139162916, guid: 6cfd374f475d1be468146bdb629969fe,
+    type: 2}
+  eRxGenericTextPrefab: {fileID: 1956034640665202, guid: 957c682fd34623e4496bfe07bcf2f059,
+    type: 2}
+  eRxRxIconPrefab: {fileID: 1162641498468056, guid: fb1477e16a39e8b4aba165eeb218300d,
+    type: 2}

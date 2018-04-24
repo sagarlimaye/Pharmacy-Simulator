@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Dialog : MonoBehaviour {
     public string text;
     private string placeholderText;
-    
-	void OnEnable(){
+    public UnityEvent onDisplay;
+	void OnEnable() {
         CustomerAgent.CustomerSpawned += OnCustomerSpawned;
         CustomerDestroyer.CustomerDestroyed += OnCustomerDestroyed;
     }

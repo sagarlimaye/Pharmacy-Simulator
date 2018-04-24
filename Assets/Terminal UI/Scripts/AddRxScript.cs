@@ -134,7 +134,8 @@ public class AddRxScript : MonoBehaviour
 
         else
         {
-            SwitchPanelScript.panelOpen = true;
+            if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.Two)
+                SwitchPanelScript.panelOpen = true;
 
             //If adding Rx to a different profile, change Id and disable image. Once image generated for a profile it will persist throughout session
             if (lastAddRxId != EventSystem.current.currentSelectedGameObject.transform.parent.GetChild(7).GetComponentInChildren<Text>().text)
@@ -151,10 +152,14 @@ public class AddRxScript : MonoBehaviour
             if (addRxImage.transform.GetChild(addRxImage.transform.childCount - 1).gameObject.activeInHierarchy)
             {
                 addRxScanPromptPanel.SetActive(true);
+                addRxPanel.transform.GetChild(5).GetComponent<Button>().interactable = false;
                 DisableAddRxWhenNoImage();
             }
             else
+            {
                 addRxScanPromptPanel.SetActive(false);
+                addRxPanel.transform.GetChild(5).GetComponent<Button>().interactable = false;
+            }
         }
     }
 
@@ -184,8 +189,8 @@ public class AddRxScript : MonoBehaviour
             DestroyPreExistingAssemblyPanel();
             InstantiateAssemblyEntry();
             SaveAddRxDataToNewAssemblyEntry();
-            InstantiateAssemblyPanel();
-            SaveAddRxDataToNewAssemblyPanel();
+            InstantiateAssemblyPanel(); //This
+            SaveAddRxDataToNewAssemblyPanel(); //And this dont work for eRx
             ResetAddRxPanelInputs();
 
             addRxPanel.transform.GetChild(5).GetComponent<Button>().interactable = true;
@@ -195,7 +200,8 @@ public class AddRxScript : MonoBehaviour
 
             AssemblyScript.lastModifiedId = null;
 
-            SwitchPanelScript.panelOpen = false;
+            if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.Two)
+                SwitchPanelScript.panelOpen = false;
         }
     }
 
@@ -225,9 +231,12 @@ public class AddRxScript : MonoBehaviour
 
     public void OnYesScan()
     {
-        SwitchPanelScript.terminalOffButtonEnabled = true;
-        
-        EnableAddRxWhenImagePresent();
+        if (ScenarioInfoScript.currentScenario == ScenarioInfoScript.Scenario.Two)
+            SwitchPanelScript.terminalOffButtonEnabled = true;
+
+        if (!SwitchPanelScript.s2part1)
+            EnableAddRxWhenImagePresent();
+
         ActivateRxImage();
         GenerateRxImageData();
 
@@ -243,7 +252,10 @@ public class AddRxScript : MonoBehaviour
         }
 
         else
+        {
             addRxScanPromptPanel.SetActive(false);
+            addRxPanel.transform.GetChild(5).GetComponent<Button>().interactable = true;
+        }
     }
 
     public void OnGenericOrBrand()
@@ -289,13 +301,13 @@ public class AddRxScript : MonoBehaviour
         rxImageSig = addRxImage.transform.GetChild(10).GetComponent<TextMeshProUGUI>().text;
         rxImageRefills = addRxImage.transform.GetChild(11).GetComponent<TextMeshProUGUI>().text;
         if (addRxImage.transform.GetChild(12).GetComponent<TextMeshProUGUI>().text != "")
-            rxImageBrand = true;
-        else
-            rxImageBrand = false;
-        if (addRxImage.transform.GetChild(13).GetComponent<TextMeshProUGUI>().text != "")
             rxImageGeneric = true;
         else
             rxImageGeneric = false;
+        if (addRxImage.transform.GetChild(13).GetComponent<TextMeshProUGUI>().text != "")
+            rxImageBrand = true;
+        else
+            rxImageBrand = false;
 
         //rxImageWaiter = Get waiter status from data entry
         if (playerInputPatient != rxImagePatient)
@@ -485,7 +497,7 @@ public class AddRxScript : MonoBehaviour
     private void Awake()
     {
         assemblyScreen = GameObject.FindGameObjectWithTag("AssemblyScreen");
-        profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen"); 
+        profileScreen = GameObject.FindGameObjectWithTag("ProfilesScreen");
         assemblyContent = GameObject.FindGameObjectWithTag("AssemblyContent");
         profilesContent = GameObject.FindGameObjectWithTag("ProfilesContent");
         rxContent = GameObject.FindGameObjectWithTag("RxContent");
@@ -503,14 +515,14 @@ public class AddRxScript : MonoBehaviour
 
     private void ActivateRxImage()
     {
-        
+
         //Turn all elements of the handwritten rx image
         for (int i = 0; i < addRxImage.transform.childCount; i++)
         {
             addRxImage.transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        addRxImage.transform.GetChild(addRxImage.transform.childCount-1).gameObject.SetActive(false);
+        addRxImage.transform.GetChild(addRxImage.transform.childCount - 1).gameObject.SetActive(false);
     }
 
     private void InstantiateAssemblyEntry()
@@ -709,7 +721,7 @@ public class AddRxScript : MonoBehaviour
 
         //Populate the remaining rx image data
         addRxImage.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = PatientDatabase.addresses[rnd.Next(PatientDatabase.addresses.Count)];
-        addRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.RandomDay().Date.ToString("yyyy-MM-dd");
+        addRxImage.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = PrescriptionDatabase.RandomDay().Date.ToString("MM-dd-yyyy");
 
         //For scenario 2, patient #3 from the top, the drug will be Oxycodone/Acetaminophen initially, else drug is picked at random
         //also, the signature must be on "Generic Substitution"
@@ -843,16 +855,16 @@ public class AddRxScript : MonoBehaviour
                 List<List<string>> drugInfo = DrugDatabase.drugInfo[addRxDrugDropdown.options[i].text];
                 List<string> drugPrices = drugInfo[1];
 
-                for (int j = 1; j < drugPrices.Count; j++)
+                for (int j = 0; j < drugPrices.Count; j++)
                 {
-                    if (addRxQuantityDropdown.value == j)
+                    if (addRxQuantityDropdown.value == j+1)
                     {
                         cloneApPriceBtn.transform.GetComponentInChildren<Text>().text = drugPrices[j];
                         break;
                     }
                 }
                 break;
-                       
+
             }
         }
     }
@@ -889,7 +901,7 @@ public class AddRxScript : MonoBehaviour
         }
     }
 
-    private void EnableAddRxWhenImagePresent()
+    public static void EnableAddRxWhenImagePresent()
     {
         //If there is an image already present, or one was just scanned, enable everything and disable Scan button
         addRxPanel.transform.GetChild(2).GetComponent<Button>().interactable = true;
@@ -1012,7 +1024,7 @@ public class AddRxScript : MonoBehaviour
     private GameObject cloneAEntryWaiterToggleBackground;
     private GameObject cloneAEntryNameBtn;
     private GameObject cloneAEntryDrugBtn;
-    private GameObject cloneAEntryAssemblyBtn;    
+    private GameObject cloneAEntryAssemblyBtn;
     private GameObject cloneAEntryID;
     #endregion
 
