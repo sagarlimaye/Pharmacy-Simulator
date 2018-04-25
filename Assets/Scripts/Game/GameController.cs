@@ -6,33 +6,34 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
-	public int pillCountTarget;
-	public Text pillCountText;
-	public GameObject prescriptionReadyDialog, pickupRequestDialog, wrongPrescriptionPlacedDialog;
-	public GameObject spawnPoint, requestSpot, waitPos1, destroySpot, pickupSpot;
+    public int pillCountTarget;
+    public Text pillCountText;
+    public GameObject prescriptionReadyDialog, pickupRequestDialog, wrongPrescriptionPlacedDialog;
+    public GameObject spawnPoint, requestSpot, waitPos1, destroySpot, pickupSpot;
     public GameObject Customer;
     public GameObject[] CustomerPrefabs;
-	public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
+    public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
     public GameObject filledBottleTarget, emptyBottleTarget;
-	private int pillCount;
+    private int pillCount;
     public int maxCustomers = 1;
     private int spawnedCustomers = 0;
     public UnityEvent onIncorrectPrescription;
     public UnityEvent onCorrectPrescription;
+    public ScenarioInfoScript.Scenario currentScenario;
 
 
     void OnEnable()
-	{
-		CustomerAgent.CustomerSpawned += OnCustomerSpawned;
-		DialogueController.DialogCompleted += OnDialogCompleted;
-	}
-
-    void OnDisable()
-	{
-        DialogueController.DialogCompleted -= OnDialogCompleted;
-		CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
+    {
+        CustomerAgent.CustomerSpawned += OnCustomerSpawned;
+        DialogueController.DialogCompleted += OnDialogCompleted;
     }
 
+    void OnDisable()
+    {
+        DialogueController.DialogCompleted -= OnDialogCompleted;
+        CustomerAgent.CustomerSpawned -= OnCustomerSpawned;
+    }
+    
     void OnCustomerSpawned(CustomerAgent customer)
 	{
         spawnedCustomers++;
@@ -84,8 +85,11 @@ public class GameController : MonoBehaviour {
 		pillCountText.text = "";
 
 		updatePillCount();
+        ScenarioInfoScript.currentScenario = currentScenario;
 
         Customer = CustomerPrefabs[UnityEngine.Random.Range(0, CustomerPrefabs.Length)];
+        if (currentScenario == ScenarioInfoScript.Scenario.Two)
+            Customer.SetActive(true);
     }
 
     //We display the new pill count for the current prescription
