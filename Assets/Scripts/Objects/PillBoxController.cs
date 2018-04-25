@@ -20,15 +20,16 @@ public class PillBoxController : MonoBehaviour {
 			var emptyTray = GameObject.FindGameObjectWithTag("PillTray");
 			var trayPosition = emptyTray.transform.position;
 			var trayRotation = emptyTray.transform.rotation;
-
+            emptyTray.SetActive(false);
 
 			var filledTray = Instantiate(Resources.Load<GameObject>("Prefabs/FilledTray"), trayPosition, trayRotation).GetComponent<FilledTrayController>();
 
 			filledTray.gameController = gameController;
+            filledTray.emptyTray = emptyTray;
 			filledTray.setPillCount (adjustPillInput(50));
 			emptyTray.transform.GetChild(0).parent = filledTray.transform;
             filledTray.pillType = pillType;
-			Destroy (emptyTray);
+			//Destroy (emptyTray);
             if (TrayFilledFromPillBox != null)
                 TrayFilledFromPillBox(this);
 		}
