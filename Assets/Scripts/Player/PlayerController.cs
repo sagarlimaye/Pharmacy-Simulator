@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			SceneManager.LoadScene("MainMenu");
 			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 		}
 	}
 
