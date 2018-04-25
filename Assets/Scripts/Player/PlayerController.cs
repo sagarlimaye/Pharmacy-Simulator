@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 		// Get player inputs for x and z axis
 		inputDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
 
-		if (Input.GetKeyDown(KeyCode.Backspace)) {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
 			SceneManager.LoadScene("MainMenu");
 			Cursor.lockState = CursorLockMode.None;
 		}

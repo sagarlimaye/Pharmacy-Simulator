@@ -8,6 +8,8 @@ public class CustomerAgent : MonoBehaviour {
 	public int scenario;
 	public string customerName = "Jamie",  dob ="12/23/1993", drug = "Antibiotic";
 
+	private bool hasGivenItem = false;	//We need this flag to prevent the "give item" animation from playing multiple times
+
 	NavMeshAgent agent;
     GameController controller;
     DialogueController dialogcontroller;
@@ -36,23 +38,21 @@ public class CustomerAgent : MonoBehaviour {
             GoToDestroySpot();
     }
 
-    public void GoToDestroySpot()
-    {
+    public void GoToDestroySpot(){
         agent.destination = controller.destroySpot.transform.position;
     }
-    public void startWait(float seconds)
-    {
+
+    public void startWait(float seconds){
         StartCoroutine(WaitAtPos(seconds));
     }
-    public IEnumerator WaitAtPos(float seconds)
-    {
+
+    public IEnumerator WaitAtPos(float seconds){
         agent.destination = controller.waitPos1.transform.position;
         yield return new WaitForSeconds(seconds);
         agent.destination = controller.requestSpot.transform.position;
     }
 
-    public void GoToWaitPos()
-    {
+    public void GoToWaitPos(){
         agent.destination = controller.waitPos1.transform.position;
     }
 
@@ -61,11 +61,9 @@ public class CustomerAgent : MonoBehaviour {
             GoToPickupSpot();
     }
 
-    public void GoToPickupSpot()
-    {
+    public void GoToPickupSpot(){
         agent.destination = controller.pickupSpot.transform.position;
     }
-
 
     void Start(){
 		anim = GetComponent<Animator>();
@@ -93,11 +91,19 @@ public class CustomerAgent : MonoBehaviour {
 	void Update () {
 		//We need to check if customer is moving in order to activate walk animation
 		checkIfMoving();
+
+		Vector3 targetPosition = new Vector3(agent.destination.x, transform.position.y, agent.destination.z);
+		transform.LookAt(targetPosition);
 	}
 
 	//Determine if customer is currently moving by comparing nav mesh agent's current velocity to zero vector
 	void checkIfMoving(){
 		if (agent.velocity != Vector3.zero) {
+			//Vector3 targetPostition = new Vector3(target.position.x, this.transform.position.y, target.position.z);
+			//Vector3 targetPosition = new Vector3(agent.destination.x, transform.position.y, agent.destination.z);
+
+			//transform.LookAt(targetPosition);
+
             if(anim != null)
 			    anim.SetBool ("IsWalking", true);
 		}
@@ -107,7 +113,6 @@ public class CustomerAgent : MonoBehaviour {
 		}
 	}
     
-
 	void OnIncorrectResponse(Dialog dialog){
 		playAngryAnimation ();
 	}
@@ -120,7 +125,12 @@ public class CustomerAgent : MonoBehaviour {
 
 	//Play the "give item" animation
 	public void playGiveItemAnimation(){
-        if(anim != null)
-    		anim.SetTrigger ("IsGivingItem");
+		if (anim != null && !hasGivenItem) {
+			anim.SetTrigger ("IsGivingItem");
+
+			//We have the customer face forward here because he won't do it properly anywhere else
+			transform.LookAt(Vector3.forward);
+			hasGivenItem = true;
+		}
 	}
 }
