@@ -28,6 +28,12 @@ public class PlayerLook : MonoBehaviour {
 			}
 		}
 
+		if (mainTerminalPanel.activeInHierarchy || answerPanel.activeInHierarchy || answerPanel2.activeInHierarchy) {
+			Cursor.visible = true;
+		} else {
+			Cursor.visible = false;
+		}
+
 		//If the player is looking at an interactable object, show a message indicating they can use it
 		showObjectIsInteractable ();
 	}
