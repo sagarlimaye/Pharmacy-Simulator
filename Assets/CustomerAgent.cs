@@ -59,7 +59,8 @@ public class CustomerAgent : MonoBehaviour {
     }
 
     public void startWait(float seconds){
-        StartCoroutine(WaitAtPos(seconds));
+        if(enabled)
+            StartCoroutine(WaitAtPos(seconds));
     }
 
     public IEnumerator WaitAtPos(float seconds){
@@ -82,7 +83,11 @@ public class CustomerAgent : MonoBehaviour {
     }
 
     public void GoToPickupSpot(){
-        agent.destination = controller.pickupSpot.transform.position;
+        try
+        {
+            agent.destination = controller.pickupSpot.transform.position;
+        }
+        catch(System.NullReferenceException e) {  }
     }
 
     void Start(){
