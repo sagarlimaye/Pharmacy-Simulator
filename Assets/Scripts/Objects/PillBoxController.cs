@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PillBoxController : MonoBehaviour {
@@ -10,12 +11,13 @@ public class PillBoxController : MonoBehaviour {
 	private float distance;
     public delegate void PillBoxControllerEvent(PillBoxController sender);
     public static event PillBoxControllerEvent TrayFilledFromPillBox;
+    public UnityEvent trayFilled;
 	// Update is called once per frame
 	void Update () {
 		distance = Vector3.Distance(transform.position, GameObject.Find("Player").transform.position);
 
 		//If the player is close enough to the pill bottle, hits E, and the required pill threshold has been met, the bottle will turn into a prescription
-		if(distance < 3 && Input.GetKeyDown(KeyCode.E) && (PlayerLook.hitObject == gameObject) && !MonitorInteraction.MainTerminalPanel.activeInHierarchy){
+		if(distance < 3 && Input.GetKeyDown(KeyCode.E) && (PlayerLook.hitObject == gameObject) && !MonitorInteraction.MainTerminalPanel.activeInHierarchy && tag == "PillBox"){
 			//We get the position and rotation of the pill tray, assign it to the filled tray, delete the empty tray, then instantiate the filled tray
 			var emptyTray = GameObject.FindGameObjectWithTag("PillTray");
 			var trayPosition = emptyTray.transform.position;
@@ -32,6 +34,7 @@ public class PillBoxController : MonoBehaviour {
 			//Destroy (emptyTray);
             if (TrayFilledFromPillBox != null)
                 TrayFilledFromPillBox(this);
+            trayFilled.Invoke();
 		}
 	}
 

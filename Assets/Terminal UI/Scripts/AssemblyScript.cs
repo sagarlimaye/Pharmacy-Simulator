@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -36,6 +37,8 @@ public class AssemblyScript : MonoBehaviour
     public AudioClip printingSound;
     public AudioClip wrongSound;
     public GameObject labelPrintingPrefab;
+    public delegate void LabelEvent();
+    public static event LabelEvent LabelPrinted;
 
     public void OnAssemble()
     {
@@ -75,6 +78,9 @@ public class AssemblyScript : MonoBehaviour
 
             SwitchPanelScript.terminalOffButtonEnabled = true;
         }
+        if (LabelPrinted != null)
+            LabelPrinted();
+
     }
 
     public IEnumerator Wait(float seconds)
@@ -154,6 +160,7 @@ public class AssemblyScript : MonoBehaviour
         addRxScanPromptPanel = GameObject.FindGameObjectWithTag("ScanPrompt");
         addRxDrugDropdown = GameObject.FindGameObjectWithTag("DrugDropdown").GetComponent<Dropdown>();
         addRxQuantityDropdown = GameObject.FindGameObjectWithTag("QuantityDropdown").GetComponent<Dropdown>();
+
     }
 
     private void RepopulateAddRxPanel()

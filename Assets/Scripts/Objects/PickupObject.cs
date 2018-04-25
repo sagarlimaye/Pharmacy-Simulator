@@ -13,6 +13,7 @@ public class PickupObject : MonoBehaviour {
     public GameObject player;
     public delegate void PickupObjectEvent(GameObject obj);
     public static event PickupObjectEvent PickedUpObject;
+    public bool isPickupEnabled = true;
 	//Called whenever the object is created
 	void Start(){
 		isHeld = false;
@@ -22,17 +23,34 @@ public class PickupObject : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody>();
         if (player == null)
             player = GameObject.Find("Player");
+        if(tag == "Prescription/Empty")
+            isPickupEnabled = false;
 	}
+    private void OnEnable()
+    {
+        AssemblyScript.LabelPrinted += OnLabelPrinted;
+    }
+    private void OnDisable()
+    {
+        AssemblyScript.LabelPrinted -= OnLabelPrinted;
+    }
+    private void OnLabelPrinted()
+    {
+        if (tag == "Prescription/Empty")
+            isPickupEnabled = true;
+    }
 
-	//Called once per frame
-	void Update(){
+
+    //Called once per frame
+    void Update(){
 		distance = Vector3.Distance(transform.position, player.transform.position);
 	}
 
 	//When player clicks and is close enough to object, they pick it up; if they're already holding it, they'll drop it
 	void OnMouseDown(){
 		//Player must be within a minimum range of the object in order to successfully grab it
-		if(distance < 3 && !isHeld){
+		if(distance < 3 && !isHeld && isPickupEnabled)
+        {
 			pickUp ();
 		}
 		//If they're already holding the item and they click again, they'll drop it

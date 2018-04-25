@@ -29,7 +29,7 @@ public class FilledTrayController : MonoBehaviour {
                 
                 var filledPrescription = Instantiate(Resources.Load<GameObject>("Prefabs/"+pillType), bottlePosition + new Vector3(0f, 0.475f, 0f), Quaternion.identity).GetComponent<PrescriptionController>();
 				filledPrescription.isFilledCorrectly = gameController.prescriptionIsReady ();
-
+                filledPrescription.GetComponent<PickupObject>().isPickupEnabled = true;
 				Destroy (pillBottle);
 
 				replaceTray ();

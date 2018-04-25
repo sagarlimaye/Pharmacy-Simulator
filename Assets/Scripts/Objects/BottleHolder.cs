@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class BottleHolder : MonoBehaviour {
 
 	BoxCollider coll;
+    private MeshRenderer meshRenderer;
     [HideInInspector]
     public GameObject bottle;
     public enum Placement
@@ -23,15 +24,28 @@ public class BottleHolder : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		coll = GetComponent<BoxCollider>();
+        meshRenderer = GetComponent<MeshRenderer>();
 	}
 	void OnEnable()
 	{
 		DialogueController.DialogCompleted += OnDialogCompleted;
+        AssemblyScript.LabelPrinted += OnLabelPrinted;
 	}
 	void OnDisable()
 	{
-		DialogueController.DialogCompleted += OnDialogCompleted;
-	}
+		DialogueController.DialogCompleted -= OnDialogCompleted;
+        AssemblyScript.LabelPrinted -= OnLabelPrinted;
+    }
+
+    private void OnLabelPrinted()
+    {
+        if(tag == "Untagged")
+        {
+            GetComponent<MeshCollider>().enabled = true;
+            meshRenderer.enabled = true;
+        }
+
+    }
 
     private void OnDialogCompleted(GameObject d)
     {
