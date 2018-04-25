@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 	public GameObject prescriptionReadyDialog, pickupRequestDialog, wrongPrescriptionPlacedDialog;
 	public GameObject spawnPoint, requestSpot, waitPos1, destroySpot, pickupSpot;
     public GameObject Customer;
+    public GameObject[] CustomerPrefabs;
 	public DialogCheckpoint requestCheckpoint, pickupCheckpoint;
     public GameObject filledBottleTarget, emptyBottleTarget;
 	private int pillCount;
@@ -73,12 +74,7 @@ public class GameController : MonoBehaviour {
     }
     public void CreateOrActivateCustomer()
     {
-        if (Customer == null)
-        {
-            if (spawnedCustomers < maxCustomers)
-                Instantiate(Customer, spawnPoint.transform.position, Quaternion.identity);
-        }
-        else Customer.SetActive(true);
+        Customer.SetActive(true);
     }
 
     // Use this for initialization
@@ -88,6 +84,8 @@ public class GameController : MonoBehaviour {
 		pillCountText.text = "";
 
 		updatePillCount();
+
+        Customer = CustomerPrefabs[UnityEngine.Random.Range(0, CustomerPrefabs.Length)];
     }
 
     //We display the new pill count for the current prescription

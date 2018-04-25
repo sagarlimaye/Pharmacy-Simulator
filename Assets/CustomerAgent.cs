@@ -11,8 +11,8 @@ public class CustomerAgent : MonoBehaviour {
 	private bool hasGivenItem = false;	//We need this flag to prevent the "give item" animation from playing multiple times
 
 	NavMeshAgent agent;
-    GameController controller;
-    DialogueController dialogcontroller;
+    public GameController controller;
+    public DialogueController dialogcontroller;
 
 	static Animator anim;
 
@@ -23,6 +23,22 @@ public class CustomerAgent : MonoBehaviour {
         DialogueController.DialogCompleted += OnDialogCompleted;
         BottleHolder.BottlePlaced += OnBottlePlaced;
 		DialogueController.IncorrectResponseChosen += OnIncorrectResponse;
+        agent = GetComponent<NavMeshAgent>();
+        agent.destination = controller.requestSpot.transform.position;
+
+        // pick random scenario
+        //scenario = Random.Range(0, 4);
+        scenario = 1;
+        // switch on scenario and select the dialogue type and update the game controller variables for score
+
+        target = controller.requestSpot.transform;
+
+        customerName = ScenarioInfoScript.scenarioPatientFullName;
+        dob = ScenarioInfoScript.scenarioPatientDob;
+        drug = ScenarioInfoScript.scenarioPatientDrug;
+
+        if (CustomerSpawned != null)
+            CustomerSpawned(this);
     }
 
     void OnDisable(){
@@ -52,8 +68,12 @@ public class CustomerAgent : MonoBehaviour {
         agent.destination = controller.requestSpot.transform.position;
     }
 
-    public void GoToWaitPos(){
-        agent.destination = controller.waitPos1.transform.position;
+    public void GoToWaitPos() {
+        try
+        {
+            agent.destination = controller.waitPos1.transform.position;
+        }
+        catch(System.NullReferenceException e) { }
     }
 
     void OnBottlePlaced(BottleHolder sender, GameObject bottle){
@@ -69,22 +89,6 @@ public class CustomerAgent : MonoBehaviour {
 		anim = GetComponent<Animator>();
         controller = FindObjectOfType<GameController>();
         dialogcontroller = FindObjectOfType<DialogueController>(); 
-        agent = GetComponent<NavMeshAgent>();
-        agent.destination = controller.requestSpot.transform.position;
-        
-        // pick random scenario
-        //scenario = Random.Range(0, 4);
-        scenario = 1;
-        // switch on scenario and select the dialogue type and update the game controller variables for score
-
-        target = controller.requestSpot.transform;
-        
-        customerName = ScenarioInfoScript.scenarioPatientFullName;
-        dob = ScenarioInfoScript.scenarioPatientDob;
-        drug = ScenarioInfoScript.scenarioPatientDrug;
-
-        if(CustomerSpawned != null)
-            CustomerSpawned(this);
     }
 
 	// Update is called once per frame
