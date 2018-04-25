@@ -88,6 +88,7 @@ public class SwitchPanelScript : MonoBehaviour
                 s2part1 = false;
                 s2part2 = true;
                 panelOpen = false;
+
             }
 
             DataEntryPanel.SetActive(false);

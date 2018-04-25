@@ -1469,7 +1469,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 370102002}
   checkpointType: 0
-  dialog: {fileID: 0}
   isPlayer: 0
   isCustomer: 0
 --- !u!65 &17019099
@@ -19572,8 +19571,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 838819196}
   m_HandleRect: {fileID: 838819195}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -26252,7 +26251,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 370102002}
   checkpointType: 0
-  dialog: {fileID: 0}
   isPlayer: 0
   isCustomer: 0
 --- !u!1001 &513113012
@@ -31608,6 +31606,16 @@ MonoBehaviour:
   filledBottleTarget: {fileID: 1612556477}
   emptyBottleTarget: {fileID: 1236494523}
   maxCustomers: 1
+  onIncorrectPrescription:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onCorrectPrescription:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!4 &620141627
 Transform:
   m_ObjectHideFlags: 0
@@ -32831,8 +32839,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1898739485}
   m_HandleRect: {fileID: 1898739484}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999994
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -33110,10 +33118,10 @@ RectTransform:
   m_Father: {fileID: 1863843112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 22}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 475.90955, y: -11}
+  m_SizeDelta: {x: 951.8191, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &656834641
 CanvasRenderer:
@@ -37924,8 +37932,8 @@ MonoBehaviour:
   onBottlePlaced:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: BottleHolder+OnBottlePlaced, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!65 &749500363
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51002,8 +51010,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1469193583}
   m_HandleRect: {fileID: 1469193582}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -60776,7 +60784,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.95900005, y: 1}
-  m_AnchoredPosition: {x: 0.000012350236, y: -0.000036475394}
+  m_AnchoredPosition: {x: 0.000012350236, y: -0.0000062069903}
   m_SizeDelta: {x: 1.45, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1168312296
@@ -61435,7 +61443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.95900005, y: 1}
-  m_AnchoredPosition: {x: 0.00001147004, y: 0.0000050609137}
+  m_AnchoredPosition: {x: 0.00007200684, y: -0.0000045089555}
   m_SizeDelta: {x: 1.45, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1196375109
@@ -61794,7 +61802,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 10108810}
   m_HandleRect: {fileID: 10108809}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -80919,20 +80927,9 @@ MonoBehaviour:
   placeAs: 1
   onBottlePlaced:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 620141626}
-        m_MethodName: CancelInvoke
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+      m_Calls: []
+    m_TypeName: BottleHolder+OnBottlePlaced, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!64 &1612556479
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -84809,7 +84806,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 16.65
+  m_fontSize: 14.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -84854,7 +84851,7 @@ MonoBehaviour:
     spaceCount: 26
     wordCount: 27
     linkCount: 0
-    lineCount: 4
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -92624,7 +92621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.95900005, y: 1}
-  m_AnchoredPosition: {x: 0.00000008816084, y: 0.000029120698}
+  m_AnchoredPosition: {x: 0.00006062497, y: 0.000013986496}
   m_SizeDelta: {x: 1.45, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1863843113
