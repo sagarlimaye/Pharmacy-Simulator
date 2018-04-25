@@ -40,6 +40,16 @@ public class CustomerAgent : MonoBehaviour {
     {
         agent.destination = controller.destroySpot.transform.position;
     }
+    public void startWait(float seconds)
+    {
+        StartCoroutine(WaitAtPos(seconds));
+    }
+    public IEnumerator WaitAtPos(float seconds)
+    {
+        agent.destination = controller.waitPos1.transform.position;
+        yield return new WaitForSeconds(seconds);
+        agent.destination = controller.requestSpot.transform.position;
+    }
 
     public void GoToWaitPos()
     {

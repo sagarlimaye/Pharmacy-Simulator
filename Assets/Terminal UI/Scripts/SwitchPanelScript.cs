@@ -31,6 +31,7 @@ public class SwitchPanelScript : MonoBehaviour
         rxDictionaryBtn.SetActive(true);
 
         var anim = GuideButtonScript.guideIntroS1.GetComponent<Animator>();
+        if(anim !=  null)
         anim.SetTrigger("Active");
         popUpSound.GetComponent<AudioSource>().Play();
 
