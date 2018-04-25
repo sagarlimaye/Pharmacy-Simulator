@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,15 +20,23 @@ public class MonitorInteraction : MonoBehaviour {
 	{
 		DialogueController.DialogStarted += OnDialogStarted;
 		DialogueController.DialogCompleted += OnDialogCompleted;
+        AssemblyScript.LabelPrinted += OnLabelPrinted;
 	}
 
 	void OnDisable()
 	{
 		DialogueController.DialogStarted -= OnDialogStarted;
 		DialogueController.DialogCompleted -= OnDialogCompleted;
-	}
+        AssemblyScript.LabelPrinted -= OnLabelPrinted;
+    }
 
-	void OnDialogStarted(GameObject d)
+    private void OnLabelPrinted()
+    {
+        tag = "Untagged";
+        available = false;
+    }
+
+    void OnDialogStarted(GameObject d)
 	{
 		available = false;
 	}
@@ -35,7 +44,7 @@ public class MonitorInteraction : MonoBehaviour {
 	{
 		available = true;
 	}
-
+    
 	void Awake()
 	{
         MainTerminalPanel = GameObject.FindGameObjectWithTag("MainUIPanel");
