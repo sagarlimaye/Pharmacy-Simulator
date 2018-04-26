@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 114946358304453648}
   m_Layer: 0
   m_Name: Oxycodone
-  m_TagString: Prescription/Oxycodone
+  m_TagString: Prescription/Oxycodone-Acetaminophen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -876,3 +876,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 0}
   player: {fileID: 0}
+  isPickupEnabled: 1

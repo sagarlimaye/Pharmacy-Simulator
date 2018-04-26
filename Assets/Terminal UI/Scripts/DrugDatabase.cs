@@ -9,7 +9,7 @@ public class DrugDatabase : MonoBehaviour {
                                                                 "Nexium",
                                                                 "Esomeprazole Magnesium",
                                                                 "Percocet",
-                                                                "Oxycodone/Acetaminophen" };
+                                                                "Oxycodone-Acetaminophen" };
 
     public static Dictionary<string, List<List<string>>> drugInfo = new Dictionary<string, List<List<string>>>();
 

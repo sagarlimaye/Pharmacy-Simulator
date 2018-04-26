@@ -52,7 +52,6 @@ TagManager:
   - Prescription/Adulimumab
   - Prescription/Nexium
   - Prescription/Humira
-  - Prescription/Oxycodone
   - Prescription/Percocet
   - Prescription/Empty
   - Prescription/Esomeprazole Magnesium
@@ -71,6 +70,8 @@ TagManager:
   - Training Menu
   - Yellow Arrow UI
   - WrongSound
+  - PillBottleShelf
+  - Prescription/Oxycodone-Acetaminophen
   layers:
   - Default
   - TransparentFX
