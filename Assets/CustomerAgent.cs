@@ -55,7 +55,12 @@ public class CustomerAgent : MonoBehaviour {
     }
 
     public void GoToDestroySpot(){
-        agent.destination = controller.destroySpot.transform.position;
+        try
+        {
+            agent.destination = controller.destroySpot.transform.position;
+        }
+        catch (System.NullReferenceException e) { }
+    }
     }
 
     public void startWait(float seconds){
