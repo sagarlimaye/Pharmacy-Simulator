@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ScenarioInfoScript : MonoBehaviour
@@ -29,7 +30,7 @@ public class ScenarioInfoScript : MonoBehaviour
 
     public AudioClip backgroundNoise;
     public AudioClip backgroundJazz;
-
+    public UnityEvent onScenarioInfoReady;
     public delegate void ScenarioInfoEvent(ScenarioInfoScript scenarioInfo);
     public static event ScenarioInfoEvent ScenarioInfoReady;
 
@@ -88,8 +89,20 @@ public class ScenarioInfoScript : MonoBehaviour
         }
         if (ScenarioInfoReady != null)
             ScenarioInfoReady(this);
+        onScenarioInfoReady.Invoke();
     }
-
+    public void GetPatientInfoS2()
+    {
+        if (currentScenario == Scenario.Two)
+        {
+            GameObject patientProfile = profilesContent.transform.GetChild(3).GetChild(0).gameObject;
+            scenarioPatientFirst = patientProfile.transform.GetChild(0).GetChild(0).GetComponent<Text>().text;
+            scenarioPatientLast = patientProfile.transform.GetChild(1).GetChild(0).GetComponent<Text>().text;
+            scenarioPatientFullName = scenarioPatientFirst + " " + scenarioPatientLast;
+            scenarioPatientDob = patientProfile.transform.GetChild(2).GetChild(0).GetComponent<Text>().text;
+            onScenarioInfoReady.Invoke();
+        }
+    }
     public void OnOk()
     {
         GameObject assemblyPanel = assemblyScreen.transform.GetChild(1).gameObject;

@@ -61,6 +61,11 @@ public class CustomerAgent : MonoBehaviour {
         }
         catch (System.NullReferenceException e) { }
     }
+    public void GrabInfoFromScenario()
+    {
+        customerName = ScenarioInfoScript.scenarioPatientFullName;
+        dob = ScenarioInfoScript.scenarioPatientDob;
+        drug = ScenarioInfoScript.scenarioPatientDrug;
     }
 
     public void startWait(float seconds){
@@ -68,7 +73,7 @@ public class CustomerAgent : MonoBehaviour {
             StartCoroutine(WaitAtPos(seconds));
     }
 
-    public IEnumerator WaitAtPos(float seconds){
+    public IEnumerator WaitAtPos(float seconds) {
         agent.destination = controller.waitPos1.transform.position;
         yield return new WaitForSeconds(seconds);
         agent.destination = controller.requestSpot.transform.position;

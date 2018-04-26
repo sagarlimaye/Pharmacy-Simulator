@@ -57,7 +57,8 @@ public class GameController : MonoBehaviour {
 	}
     public void CheckPrescription(GameObject bottle)
     {
-        if (bottle.tag.Contains(ScenarioInfoScript.scenarioPatientDrug))
+        var agent = Customer.GetComponent<CustomerAgent>();
+        if (bottle.tag.Contains(agent.drug))
             onCorrectPrescription.Invoke();
         else onIncorrectPrescription.Invoke();
         
