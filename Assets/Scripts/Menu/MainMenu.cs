@@ -45,8 +45,8 @@ public class MainMenu : MonoBehaviour {
 
     private void Awake()
     {
-        mainMenu = GameObject.FindGameObjectWithTag("Main Menu");
-        trainingMenu = GameObject.FindGameObjectWithTag("Training Menu");
-        trainingMenu.SetActive(false);
+        //mainMenu = GameObject.FindGameObjectWithTag("Main Menu");
+        //trainingMenu = GameObject.FindGameObjectWithTag("Training Menu");
+        //trainingMenu.SetActive(false);
     }
 }
