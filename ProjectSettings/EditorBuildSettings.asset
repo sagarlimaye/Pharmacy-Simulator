@@ -8,18 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: f97fa89c5ae741b4d9303284c3fe5d42
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/CheckoutCounter.unity
-    guid: efee616d5fbbe504698a85f3175dcd06
-  - enabled: 0
-    path: Assets/Scenes/Pharmacy.unity
-    guid: e985fc4c83a725e458642c1bbbfaac66
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Scenario1.unity
     guid: d6c003eac6b54bb47bb7c771da67f29b
+  - enabled: 1
+    path: Assets/Scenes/Scenario2.unity
+    guid: 09f3571177e634a4d8cd2bb7c2583434

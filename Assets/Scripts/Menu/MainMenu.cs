@@ -22,14 +22,8 @@ public class MainMenu : MonoBehaviour {
 
     public void DiscrepancyScenario()
     {
-        SceneManager.LoadScene("Scenario1");
+        SceneManager.LoadScene("Scenario2");
         ScenarioInfoScript.currentScenario = ScenarioInfoScript.Scenario.Two;
-    }
-
-    public void StartChallenge()
-    {
-		SceneManager.LoadScene ("Scenario1");
-        ScenarioInfoScript.currentScenario = ScenarioInfoScript.Scenario.Challenge;
     }
 
     public void OnBack()
