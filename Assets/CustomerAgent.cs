@@ -33,9 +33,9 @@ public class CustomerAgent : MonoBehaviour {
 
         target = controller.requestSpot.transform;
 
-        customerName = ScenarioInfoScript.scenarioPatientFullName;
-        dob = ScenarioInfoScript.scenarioPatientDob;
-        drug = ScenarioInfoScript.scenarioPatientDrug;
+        //customerName = ScenarioInfoScript.scenarioPatientFullName;
+        //dob = ScenarioInfoScript.scenarioPatientDob;
+        //drug = ScenarioInfoScript.scenarioPatientDrug;
 
         if (CustomerSpawned != null)
             CustomerSpawned(this);
