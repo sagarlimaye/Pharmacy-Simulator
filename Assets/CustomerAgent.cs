@@ -61,7 +61,6 @@ public class CustomerAgent : MonoBehaviour {
         }
         catch (System.NullReferenceException e) { }
     }
-    }
 
     public void startWait(float seconds){
         if(enabled)
