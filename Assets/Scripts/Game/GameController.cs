@@ -76,6 +76,8 @@ public class GameController : MonoBehaviour {
     }
     public void CreateOrActivateCustomer()
     {
+        var agent = Customer.GetComponent<CustomerAgent>();
+        agent.GrabInfoFromScenario();
         Customer.SetActive(true);
     }
 
