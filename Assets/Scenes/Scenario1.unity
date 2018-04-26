@@ -3639,6 +3639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &62383196
 Prefab:
   m_ObjectHideFlags: 0
@@ -4641,6 +4642,11 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224327651956724686, guid: 9b65e69ab1f0c1f42b6b4cdf22ab878c,
     type: 2}
   m_PrefabInternal: {fileID: 79457378}
+--- !u!1 &82245593 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691,
+    type: 2}
+  m_PrefabInternal: {fileID: 1708820151}
 --- !u!1 &83606196
 GameObject:
   m_ObjectHideFlags: 0
@@ -9287,6 +9293,10 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2024060149}
+    - target: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
   m_IsPrefabParent: 0
@@ -10135,6 +10145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &189485191
 Prefab:
   m_ObjectHideFlags: 0
@@ -10230,6 +10241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &191343195
 Prefab:
   m_ObjectHideFlags: 0
@@ -12886,6 +12898,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4012820607976754, guid: eee64f72a89447846b382d001ed3f942,
     type: 2}
   m_PrefabInternal: {fileID: 241035033}
+--- !u!1 &241439015 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691,
+    type: 2}
+  m_PrefabInternal: {fileID: 701252875}
 --- !u!1001 &244809073
 Prefab:
   m_ObjectHideFlags: 0
@@ -14163,6 +14180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &269874013
 GameObject:
   m_ObjectHideFlags: 0
@@ -15197,6 +15215,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 295408655}
+--- !u!1 &297877306 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691,
+    type: 2}
+  m_PrefabInternal: {fileID: 168309206}
 --- !u!1001 &300260478
 Prefab:
   m_ObjectHideFlags: 0
@@ -17358,6 +17381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &343979699
 GameObject:
   m_ObjectHideFlags: 0
@@ -20410,6 +20434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &404614911
 Prefab:
   m_ObjectHideFlags: 0
@@ -24564,6 +24589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &474339417
 Prefab:
   m_ObjectHideFlags: 0
@@ -26239,6 +26265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &512298661
 GameObject:
   m_ObjectHideFlags: 0
@@ -26607,6 +26634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &520533545
 GameObject:
   m_ObjectHideFlags: 0
@@ -28075,6 +28103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &558325784
 Prefab:
   m_ObjectHideFlags: 0
@@ -31665,6 +31694,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  currentScenario: 0
 --- !u!4 &620141627
 Transform:
   m_ObjectHideFlags: 0
@@ -32889,7 +32919,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1898739484}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -33167,10 +33197,10 @@ RectTransform:
   m_Father: {fileID: 1863843112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 475.90955, y: -11}
-  m_SizeDelta: {x: 951.8191, y: 22}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &656834641
 CanvasRenderer:
@@ -33813,6 +33843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &663921606
 GameObject:
   m_ObjectHideFlags: 0
@@ -35807,6 +35838,10 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2024060149}
+    - target: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
   m_IsPrefabParent: 0
@@ -36023,6 +36058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &707672783
 Prefab:
   m_ObjectHideFlags: 0
@@ -39223,6 +39259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &777200380
 GameObject:
   m_ObjectHideFlags: 0
@@ -41137,6 +41174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &800193253
 GameObject:
   m_ObjectHideFlags: 0
@@ -44593,6 +44631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &859995844
 GameObject:
   m_ObjectHideFlags: 0
@@ -44814,6 +44853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &864722103
 GameObject:
   m_ObjectHideFlags: 0
@@ -48092,6 +48132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &938763137
 GameObject:
   m_ObjectHideFlags: 0
@@ -48458,6 +48499,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4437280205826344, guid: c68de284661e44140914cc8b61c9b210, type: 2}
       propertyPath: m_LocalPosition.x
       value: 2.397
@@ -48508,7 +48554,212 @@ Prefab:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1576844469075684, guid: c68de284661e44140914cc8b61c9b210, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1020890310}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 241439015}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: set_tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1056922884}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: set_tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1653641937}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: set_tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 297877306}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: set_tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 82245593}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
+      value: set_tag
+      objectReference: {fileID: 0}
+    - target: {fileID: 64283106200048744, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64039627134930926, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23681366389485906, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_StringArgument
+      value: PillBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
+      value: PillBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 64039627134930926, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64039627134930926, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: PillBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: PillBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: PillBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: PillBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 114251026211405788, guid: c68de284661e44140914cc8b61c9b210,
+        type: 2}
+      propertyPath: onBottlePlaced.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 64283106200048744, guid: c68de284661e44140914cc8b61c9b210, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c68de284661e44140914cc8b61c9b210, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &943417571
@@ -49903,6 +50154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &972035793
 Prefab:
   m_ObjectHideFlags: 0
@@ -51471,6 +51723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &997359400
 GameObject:
   m_ObjectHideFlags: 0
@@ -53562,6 +53815,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ec5ed1aad614eb6408b9796ec0b30032, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1020890310 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691,
+    type: 2}
+  m_PrefabInternal: {fileID: 1937317113}
 --- !u!1001 &1022498702
 Prefab:
   m_ObjectHideFlags: 0
@@ -55966,6 +56224,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1056826227}
+--- !u!1 &1056922884 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691,
+    type: 2}
+  m_PrefabInternal: {fileID: 2061628994}
 --- !u!1 &1056951813
 GameObject:
   m_ObjectHideFlags: 0
@@ -58589,6 +58852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &1105817618
 Prefab:
   m_ObjectHideFlags: 0
@@ -60890,7 +61154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.95900005, y: 1}
-  m_AnchoredPosition: {x: 0.000012350236, y: 0.000022493654}
+  m_AnchoredPosition: {x: 0.000012350236, y: -0.0000051187835}
   m_SizeDelta: {x: 1.45, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1168312296
@@ -61315,6 +61579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &1189662823
 Prefab:
   m_ObjectHideFlags: 0
@@ -61549,7 +61814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.95900005, y: 1}
-  m_AnchoredPosition: {x: 0.00007200684, y: 0.0000020207838}
+  m_AnchoredPosition: {x: 0.00007200684, y: 0.0000041656217}
   m_SizeDelta: {x: 1.45, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1196375109
@@ -68397,6 +68662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &1342476093
 Prefab:
   m_ObjectHideFlags: 0
@@ -69678,6 +69944,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &1379423730
 GameObject:
   m_ObjectHideFlags: 0
@@ -75856,6 +76123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &1511344281
 GameObject:
   m_ObjectHideFlags: 0
@@ -79049,6 +79317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &1588145216
 GameObject:
   m_ObjectHideFlags: 0
@@ -79250,6 +79519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &1591365419
 GameObject:
   m_ObjectHideFlags: 0
@@ -82073,6 +82343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1001 &1632263630
 Prefab:
   m_ObjectHideFlags: 0
@@ -82644,6 +82915,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64fde530d457c6d44b87dfb0e211b574, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1653641937 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691,
+    type: 2}
+  m_PrefabInternal: {fileID: 1894185656}
 --- !u!1 &1656617399
 GameObject:
   m_ObjectHideFlags: 0
@@ -84766,6 +85042,10 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2024060149}
+    - target: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
   m_IsPrefabParent: 0
@@ -85024,7 +85304,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 15.05
+  m_fontSize: 16.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -85837,6 +86117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &1727472256
 GameObject:
   m_ObjectHideFlags: 0
@@ -87844,6 +88125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &1778436092
 GameObject:
   m_ObjectHideFlags: 0
@@ -92872,7 +93154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.95900005, y: 1}
-  m_AnchoredPosition: {x: 0.00006062497, y: 0.0000061092724}
+  m_AnchoredPosition: {x: 0.00006062497, y: -0.000011258308}
   m_SizeDelta: {x: 1.45, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1863843113
@@ -94684,6 +94966,10 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2024060149}
+    - target: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
   m_IsPrefabParent: 0
@@ -97116,6 +97402,10 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2024060149}
+    - target: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
   m_IsPrefabParent: 0
@@ -99029,6 +99319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &1973542481
 GameObject:
   m_ObjectHideFlags: 0
@@ -101813,6 +102104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &2040155367 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1564732796797810, guid: e5a304503fd69644eb18246a242191d8,
@@ -101836,6 +102128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!1 &2042652287
 GameObject:
   m_ObjectHideFlags: 0
@@ -102776,6 +103069,10 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 2024060149}
+    - target: {fileID: 1134035196760144, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39e2b829a746c2643b254f5337bdb691, type: 2}
   m_IsPrefabParent: 0
@@ -106626,6 +106923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holder: {fileID: 347426714}
   player: {fileID: 2024060149}
+  isPickupEnabled: 1
 --- !u!4 &2143294669 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4950635098189216, guid: ec5ed1aad614eb6408b9796ec0b30032,
