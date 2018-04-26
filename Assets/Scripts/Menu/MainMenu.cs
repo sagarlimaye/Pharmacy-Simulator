@@ -28,8 +28,10 @@ public class MainMenu : MonoBehaviour {
 
     public void OnBack()
     {
-        mainMenu.SetActive(true);
-        trainingMenu.SetActive(false);
+        //mainMenu.SetActive(true);
+        //trainingMenu.SetActive(false);
+        Debug.Log("Exiting game.");
+        Application.Quit();
     }
 
     public void QuitGame(){

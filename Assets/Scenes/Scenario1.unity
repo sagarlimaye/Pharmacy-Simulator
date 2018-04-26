@@ -4482,6 +4482,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 397336352}
+        m_MethodName: OnOk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &78927180
@@ -19994,6 +20005,12 @@ Transform:
   m_Father: {fileID: 1281366214}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 90, z: 90.00001}
+--- !u!114 &397336352 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114174706131768080, guid: c93b17294d711f34295bfb53c3eb6dc7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1274282894}
+  m_Script: {fileID: 11500000, guid: 57b8bd90b8703a84c80bb00c70884e48, type: 3}
 --- !u!1001 &397419618
 Prefab:
   m_ObjectHideFlags: 0
