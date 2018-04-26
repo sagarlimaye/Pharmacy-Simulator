@@ -715,16 +715,16 @@ public class RxDataEntryScript : MonoBehaviour {
 
     private void UpdateAssemblyPanelPriceAndId()
     {
-        for (int i = 1; i < DrugDatabase.drugNames.Count; i++)
+        for (int i = 0; i < DrugDatabase.drugNames.Count; i++)
         {
-            if (rxDEaddRxDrugDropdown.value == i)
+            if (rxDEaddRxDrugDropdown.value == i+1)
             {
-                List<List<string>> drugInfo = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[i].text];
+                List<List<string>> drugInfo = DrugDatabase.drugInfo[rxDEaddRxDrugDropdown.options[i+1].text];
                 List<string> drugPrices = drugInfo[1];
 
                 for (int j = 0; j < drugPrices.Count; j++)
                 {
-                    if (rxDEaddRxDrugDropdown.value == j+1)
+                    if (rxDEaddRxQuantityDropdown.value == j+1)
                     {
                         cloneApPriceBtn.transform.GetComponentInChildren<Text>().text = drugPrices[j];
                         break;

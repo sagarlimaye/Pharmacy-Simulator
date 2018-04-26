@@ -854,11 +854,11 @@ public class AddRxScript : MonoBehaviour
 
     private void UpdateAssemblyPanelPriceAndId()
     {
-        for (int i = 1; i < DrugDatabase.drugNames.Count; i++)
+        for (int i = 0; i < DrugDatabase.drugNames.Count; i++)
         {
-            if (addRxDrugDropdown.value == i)
+            if (addRxDrugDropdown.value == i+1)
             {
-                List<List<string>> drugInfo = DrugDatabase.drugInfo[addRxDrugDropdown.options[i].text];
+                List<List<string>> drugInfo = DrugDatabase.drugInfo[addRxDrugDropdown.options[i+1].text];
                 List<string> drugPrices = drugInfo[1];
 
                 for (int j = 0; j < drugPrices.Count; j++)
